@@ -25,6 +25,7 @@ function authReducer(
 ) {
   switch (action.type) {
     case USER_FETCH_SUCCESS:
+      console.log(state.dataUser)
       window.localStorage.setItem(
         "token",
         JSON.stringify(action.payload.token)

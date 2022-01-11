@@ -2,19 +2,21 @@ import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthenticatedGuard/UnAuthenticatedGuard";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useHistory, useParams, Link } from "react-router-dom";
-import { postLogin } from "../../services/apis";
+import { postRegister } from "../../services/apis";
 import { userFetchSuccess, userFetchError } from "../../services/store";
 import { useDispatch } from "react-redux";
 interface FormData {
   email: string;
   password: string;
+  confirmPassword: string;
 }
-const Login = () => {
+const Register = () => {
   const dispatch = useDispatch() as any;
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
   } as FormData);
   const handleChange = (event: ChangeEvent<any>): void => {
     const newData = { ...formData, [event.target.name]: event.target.value };
@@ -23,9 +25,9 @@ const Login = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     console.log(1);
     event.preventDefault();
-    const { email, password } = formData;
-    if (email && password) {
-      postLogin(formData)
+    const { email, password,confirmPassword } = formData;
+    if (email && password && confirmPassword) {
+      postRegister({email,password})
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
         })
@@ -74,16 +76,26 @@ const Login = () => {
                     value={formData.password}
                   />
                 </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Confirm Password</Form.Label>
+                  <Form.Control
+                    required
+                    type="password"
+                    onChange={handleChange}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                  />
+                </Form.Group>
 
                 <div style={{ textAlign: "right" }}>
                   <Button className="w-100" type="submit" variant="dark">
-                    Sign in
+                    Register
                   </Button>
                   <br />
                   <br/>
                   <p>
-                    <span>You don't have an account?</span>
-                    <Link to="/" className="text-danger">Register</Link>
+                    <span>You have an account?</span>
+                    <Link to="/" className="text-danger">Sign In</Link>
                   </p>
                 </div>
               </Form>
@@ -102,4 +114,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

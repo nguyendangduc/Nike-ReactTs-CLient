@@ -4,6 +4,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import NavBar from "./components/NavBar";
@@ -69,6 +70,8 @@ function App() {
 
           <Switch>
             <Route path="/login" children={<Login />} />
+            <Route path="/register" children={<Register />} />
+
             <Route path="/cart" children={<Cart />} />
 
             <Route path="/app" children={<AppNike />} />
