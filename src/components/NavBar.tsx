@@ -2,23 +2,28 @@ import React, { memo, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { ContextElement } from "../App";
-import { userFetchSuccess} from "../services/store";
+import { userFetchSuccess } from "../services/store";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutSuccess } from "../services/store";
 
 function NavBar() {
   let { itemsInCart } = useContext(ContextElement);
   const [isClickLogin, setIsClickLogin] = useState(false);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.authReducer);
-  let isAuth = useSelector((state) => state.authReducer.isAuth);
+  const userData = useSelector<any>((state) => state.authReducer);
+  let isAuth = useSelector<any>((state) => state.authReducer.isAuth);
 
   function handleLoginBtn() {
-    const userInfo = {
-      username: username,
+    const userInfo: User = {
+      email: email,
       password: password,
+      id: -1,
+      token: "",
+      phoneNumber: -1,
+      address: "",
+      avatar: "",
     };
     dispatch(userFetchSuccess(userInfo));
     setIsClickLogin(false);
@@ -47,15 +52,15 @@ function NavBar() {
               <h2>Login</h2>
             </div>
             <div className="mb-3">
-              <label htmlFor="username" className="form-label">
-                Username
+              <label htmlFor="email" className="form-label">
+                Email
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="username"
-                placeholder="Username"
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="mb-3">
@@ -127,7 +132,21 @@ function NavBar() {
                   className="navbar__link me-3"
                   activeClassName="navbar__link--active"
                 >
-                  Products
+                  Men
+                </NavLink>
+                <NavLink
+                  to="/products"
+                  className="navbar__link me-3"
+                  activeClassName="navbar__link--active"
+                >
+                  Woman
+                </NavLink>
+                <NavLink
+                  to="/products"
+                  className="navbar__link me-3"
+                  activeClassName="navbar__link--active"
+                >
+                  Kids
                 </NavLink>
                 <NavLink
                   to="/app"
@@ -141,11 +160,11 @@ function NavBar() {
 
             {isAuth ? (
               <>
-                <img
+                {/* <img
                   src={userData.avatar}
                   className="user-avatar"
                   alt="user-avatar"
-                />
+                /> */}
                 <span
                   className="user-logout"
                   onClick={() => {
