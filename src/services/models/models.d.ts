@@ -1,19 +1,21 @@
-export interface User {
+interface User {
   id: number;
   email: string;
   password: string;
-  numberPerPage: number;
   token: string;
+  phoneNumber: number;
+  address: Address;
+  avatar: string;
 }
-export interface Order {
+interface Order {
   productName: string;
   itemCost: number;
 }
-export interface State {
+interface State {
   abbreviation: string;
   name: string;
 }
-export interface Customer {
+interface Customer {
   id: number;
   firstName: string;
   lastName: string;
@@ -27,7 +29,12 @@ export interface Customer {
   orderTotal: number;
 }
 
-export interface CustomersByPage {
+interface CustomersByPage {
   results: Customer[];
   totalRecords: number;
+}
+
+interface FormData {
+  email: string;
+  password: string;
 }

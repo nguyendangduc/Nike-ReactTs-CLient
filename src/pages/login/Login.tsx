@@ -5,10 +5,7 @@ import { useHistory, useParams, NavLink } from "react-router-dom";
 import { postLogin } from "../../services/apis";
 import { userFetchSuccess, userFetchError } from "../../services/store";
 import { useDispatch } from "react-redux";
-interface FormData {
-  email: string;
-  password: string;
-}
+
 const Login = () => {
   const dispatch = useDispatch() as any;
 
