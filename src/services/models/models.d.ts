@@ -7,9 +7,14 @@ interface User {
   address: Address;
   avatar: string;
 }
-interface Order {
+interface IOrder {
+  id:number;
+  idUser:number;
+  urlImg:string;
   productName: string;
-  itemCost: number;
+  size: number;
+  quantity: number;
+  price: number;
 }
 interface State {
   abbreviation: string;
