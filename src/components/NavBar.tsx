@@ -160,11 +160,13 @@ function NavBar() {
 
             {isAuth ? (
               <>
-                {/* <img
-                  src={userData.avatar}
-                  className="user-avatar"
-                  alt="user-avatar"
-                /> */}
+                <Link to="/profile">
+                  <img
+                    src=""
+                    className="user-avatar"
+                    alt="user-avatar"
+                  />
+                </Link>
                 <span
                   className="user-logout"
                   onClick={() => {
