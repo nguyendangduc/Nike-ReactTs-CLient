@@ -13,7 +13,7 @@ import { checkItemsInCart } from "./Utils";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "./components/Footer";
 import AppNike from "./pages/AppNike";
-import { getProducts } from "./services/apis";
+import { getProducts } from "./services/apis/functions/productsApi";
 export const ContextElement = createContext("") as any;
 
 const REACT_APP_LIMIT_PER_PAGE = 10;
