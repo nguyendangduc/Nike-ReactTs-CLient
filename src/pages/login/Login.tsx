@@ -27,6 +27,7 @@ const Login = () => {
           dispatch(userFetchSuccess(res.data));
         })
         .catch((error) => {
+          // console.log(error.message);
           dispatch(userFetchError(error.message));
         });
     }
@@ -80,7 +81,7 @@ const Login = () => {
                   <br/>
                   <p>
                     <span>You don't have an account?</span>
-                    <Link to="/" className="text-danger">Register</Link>
+                    <Link to="/register" className="text-danger">Register</Link>
                   </p>
                 </div>
               </Form>

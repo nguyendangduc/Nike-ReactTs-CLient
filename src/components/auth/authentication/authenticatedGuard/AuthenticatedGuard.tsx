@@ -14,6 +14,7 @@ const AuthenticatedGuard: FC<Props> = (props) => {
   // const {isAuth} = useSelector((state:RootState) =>state.authReducer);
   const location: any = useLocation();
   console.log(location);
+  
   useEffect(() => {
     // const unsubscribe = store.subscribe(() => {
     //   setAuthenticated(isUserHavingToken(store.getState().user))
@@ -34,7 +35,7 @@ const AuthenticatedGuard: FC<Props> = (props) => {
         <Redirect
           to={{
             pathname: ifInaccessibleRedirectTo,
-            state: { referrer: location?.cart },
+            state: { referrer: location?.pathname },
           }}
         />
       )}

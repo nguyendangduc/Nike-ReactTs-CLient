@@ -1,10 +1,12 @@
 import React from 'react';
-
+import AuthenticatedGuard from '../components/auth/authentication/authenticatedGuard/AuthenticatedGuard'
 const Cart = () => {
   return (
-    <div>
-      Cart
-    </div>
+    
+      <AuthenticatedGuard ifInaccessibleRedirectTo="/login">
+        <div>cart</div>
+      </AuthenticatedGuard>
+    
   );
 };
 
