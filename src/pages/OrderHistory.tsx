@@ -10,6 +10,9 @@ export const OrdersHistory = () => {
   const [search, setSearch] = useState('');
   const [filters, setFilters] = useState([] as IOrder[]);
   
+  console.log('hi');
+  
+
   useEffect(() => {
     if (dataUser) {
       getOrders(dataUser.id)
