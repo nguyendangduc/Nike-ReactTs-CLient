@@ -15,6 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Footer from "./components/Footer";
 import AppNike from "./pages/AppNike";
 import { getProducts } from "./services/apis/functions/productsApi";
+import { OrdersHistory } from "./pages/OrderHistory";
+import { Profile } from "./pages/Profile";
+import { SettingUpdate } from "./pages/SettingUpdate";
 export const ContextElement = createContext("") as any;
 
 const REACT_APP_LIMIT_PER_PAGE = 10;
@@ -73,6 +76,10 @@ function App() {
             <Route path="/register" children={<Register />} />
 
             <Route path="/cart" children={<Cart />} />
+
+            <Route path="/ordershistory" children={<OrdersHistory/>} />
+            <Route path="/profile" children={<Profile/>}/>
+            <Route path="/update" children={<SettingUpdate/>}/>
 
             <Route path="/app" children={<AppNike />} />
             <Route
