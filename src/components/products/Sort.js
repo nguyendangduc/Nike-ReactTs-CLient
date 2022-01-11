@@ -7,9 +7,7 @@ function Sort({ setSortInput }) {
       required
       onChange={(e) => setSortInput(e.target.value)}
     >
-      {/* <option selected disabled value="default">
-          Sort
-        </option> */}
+    
       <option value="">Default</option>
       <option value="desc">Price descending</option>
       <option value="asc">Price ascending</option>
