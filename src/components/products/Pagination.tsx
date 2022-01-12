@@ -1,13 +1,20 @@
 import { memo } from "react";
 
-function Pagination({
+interface Props {
+  totalProducts: number;
+  currentPage: any;
+  setCurrentPage: (value: any) => void;
+  pageLimit: string;
+}
+
+const Pagination: React.FC<Props> = ({
   totalProducts,
   currentPage,
   setCurrentPage,
   pageLimit,
-}) {
+}) => {
   //calculate total page
-  let totalPage = Math.ceil(totalProducts / pageLimit);
+  let totalPage = Math.ceil(totalProducts / Number(pageLimit));
   //create array inclue total page number
   let totalPageArr = [];
   for (let i = 0; i < totalPage; i++) {
@@ -44,7 +51,7 @@ function Pagination({
             //eslint-disable-next-line
             page == currentPage ? "page-item page-item-active" : "page-item"
           }
-          onClick={(e) => setCurrentPage(e.target.textContent)}
+          onClick={(e) => setCurrentPage((e.target as any).textContent)}
         >
           {page}
         </li>
@@ -62,5 +69,5 @@ function Pagination({
       </li>
     </ul>
   );
-}
+};
 export default memo(Pagination);

@@ -1,6 +1,10 @@
 import { memo } from "react";
 
-function LimitPage({ setPageLimit }) {
+interface Props {
+  setPageLimit: (value: string) => void;
+}
+
+const LimitPage: React.FC<Props> = ({ setPageLimit }) => {
   return (
     <select
       className="form-select"
@@ -14,5 +18,5 @@ function LimitPage({ setPageLimit }) {
       <option value={2}>2</option>
     </select>
   );
-}
+};
 export default memo(LimitPage);

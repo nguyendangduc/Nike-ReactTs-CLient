@@ -6,12 +6,12 @@ interface User {
   phoneNumber: number;
   address: Address;
   avatar: string;
-  rules:string[];
+  rules: string[];
 }
 interface IOrder {
-  id:number;
-  idUser:number;
-  urlImg:string;
+  id: number;
+  idUser: number;
+  urlImg: string;
   productName: string;
   size: number;
   quantity: number;
@@ -43,4 +43,24 @@ interface CustomersByPage {
 interface FormData {
   email: string;
   password: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  color: number;
+  thumbnail: string;
+  detailimg: Array[string];
+  colorimg: Array[string];
+  size: Array[string];
+  type: string;
+}
+
+interface CartItem {
+  color: string;
+  id: number;
+  name: string;
+  price: number;
+  size: string;
 }

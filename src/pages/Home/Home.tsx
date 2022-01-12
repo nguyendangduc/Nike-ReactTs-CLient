@@ -104,8 +104,8 @@ function Home() {
 
             <section className="featured container mb-5 mt-1 position-relative">
                 <h3 className="mb-3">Freatured</h3>
-                <Row>
-                    <Col>
+                <div className="row">
+                    <div className="col">
                         <div className={`${style.featured_left} position-relative`}>
                             <img
                                 src="https://static.nike.com/a/images/f_auto/dpr_1.5,cs_srgb/h_700,c_limit/87c900c7-a4b0-450e-84bb-e8f90195570a/nike-just-do-it.jpg"
@@ -124,9 +124,9 @@ function Home() {
                                 </Link>
                             </div>
                         </div>
-                    </Col>
+                    </div>
 
-                    <Col>
+                    <div className="col">
                         <div className={`${style.featured_right} position-relative`}>
                             <img
                                 src="https://static.nike.com/a/images/f_auto/dpr_1.5,cs_srgb/h_700,c_limit/bc6d7b18-a6e4-44f0-b3f5-de0f40788b0e/nike-just-do-it.jpg"
@@ -141,8 +141,8 @@ function Home() {
                                 </Link>
                             </div>
                         </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </section>
 
             <section className="nikeproduct container mb-5 mt-1">
@@ -201,6 +201,7 @@ function Home() {
                     <Link to="/products">See Products</Link>
                 </button>
             </section>
+
         </div>
     );
 }
