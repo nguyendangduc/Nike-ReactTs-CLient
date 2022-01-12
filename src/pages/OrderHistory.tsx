@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { NavBarProfile } from "../components/NavBarProfile";
 import { Order } from "../components/ordersHistory/Order";
 import { getOrders } from "../services/apis/functions/ordersApi";
+import { useAppSelector } from "../services/store";
 
 export const OrdersHistory = () => {
-  const { dataUser } = useSelector((state: any) => state.authReducer);
+  const { dataUser } = useAppSelector((state) => state.authReducer);
   const [orders, setOrders] = useState([] as IOrder[]);
   const [search, setSearch] = useState('');
   const [filters, setFilters] = useState([] as IOrder[]);
   
-  console.log('hi');
-  
-
   useEffect(() => {
     if (dataUser) {
       getOrders(dataUser.id)
