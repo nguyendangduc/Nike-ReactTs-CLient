@@ -203,6 +203,7 @@ function Home() {
           </div>
         </section>
 
+
         <section className="home-img">
           <img
             src="https://static.nike.com/a/images/f_auto/dpr_2.0/w_1101,c_limit/5372f111-e51e-45a4-bd86-1cf90c4c438b/nike-just-do-it.jpg"
