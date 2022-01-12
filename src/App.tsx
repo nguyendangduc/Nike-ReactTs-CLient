@@ -41,12 +41,14 @@ function App() {
   const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
 
   let { dataUser } = useSelector((state: any) => state.authReducer);
+
   useEffect(() => {
     authByToken().then((res: any) => {
       console.log(res);
       dispatch(userFetchSuccess(res.data));
     });
   }, []);
+
   useEffect(() => {
     let sortUrl = sortInput !== "" ? `/sort/price/${sortInput}` : "";
     let paginationUrl = "/page/" + currentPage + "/" + pageLimit;
@@ -54,6 +56,7 @@ function App() {
     let categoryUrl =
       category !== "" && category !== "All" ? `/type/${category}` : "";
     const path = categoryUrl + searchUrl + sortUrl + paginationUrl;
+
     if (sortInput !== null || searchInput !== null || category !== null) {
       getProducts(path)
         .then((response) => {
@@ -117,23 +120,8 @@ function App() {
               }
             />
 
-
             <Route path="/admin" children={<Admin />} />
-            <Route
-              path="/"
-              children={
-                <Home
-                // setSortInput={setSortInput}
-                // products={products}
-                // totalProducts={totalProducts}
-                // currentPage={currentPage}
-                // setCurrentPage={setCurrentPage}
-                // pageLimit={pageLimit}
-                // setPageLimit={setPageLimit}
-                // loading={loading}
-                />
-              }
-            />
+            <Route path="/" children={<Home />} />
           </Switch>
         </Router>
       </ContextElement.Provider>
