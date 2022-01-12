@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import style from "./Home.module.scss"
