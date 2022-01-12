@@ -1,4 +1,4 @@
-import {NavBarProfile} from '../components/NavBarProfile'
+import {NavBarProfile} from '../../components/NavBarProfile'
 
 export const SettingUpdate = ()=>{
     return (

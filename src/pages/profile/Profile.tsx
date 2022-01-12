@@ -1,4 +1,4 @@
-import { NavBarProfile } from "../components/NavBarProfile";
+import { NavBarProfile } from "../../components/NavBarProfile";
 import styles from "./Profile.module.scss";
 export const Profile = () => {
   
