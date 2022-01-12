@@ -19,6 +19,7 @@ interface Props {
   setCategory: any;
   category: any;
 }
+
 const Products: React.FC<Props> = ({
   setSortInput,
   products,

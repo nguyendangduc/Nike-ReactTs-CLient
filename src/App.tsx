@@ -96,21 +96,7 @@ function App() {
               }
             />
 
-            <Route
-              path="/"
-              children={
-                <Home
-                // setSortInput={setSortInput}
-                // products={products}
-                // totalProducts={totalProducts}
-                // currentPage={currentPage}
-                // setCurrentPage={setCurrentPage}
-                // pageLimit={pageLimit}
-                // setPageLimit={setPageLimit}
-                // loading={loading}
-                />
-              }
-            />
+            <Route path="/" children={<Home />} />
           </Switch>
         </Router>
       </ContextElement.Provider>
