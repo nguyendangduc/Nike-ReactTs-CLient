@@ -18,10 +18,16 @@ import { getProducts } from "./services/apis/functions/productsApi";
 import { OrdersHistory } from "./pages/OrderHistory";
 import { Profile } from "./pages/Profile";
 import { SettingUpdate } from "./pages/SettingUpdate";
+import { authByToken } from "./services/apis";
+import { useAppDispatch, userFetchSuccess } from "./services/store";
+import Admin from "./pages/admin/Admin";
+
 export const ContextElement = createContext("") as any;
 
 const REACT_APP_LIMIT_PER_PAGE = 10;
 function App() {
+  const dispatch = useAppDispatch();
+
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [sortInput, setSortInput] = useState("");
@@ -35,7 +41,12 @@ function App() {
   const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
 
   let { dataUser } = useSelector((state: any) => state.authReducer);
-
+  useEffect(() => {
+    authByToken().then((res: any) => {
+      console.log(res);
+      dispatch(userFetchSuccess(res.data));
+    });
+  }, []);
   useEffect(() => {
     let sortUrl = sortInput !== "" ? `/sort/price/${sortInput}` : "";
     let paginationUrl = "/page/" + currentPage + "/" + pageLimit;
@@ -77,9 +88,9 @@ function App() {
 
             <Route path="/cart" children={<Cart />} />
 
-            <Route path="/ordershistory" children={<OrdersHistory/>} />
-            <Route path="/profile" children={<Profile/>}/>
-            <Route path="/update" children={<SettingUpdate/>}/>
+            <Route path="/ordershistory" children={<OrdersHistory />} />
+            <Route path="/profile" children={<Profile />} />
+            <Route path="/update" children={<SettingUpdate />} />
 
             <Route path="/app" children={<AppNike />} />
             <Route
@@ -106,6 +117,8 @@ function App() {
               }
             />
 
+
+            <Route path="/admin" children={<Admin />} />
             <Route
               path="/"
               children={

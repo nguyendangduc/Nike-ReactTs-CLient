@@ -15,6 +15,15 @@ export function postLogin(loginData: LoginData): Promise<any> {
 export function postRegister(registerData: RegisterData): Promise<any> {
   return client.post(`/auth/register`, registerData);
 }
+export function authByToken(): Promise<any> {
+  const token = localStorage.getItem("token")
+  ? localStorage.getItem("token")
+  : "";
+  return client.post(`/auth/authWithToken`,{token:token},{
+    headers: {'Authorization': 'Bearer ' + token}
+  });
+}
+
 export function logout(): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")

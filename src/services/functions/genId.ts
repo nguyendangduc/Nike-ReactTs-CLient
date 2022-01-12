@@ -7,3 +7,9 @@ const s4 = () => {
 export const generateId = () => {
   return s4() + "-" + s4() + "-" + s4();
 };
+
+import { nanoid } from "nanoid";
+
+export function genid(): string {
+  return nanoid();
+}

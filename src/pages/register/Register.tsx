@@ -3,7 +3,11 @@ import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthent
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { postRegister } from "../../services/apis";
-import { userFetchSuccess, userFetchError } from "../../services/store";
+import {
+  userFetchSuccess,
+  userFetchError,
+  useAppSelector,
+} from "../../services/store";
 import { useDispatch } from "react-redux";
 interface FormData {
   email: string;
@@ -12,27 +16,28 @@ interface FormData {
 }
 const Register = () => {
   const dispatch = useDispatch() as any;
+  const { error } = useAppSelector((state) => state.authReducer);
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   } as FormData);
+
   const handleChange = (event: ChangeEvent<any>): void => {
     const newData = { ...formData, [event.target.name]: event.target.value };
     setFormData(newData);
   };
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    console.log(1);
     event.preventDefault();
-    const { email, password,confirmPassword } = formData;
-    if (email && password && confirmPassword) {
-      postRegister({email,password})
+    const { email, password, confirmPassword } = formData;
+    if (email && password && confirmPassword && password === confirmPassword) {
+      postRegister({ email, password })
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
         })
         .catch((error) => {
-          dispatch(userFetchError(error.message));
+          dispatch(userFetchError(error.response.data.message));
         });
     }
   };
@@ -54,6 +59,8 @@ const Register = () => {
                   <b>YOUR ACCOUNT FOR EVERYTHING NIKE</b>
                 </h4>
               </p>
+              <br />
+              <p className="text-danger">{error}</p>
 
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
@@ -92,10 +99,12 @@ const Register = () => {
                     Register
                   </Button>
                   <br />
-                  <br/>
+                  <br />
                   <p>
                     <span>You have an account?</span>
-                    <Link to="/" className="text-danger">Sign In</Link>
+                    <Link to="/login" className="text-danger">
+                      Sign In
+                    </Link>
                   </p>
                 </div>
               </Form>
@@ -103,8 +112,6 @@ const Register = () => {
             <Col sm={4}></Col>
           </Row>
         </div>
-        <br />
-        <br />
         <br />
         <br />
         <br />
