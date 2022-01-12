@@ -4,7 +4,6 @@ import { ContextElement } from "../App";
 import Summary from "../components/cart/Summary";
 import ItemsInCart from "../components/cart/ItemsInCart";
 import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
-
 let rules = ["user"];
 
 function Cart() {
@@ -42,7 +41,7 @@ function Cart() {
 
   return (
     <>
-      <AuthenticatedGuard routeRules={rules}>
+      {/* <AuthenticatedGuard routeRules={rules}> */}
         {itemsInCart.length > 0 ? (
           <div className="container mt-5 mb-5">
             <div className="row">
@@ -85,7 +84,7 @@ function Cart() {
             </div>
           </div>
         )}
-      </AuthenticatedGuard>
+      {/* </AuthenticatedGuard> */}
     </>
   );
 }

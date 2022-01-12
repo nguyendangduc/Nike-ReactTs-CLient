@@ -4,7 +4,17 @@ import { useContext } from "react";
 import { ContextElement } from "../App";
 import { userFetchSuccess } from "../services/store";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutSuccess } from "../services/store";
+import { logoutSuccess,useAppSelector } from "../services/store";
+const URL_AVATAR = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU"
+const avtCss = {
+  'display':'block',
+  'width': '30px',
+  'height': '30px',
+  'borderRadius':'50%',
+  'marginRight': '1rem',
+  'border':'1px solid #333'
+}
+
 
 function NavBar() {
   let { itemsInCart } = useContext(ContextElement);
@@ -12,7 +22,7 @@ function NavBar() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const userData = useSelector<any>((state) => state.authReducer);
+  const {dataUser} = useAppSelector((state) => state.authReducer);
   let isAuth = useSelector<any>((state) => state.authReducer.isAuth);
   let history = useHistory() as any;
 
@@ -157,7 +167,8 @@ function NavBar() {
             {isAuth ? (
               <>
                 <Link to="/profile">
-                  <img src="" className="user-avatar" alt="user-avatar" />
+          <img src={dataUser.avatar ? dataUser.avatar : URL_AVATAR} alt="avatar" style={avtCss}/>
+
                 </Link>
                 <span
                   className="user-logout"

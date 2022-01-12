@@ -3,6 +3,8 @@ import { NavBarProfile } from "../components/NavBarProfile";
 import { Order } from "../components/ordersHistory/Order";
 import { getOrders } from "../services/apis/functions/ordersApi";
 import { useAppSelector } from "../services/store";
+import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
+let rules = ["user"];
 
 export const OrdersHistory = () => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
@@ -24,6 +26,8 @@ export const OrdersHistory = () => {
   },[search]);
 
   return (
+    <AuthenticatedGuard routeRules={rules}>
+
       <div className="container my-3">
         <NavBarProfile/>
         <input
@@ -48,5 +52,6 @@ export const OrdersHistory = () => {
             )
         }
       </div>
+      </AuthenticatedGuard>
   );
 };

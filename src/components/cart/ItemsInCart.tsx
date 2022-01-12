@@ -17,7 +17,7 @@ const ItemInCart: React.FC<Props> = ({
   handleEditBtn,
 }) => {
   return itemsInCart.map((item: CartItem, index: number) => (
-    <div className="bag-item mb-4 mt-4" key={item.name}>
+    <div className="bag-item mb-4 mt-4" key={index}>
       <div className="row">
         <div className="col-4 col-md-3 bag-item-img">
           <img src={item.color} alt="" />

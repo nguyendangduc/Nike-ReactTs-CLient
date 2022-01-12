@@ -10,7 +10,10 @@ import ProductDetail from "./pages/ProductDetail";
 import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
-import { checkItemsInCart } from "./services/functions/getLocalstorage";
+import {
+  checkItemsInCart,
+  getLocalStorage,
+} from "./services/functions/getLocalstorage";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "./components/Footer";
 import AppNike from "./pages/AppNike";
@@ -19,7 +22,11 @@ import { OrdersHistory } from "./pages/OrderHistory";
 import { Profile } from "./pages/profile/Profile";
 import { SettingUpdate } from "./pages/settingUpdate/SettingUpdate";
 import { authByToken } from "./services/apis";
-import { useAppDispatch, userFetchSuccess } from "./services/store";
+import {
+  useAppDispatch,
+  userFetchError,
+  userFetchSuccess,
+} from "./services/store";
 import Admin from "./pages/admin/Admin";
 
 export const ContextElement = createContext("") as any;
@@ -43,10 +50,17 @@ function App() {
 
   let { dataUser } = useSelector((state: any) => state.authReducer);
   useEffect(() => {
-    authByToken().then((res: any) => {
-      console.log(res);
-      dispatch(userFetchSuccess(res.data));
-    });
+    if (localStorage.getItem("token")) {
+      authByToken()
+        .then((res: any) => {
+          dispatch(userFetchSuccess(res.data));
+        })
+        .catch((err: any) =>
+          dispatch(userFetchError(err.response.data.message))
+        );
+    }
+
+    
   }, []);
   useEffect(() => {
     let sortUrl = sortInput !== "" ? `/sort/price/${sortInput}` : "";
