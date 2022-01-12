@@ -1,16 +1,22 @@
 import { NavBarProfile } from "../../components/NavBarProfile";
+import { useAppSelector } from "../../services/store";
 import styles from "./Profile.module.scss";
+const URL_AVATAR = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU"
 export const Profile = () => {
+  const { dataUser } = useAppSelector((state) => state.authReducer);
+  let email = dataUser.email;
+  let name = email.split('@')[0];
+  
   
   return (
     <div className="container my-3">
       <NavBarProfile/>
       <div className="row">
         <div className="col-lg-2 col-md-3 col-sm-3">
-          <img src="" alt="avatar" className={styles.avatar}/>
+          <img src={dataUser.avatar ? dataUser.avatar : URL_AVATAR} alt="avatar" className={styles.avatar}/>
         </div>
         <div className="col-lg-10 col-md-9 col-sm-9">
-          <p className="h5">Son Lee</p>
+          <p className="h5 text-capitalize">{name}</p>
           <p>Nike Member Since January 2022</p>
         </div>
       </div>
