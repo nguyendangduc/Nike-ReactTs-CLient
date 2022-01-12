@@ -31,7 +31,7 @@ const Register = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const { email, password, confirmPassword } = formData;
-    if (email && password && confirmPassword && password !== confirmPassword) {
+    if (email && password && confirmPassword && password === confirmPassword) {
       postRegister({ email, password })
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
