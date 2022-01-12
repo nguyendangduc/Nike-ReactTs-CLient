@@ -3,12 +3,12 @@ import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthent
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { postLogin } from "../../services/apis";
-import { userFetchSuccess, userFetchError } from "../../services/store";
+import { userFetchSuccess, userFetchError, useAppSelector } from "../../services/store";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch() as any;
-
+  const {error} = useAppSelector(state => state.authReducer)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,7 +18,6 @@ const Login = () => {
     setFormData(newData);
   };
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    console.log(1);
     event.preventDefault();
     const { email, password } = formData;
     if (email && password) {
@@ -27,8 +26,7 @@ const Login = () => {
           dispatch(userFetchSuccess(res.data));
         })
         .catch((error) => {
-          // console.log(error.message);
-          dispatch(userFetchError(error.message));
+          dispatch(userFetchError(error.response.data.message));
         });
     }
   };
@@ -49,7 +47,10 @@ const Login = () => {
                 <h4>
                   <b>YOUR ACCOUNT FOR EVERYTHING NIKE</b>
                 </h4>
+                
               </p>
+              <br/>
+              <p className="text-danger">{error}</p>
 
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">

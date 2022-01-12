@@ -6,6 +6,7 @@ interface User {
   phoneNumber: number;
   address: Address;
   avatar: string;
+  rules:string[];
 }
 interface IOrder {
   id:number;

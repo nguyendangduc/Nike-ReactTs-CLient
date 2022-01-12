@@ -25,6 +25,7 @@ function NavBar() {
       phoneNumber: -1,
       address: "",
       avatar: "",
+      rules: []
     };
     dispatch(userFetchSuccess(userInfo));
     setIsClickLogin(false);

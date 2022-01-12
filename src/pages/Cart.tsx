@@ -3,7 +3,7 @@ import AuthenticatedGuard from '../components/auth/authentication/authenticatedG
 const Cart = () => {
   return (
     
-      <AuthenticatedGuard ifInaccessibleRedirectTo="/login">
+      <AuthenticatedGuard>
         <div>cart</div>
       </AuthenticatedGuard>
     

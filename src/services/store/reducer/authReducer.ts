@@ -28,7 +28,7 @@ function authReducer(
       console.log(state.dataUser)
       window.localStorage.setItem(
         "token",
-        JSON.stringify(action.payload.token)
+        (action.payload.token)
       );
       console.log(action.payload);
       return {
