@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ContextElement } from "../App";
-import { addItemToCart } from "../Utils";
+import { addItemToCart } from "../services/functions/getLocalstorage";
 import ProductInfo from "../components/productDetail/ProductInfo";
 import AddCartMessage from "../components/productDetail/AddCartMessage";
 

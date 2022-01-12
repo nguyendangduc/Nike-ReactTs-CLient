@@ -10,7 +10,7 @@ import ProductDetail from "./pages/ProductDetail";
 import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
-import { checkItemsInCart } from "./Utils";
+import { checkItemsInCart } from "./services/functions/getLocalstorage";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "./components/Footer";
 import AppNike from "./pages/AppNike";
@@ -24,7 +24,8 @@ import Admin from "./pages/admin/Admin";
 
 export const ContextElement = createContext("") as any;
 
-const REACT_APP_LIMIT_PER_PAGE = 10;
+const REACT_APP_LIMIT_PER_PAGE = "10";
+
 function App() {
   const dispatch = useAppDispatch();
 
@@ -116,7 +117,6 @@ function App() {
                 />
               }
             />
-
 
             <Route path="/admin" children={<Admin />} />
             <Route

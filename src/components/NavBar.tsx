@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
-import { Link, NavLink,useHistory } from "react-router-dom";
-import { useContext,  } from "react";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import { useContext } from "react";
 import { ContextElement } from "../App";
 import { userFetchSuccess } from "../services/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ function NavBar() {
   const dispatch = useDispatch();
   const userData = useSelector<any>((state) => state.authReducer);
   let isAuth = useSelector<any>((state) => state.authReducer.isAuth);
-  let history = useHistory() as any
+  let history = useHistory() as any;
 
   function handleLoginBtn() {
     const userInfo: User = {
@@ -25,7 +25,7 @@ function NavBar() {
       phoneNumber: -1,
       address: "",
       avatar: "",
-      rules: []
+      rules: [],
     };
     dispatch(userFetchSuccess(userInfo));
     setIsClickLogin(false);
@@ -143,13 +143,7 @@ function NavBar() {
                 >
                   Woman
                 </NavLink>
-                <NavLink
-                  to="/products"
-                  className="navbar__link me-3"
-                  activeClassName="navbar__link--active"
-                >
-                  Kids
-                </NavLink>
+
                 <NavLink
                   to="/app"
                   className="navbar__link me-3"
@@ -163,11 +157,7 @@ function NavBar() {
             {isAuth ? (
               <>
                 <Link to="/profile">
-                  <img
-                    src=""
-                    className="user-avatar"
-                    alt="user-avatar"
-                  />
+                  <img src="" className="user-avatar" alt="user-avatar" />
                 </Link>
                 <span
                   className="user-logout"
@@ -187,7 +177,7 @@ function NavBar() {
                 width="30px"
                 viewBox="0 0 24 24"
                 onClick={() => {
-                  history.push('/login')
+                  history.push("/login");
                 }}
               >
                 <path d="M16.44 11A5.94 5.94 0 0 0 18 7 6 6 0 0 0 6 7a5.94 5.94 0 0 0 1.56 4A5 5 0 0 0 3 16v5a1 1 0 0 0 2 0v-5a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v5a1 1 0 0 0 2 0v-5a5 5 0 0 0-4.56-5zM8 7a4 4 0 1 1 4 4 4 4 0 0 1-4-4z"></path>
