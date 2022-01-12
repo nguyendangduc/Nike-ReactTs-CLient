@@ -44,3 +44,15 @@ interface FormData {
   email: string;
   password: string;
 }
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  color: number;
+  thumnail: string;
+  detailimg: Array[string];
+  colorimg: Array[string];
+  size: Array[string];
+  type: string;
+}
