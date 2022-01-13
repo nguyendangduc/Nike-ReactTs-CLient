@@ -7,17 +7,17 @@ import LimitPage from "../components/products/LimitPage";
 import Search from "../components/products/Search";
 
 interface Props {
-  setSortInput: any;
-  products: any;
-  totalProducts: any;
-  currentPage: any;
-  setCurrentPage: any;
-  pageLimit: any;
-  setPageLimit: any;
-  loading: any;
-  setSearchInput: any;
-  setCategory: any;
-  category: any;
+  setSortInput: (value: string) => void;
+  products: Array<Product>;
+  totalProducts: number;
+  currentPage: number;
+  setCurrentPage: (value: number) => void;
+  pageLimit: string;
+  setPageLimit: (value: string) => void;
+  loading: boolean;
+  setSearchInput: (value: string) => void;
+  setCategory: (value: string) => void;
+  category: string;
 }
 
 const Products: React.FC<Props> = ({
@@ -53,7 +53,7 @@ const Products: React.FC<Props> = ({
         </div>
         <div className="row">
           <div className="col-12 col-md-2 sidebar ">
-            <SideBar setCategory={setCategory} category={category} />
+            <SideBar setCategory={setCategory} />
           </div>
 
           <div className="col-12 col-md-10">

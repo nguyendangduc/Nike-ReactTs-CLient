@@ -1,6 +1,10 @@
 import { memo } from "react";
 
-const Sort= ({ setSortInput }) => {
+interface Props {
+  setSortInput: (value: string) => void;
+}
+
+const Sort: React.FC<Props> = ({ setSortInput }) => {
   return (
     <select
       className="form-select"

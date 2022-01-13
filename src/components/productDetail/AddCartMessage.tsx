@@ -2,14 +2,15 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 interface Props {
-  addItemToCartMessage: any;
-  setAddItemToCartMessage: any;
+  addItemToCartMessage: boolean;
+  setAddItemToCartMessage: (value: boolean) => void;
 }
 
 const AddCartMessage: React.FC<Props> = ({
   addItemToCartMessage,
   setAddItemToCartMessage,
 }) => {
+  console.log(addItemToCartMessage);
   return (
     <div
       className={
