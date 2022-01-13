@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 
 let formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -29,9 +30,11 @@ const Summary: React.FC<Props> = ({ subTotal, shipping, total }) => {
         <p>Total</p>
         <p>{formatter.format(total)}</p>
       </div>
-      <button type="button" className="btn btn-dark checkout-btn">
-        Checkout
-      </button>
+      <Link to="/cart/checkout">
+        <button type="button" className="btn btn-dark checkout-btn">
+          Checkout
+        </button>
+      </Link>
     </>
   );
 };
