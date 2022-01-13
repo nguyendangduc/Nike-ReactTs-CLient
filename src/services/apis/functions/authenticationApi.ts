@@ -37,11 +37,11 @@ export function logout(): Promise<any> {
   );
 }
 
-export function updateInfo(user : any) {
+export function updateInfo(id:any,bodyUserUpdate : any) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
-  return client.put(`/auth/users`, user,
+  return client.put(`/users/${id}`, bodyUserUpdate,
   {
     headers: { Authorization: "Bearer " + token },
   });
