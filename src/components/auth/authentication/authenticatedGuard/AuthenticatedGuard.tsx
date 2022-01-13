@@ -4,7 +4,7 @@ import {
   useAppSelector,
   useAppDispatch,
   userFetchSuccess,
-  RootState,
+  userFetchError,
 } from "../../../../services/store";
 import { useLocation } from "react-router-dom";
 import { authByToken } from "../../../../services/apis";
@@ -21,10 +21,15 @@ const AuthenticatedGuard: FC<Props> = (props) => {
   const location: any = useLocation();
 
   useEffect(() => {
-    // check mõi router
-    authByToken().then((res: any) => {
-      dispatch(userFetchSuccess(res.data));
-    });
+    if (localStorage.getItem("token")) {
+      authByToken()
+        .then((res: any) => {
+          dispatch(userFetchSuccess(res.data));
+        })
+        .catch((err: any) =>
+          dispatch(userFetchError(err.response.data.message))
+        );
+    }
   }, []);
   const checkAuthorization = () => {
     return hasPermission(

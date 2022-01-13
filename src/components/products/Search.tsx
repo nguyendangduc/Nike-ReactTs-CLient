@@ -1,6 +1,10 @@
 import { memo } from "react";
 
-function Search({ setSearchInput }) {
+interface Props {
+  setSearchInput: (value: string) => void;
+}
+
+const Search: React.FC<Props> = ({ setSearchInput }) => {
   return (
     <input
       type="text"
@@ -9,5 +13,5 @@ function Search({ setSearchInput }) {
       onChange={(e) => setSearchInput(e.target.value)}
     />
   );
-}
+};
 export default memo(Search);

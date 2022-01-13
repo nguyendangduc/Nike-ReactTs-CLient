@@ -1,11 +1,11 @@
 import { memo } from "react";
 interface Props {
-  currentProduct: any;
-  colorValue: any;
-  handleChooseColor: any;
-  sizeValue: any;
-  handleChooseSize: any;
-  handleAddCart: any;
+  currentProduct: Product;
+  colorValue: number;
+  handleChooseColor: (imgUrl: string) => void;
+  sizeValue: string;
+  handleChooseSize: (size: string) => void;
+  handleAddCart: () => void;
 }
 const ProductInfo: React.FC<Props> = ({
   currentProduct,

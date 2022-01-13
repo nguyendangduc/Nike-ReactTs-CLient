@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { NavBarProfile } from "../components/NavBarProfile";
 import { Order } from "../components/ordersHistory/Order";
 import { getOrders } from "../services/apis/functions/ordersApi";
+import { useAppSelector } from "../services/store";
+import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
+let rules = ["user"];
 
 export const OrdersHistory = () => {
-  const { dataUser } = useSelector((state: any) => state.authReducer);
+  const { dataUser } = useAppSelector((state) => state.authReducer);
   const [orders, setOrders] = useState([] as IOrder[]);
   const [search, setSearch] = useState('');
   const [filters, setFilters] = useState([] as IOrder[]);
   
-  console.log('hi');
-  
-
   useEffect(() => {
     if (dataUser) {
       getOrders(dataUser.id)
@@ -27,6 +26,8 @@ export const OrdersHistory = () => {
   },[search]);
 
   return (
+    <AuthenticatedGuard routeRules={rules}>
+
       <div className="container my-3">
         <NavBarProfile/>
         <input
@@ -51,5 +52,6 @@ export const OrdersHistory = () => {
             )
         }
       </div>
+      </AuthenticatedGuard>
   );
 };

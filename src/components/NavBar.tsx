@@ -1,10 +1,20 @@
 import React, { memo, useState } from "react";
-import { Link, NavLink,useHistory } from "react-router-dom";
-import { useContext,  } from "react";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import { useContext } from "react";
 import { ContextElement } from "../App";
 import { userFetchSuccess } from "../services/store";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutSuccess } from "../services/store";
+import { logoutSuccess,useAppSelector } from "../services/store";
+const URL_AVATAR = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU"
+const avtCss = {
+  'display':'block',
+  'width': '30px',
+  'height': '30px',
+  'borderRadius':'50%',
+  'marginRight': '1rem',
+  'border':'1px solid #333'
+}
+
 
 function NavBar() {
   let { itemsInCart } = useContext(ContextElement);
@@ -12,9 +22,9 @@ function NavBar() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const userData = useSelector<any>((state) => state.authReducer);
+  const {dataUser} = useAppSelector((state) => state.authReducer);
   let isAuth = useSelector<any>((state) => state.authReducer.isAuth);
-  let history = useHistory() as any
+  let history = useHistory() as any;
 
   function handleLoginBtn() {
     const userInfo: User = {
@@ -25,7 +35,7 @@ function NavBar() {
       phoneNumber: -1,
       address: "",
       avatar: "",
-      rules: []
+      rules: [],
     };
     dispatch(userFetchSuccess(userInfo));
     setIsClickLogin(false);
@@ -143,13 +153,7 @@ function NavBar() {
                 >
                   Woman
                 </NavLink>
-                <NavLink
-                  to="/products"
-                  className="navbar__link me-3"
-                  activeClassName="navbar__link--active"
-                >
-                  Kids
-                </NavLink>
+
                 <NavLink
                   to="/app"
                   className="navbar__link me-3"
@@ -163,11 +167,8 @@ function NavBar() {
             {isAuth ? (
               <>
                 <Link to="/profile">
-                  <img
-                    src=""
-                    className="user-avatar"
-                    alt="user-avatar"
-                  />
+          <img src={dataUser.avatar ? dataUser.avatar : URL_AVATAR} alt="avatar" style={avtCss}/>
+
                 </Link>
                 <span
                   className="user-logout"
@@ -187,7 +188,7 @@ function NavBar() {
                 width="30px"
                 viewBox="0 0 24 24"
                 onClick={() => {
-                  history.push('/login')
+                  history.push("/login");
                 }}
               >
                 <path d="M16.44 11A5.94 5.94 0 0 0 18 7 6 6 0 0 0 6 7a5.94 5.94 0 0 0 1.56 4A5 5 0 0 0 3 16v5a1 1 0 0 0 2 0v-5a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v5a1 1 0 0 0 2 0v-5a5 5 0 0 0-4.56-5zM8 7a4 4 0 1 1 4 4 4 4 0 0 1-4-4z"></path>
