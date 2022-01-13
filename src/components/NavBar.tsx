@@ -4,25 +4,30 @@ import { useContext } from "react";
 import { ContextElement } from "../App";
 import { userFetchSuccess } from "../services/store";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutSuccess,useAppSelector } from "../services/store";
-const URL_AVATAR = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU"
+import { logoutSuccess, useAppSelector } from "../services/store";
+const URL_AVATAR =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU";
 const avtCss = {
-  'display':'block',
-  'width': '30px',
-  'height': '30px',
-  'borderRadius':'50%',
-  'marginRight': '1rem',
-  'border':'1px solid #333'
+  display: "block",
+  width: "30px",
+  height: "30px",
+  borderRadius: "50%",
+  marginRight: "1rem",
+  border: "1px solid #333",
+};
+
+interface Props {
+  isAdmin: boolean;
+  setToDashBoard: (value: boolean) => void;
 }
 
-
-function NavBar() {
+const NavBar: React.FC<Props> = ({ isAdmin, setToDashBoard }) => {
   let { itemsInCart } = useContext(ContextElement);
   const [isClickLogin, setIsClickLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const {dataUser} = useAppSelector((state) => state.authReducer);
+  const { dataUser } = useAppSelector((state) => state.authReducer);
   let isAuth = useSelector<any>((state) => state.authReducer.isAuth);
   let history = useHistory() as any;
 
@@ -33,7 +38,7 @@ function NavBar() {
       id: -1,
       token: "",
       phoneNumber: -1,
-      address: "",
+      address: { address: "", city: "" },
       avatar: "",
       rules: [],
     };
@@ -139,7 +144,7 @@ function NavBar() {
                   Home
                 </NavLink>
 
-                 <NavLink
+                <NavLink
                   to="/products"
                   className="navbar__link me-3"
                   activeClassName="navbar__link--active"
@@ -166,8 +171,11 @@ function NavBar() {
             {isAuth ? (
               <>
                 <Link to="/profile">
-          <img src={dataUser.avatar ? dataUser.avatar : URL_AVATAR} alt="avatar" style={avtCss}/>
-
+                  <img
+                    src={dataUser.avatar ? dataUser.avatar : URL_AVATAR}
+                    alt="avatar"
+                    style={avtCss}
+                  />
                 </Link>
                 <span
                   className="user-logout"
@@ -177,6 +185,17 @@ function NavBar() {
                 >
                   Log out
                 </span>
+                {isAdmin ? (
+                  <Link
+                    to="/admin"
+                    onClick={() => {
+                      setToDashBoard(true);
+                    }}
+                    className="ms-3"
+                  >
+                    <b>Admin dashboard</b>
+                  </Link>
+                ) : null}
               </>
             ) : (
               <svg
@@ -235,5 +254,5 @@ function NavBar() {
       </div>
     </>
   );
-}
+};
 export default memo(NavBar);

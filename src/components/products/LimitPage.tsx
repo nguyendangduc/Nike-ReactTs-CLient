@@ -15,7 +15,6 @@ const LimitPage: React.FC<Props> = ({ setPageLimit }) => {
       <option value={8}>8</option>
       <option value={6}>6</option>
       <option value={4}>4</option>
-      <option value={2}>2</option>
     </select>
   );
 };

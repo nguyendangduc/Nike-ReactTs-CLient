@@ -50,6 +50,9 @@ function App() {
 
   let { dataUser } = useSelector((state: any) => state.authReducer);
 
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [toDashboard, setToDashBoard] = useState(false);
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()
@@ -60,8 +63,6 @@ function App() {
           dispatch(userFetchError(err.response.data.message))
         );
     }
-
-    
   }, []);
 
   useEffect(() => {
@@ -87,6 +88,16 @@ function App() {
     }
   }, [sortInput, currentPage, searchInput, pageLimit, category]);
 
+  useEffect(() => {
+    if (dataUser) {
+      if (dataUser.rules.includes("admin")) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    }
+  }, [dataUser]);
+
   return (
     <>
       <ContextElement.Provider
@@ -98,7 +109,9 @@ function App() {
         }}
       >
         <Router>
-          <NavBar />
+          {!toDashboard ? (
+            <NavBar isAdmin={isAdmin} setToDashBoard={setToDashBoard} />
+          ) : null}
 
           <Switch>
             <Route path="/login" children={<Login />} />
@@ -135,12 +148,18 @@ function App() {
               }
             />
 
-            <Route path="/admin" children={<Admin />} />
+            <Route
+              path="/admin"
+              children={
+                <Admin setToDashBoard={setToDashBoard} products={products} />
+              }
+            />
             <Route path="/" children={<Home />} />
           </Switch>
         </Router>
       </ContextElement.Provider>
-      <Footer />
+
+      {!toDashboard ? <Footer /> : null}
     </>
   );
 }

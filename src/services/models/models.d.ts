@@ -4,7 +4,7 @@ interface User {
   password: string;
   token: string;
   phoneNumber: number;
-  address: Address;
+  address: { address: string; city: string };
   avatar: string;
   rules: string[];
 }
@@ -55,6 +55,7 @@ interface Product {
   colorimg: Array[string];
   size: Array[string];
   type: string;
+  gender: string;
 }
 
 interface CartItem {
