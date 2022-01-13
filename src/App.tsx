@@ -28,7 +28,6 @@ import {
   userFetchSuccess,
 } from "./services/store";
 import Admin from "./pages/admin/Admin";
-import EditItemsInCart from "./components/cart/ItemsInCart/EditItemsInCart";
 
 export const ContextElement = createContext("") as any;
 
@@ -102,14 +101,13 @@ function App() {
             <Route path="/login" children={<Login />} />
             <Route path="/register" children={<Register />} />
 
-            <Route exact path="/cart" children={<Cart />} />
+            <Route path="/cart" children={<Cart />} />
 
             <Route path="/ordershistory" children={<OrdersHistory />} />
             <Route path="/profile" children={<Profile />} />
             <Route path="/update" children={<SettingUpdate />} />
 
             <Route path="/app" children={<AppNike />} />
-            <Route path="/cart/edit" children={<EditItemsInCart />} />
 
             <Route
               path="/products/:id"

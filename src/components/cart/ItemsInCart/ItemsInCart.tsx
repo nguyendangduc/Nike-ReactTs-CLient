@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import style from "./ItemsInCart.module.scss"
@@ -14,12 +14,36 @@ interface Props {
   handleEditBtn: (value: number) => void;
 }
 
+
 const ItemInCart: React.FC<Props> = ({
   itemsInCart,
   handleDeleteBtn,
   handleEditBtn,
 }) => {
-  return itemsInCart.map((item: CartItem, index: number) => (
+
+  const [quantity, setQuantity] = useState(1);
+  const [cartItems, setCartItems] = useState(itemsInCart)
+
+
+  function remove(id: number) {
+    setQuantity(quantity - 1)
+
+
+  }
+
+
+  function add(id: number) {
+    // setQuantity(quantity + 1)
+
+    let newArr = [...cartItems];
+    let itemIndex = newArr.findIndex((item) => id == item.id);
+
+    newArr[itemIndex].quantity = newArr[itemIndex].quantity + 1;
+    setCartItems(newArr);
+    // subTotalCal(newArr);
+  }
+
+  return cartItems.map((item: CartItem, index: number) => (
     <div className="bag-item mb-4 mt-4" key={index}>
       <div className="row">
         <div className="col-4 col-md-3 bag-item-img">
@@ -36,16 +60,23 @@ const ItemInCart: React.FC<Props> = ({
               {edit === false ? "Edit" : "Save"}
             </p> */}
             <p onClick={() => handleDeleteBtn(index)} className="me-3">Delete</p>
-            <Link to="/cart/edit"><p>Edit</p></Link>
           </div>
         </div>
         <div className="col-1 col-md-1"></div>
         <div className="col-12 col-md-3 bag-item-price d-flex flex-column justify-content-between">
-          <p>{formatter.format(item.price)}</p>
+          <p>{formatter.format(item.price * quantity)}</p>
           <div className="d-flex flex-row justify-content-end pb-3">
-            <button className={`${style.remove}`}>-</button>
-            <input type="text" className={`${style.quality}`} />
-            <button className={`${style.add}`}>+</button>
+            <button
+              className={`${style.remove}`}
+              onClick={() => remove(item.id)}
+            >-</button>
+
+            <input type="text" className={`${style.quality}`} value={quantity} id={`${item.id}`} />
+
+            <button
+              className={`${style.add}`}
+              onClick={() => add(item.id)}
+            >+</button>
           </div>
         </div>
 

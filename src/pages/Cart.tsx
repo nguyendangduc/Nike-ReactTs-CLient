@@ -4,7 +4,6 @@ import { ContextElement } from "../App";
 import Summary from "../components/cart/Summary";
 import ItemsInCart from "../components/cart/ItemsInCart/ItemsInCart";
 import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
-import EditItemsInCart from "../components/cart/ItemsInCart/EditItemsInCart";
 let rules = ["user"];
 
 function Cart() {
