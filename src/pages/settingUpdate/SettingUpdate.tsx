@@ -21,8 +21,6 @@ export const SettingUpdate = () => {
   );
 
   const dispatch = useDispatch();
-  console.log(dataUser);
-
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
