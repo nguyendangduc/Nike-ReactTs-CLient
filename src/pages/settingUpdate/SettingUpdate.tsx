@@ -17,11 +17,12 @@ export const SettingUpdate = () => {
   console.log(dataUser);
 
   return (
+    
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
         <NavBarProfile />
         <div className="col-8 mx-auto">
-          <Formik
+      {dataUser ?  <Formik
             initialValues={{
               email: dataUser.email,
               address: dataUser.address.address,
@@ -94,7 +95,9 @@ export const SettingUpdate = () => {
                 Submit
               </button>
             </Form>
-          </Formik>
+          </Formik> : ''}
+
+         
         </div>
       </div>
     </AuthenticatedGuard>
