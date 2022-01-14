@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import Dashboard from "../../components/admin/Dashboard";
 import Navbar from "../../components/admin/Navbar";
 import Pagination from "../../components/admin/Pagination";
+import ProductForm from "../../components/admin/ProductForm";
 import ProductsList from "../../components/admin/ProductsList";
 import UserList from "../../components/admin/UsersList";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
@@ -39,6 +41,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
   useEffect(() => {
     if (manageType === "user") {
       setTotalItemAdmin(usersList.length);
+      //Duc code here
     } else {
       setTotalItemAdmin(productsList.length);
 
@@ -102,35 +105,30 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
         setToDashBoard={setToDashBoard}
       />
 
-      <div className="container mt-4">
-        <h1 className="text-center mb-4">Admin Dashboard</h1>
-        <div className="row mb-3">
-          <div className="col-4">
-            <input
-              type="text"
-              className="form-control search"
-              placeholder="Search"
-              onChange={(e) => setSearchInputAdmin(e.target.value)}
-            />
-          </div>
-          <div className="col-6"></div>
-          <div className="col-2">
-            <div className="btn btn-dark w-100">Add</div>
-          </div>
-        </div>
-        {manageType === "user" ? (
-          <UserList usersList={usersList} />
-        ) : (
-          <ProductsList productsList={productsList} />
-        )}
+      <h1 className="text-center mb-4">Admin Dashboard</h1>
 
-        <Pagination
-          currentPageAdmin={currentPageAdmin}
-          setCurrentPageAdmin={setCurrentPageAdmin}
-          totalPage={totalPage}
-          totalPageArr={totalPageArr}
+      <Switch>
+        <Route exact path="/admin/addproduct" children={<ProductForm />} />
+
+        {/* <Route exact path="/admin/adduser" children={<UsertForm />} /> */}
+
+        <Route
+          path="/admin"
+          children={
+            <Dashboard
+              setSearchInputAdmin={setSearchInputAdmin}
+              manageType={manageType}
+              usersList={usersList}
+              productsList={productsList}
+              setProductsList={setProductsList}
+              currentPageAdmin={currentPageAdmin}
+              setCurrentPageAdmin={setCurrentPageAdmin}
+              totalPage={totalPage}
+              totalPageArr={totalPageArr}
+            />
+          }
         />
-      </div>
+      </Switch>
     </AuthenticatedGuard>
   );
 };
