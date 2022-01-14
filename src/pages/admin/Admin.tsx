@@ -13,7 +13,7 @@ interface Props {
   setToDashBoard: (value: boolean) => void;
   products: Array<Product>;
 }
-
+//test
 const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [productsList, setProductsList] = useState<Array<Product>>([]);
