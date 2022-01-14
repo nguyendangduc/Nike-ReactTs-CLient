@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
+import { getProducts } from "../../services/apis";
 import {
   getAllProducts,
   getUsers,
@@ -13,17 +14,85 @@ interface Props {
   setToDashBoard: (value: boolean) => void;
   products: Array<Product>;
 }
-//test
+
 const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [productsList, setProductsList] = useState<Array<Product>>([]);
   const [manageType, setManageType] = useState("user");
+  const [currentPageAdmin, setCurrentPageAdmin] = useState(1);
+  const [totalItemAdmin, setTotalItemAdmin] = useState(0);
+  const [searchInputAdmin, setSearchInputAdmin] = useState("");
+
+  const LIMIT_ITEM = 10;
+
+  //calculate total page
+  let totalPage = Math.ceil(totalItemAdmin / 10);
+  //create array inclue total page number
+  let totalPageArr = [];
+  for (let i = 0; i < totalPage; i++) {
+    totalPageArr.push(i + 1);
+  }
+
+  function handlePrev() {
+    currentPageAdmin > 1
+      ? setCurrentPageAdmin(Number(currentPageAdmin) - 1)
+      : setCurrentPageAdmin(1);
+  }
+
+  function handleNext() {
+    currentPageAdmin < totalPage
+      ? setCurrentPageAdmin(Number(currentPageAdmin) + 1)
+      : setCurrentPageAdmin(totalPage);
+  }
+
+  useEffect(() => {
+    if (manageType === "user") {
+      setTotalItemAdmin(usersList.length);
+    } else {
+      setTotalItemAdmin(productsList.length);
+
+      let paginationUrl = "/page/0/" + LIMIT_ITEM;
+
+      getProducts(paginationUrl)
+        .then((res) => {
+          setProductsList(res.data.results);
+          setTotalItemAdmin(res.data.totalRecords);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [manageType]);
+
+  useEffect(() => {
+    if (manageType === "product") {
+      let paginationUrl =
+        "/page/" +
+        (currentPageAdmin - 1) * Number(LIMIT_ITEM) +
+        "/" +
+        LIMIT_ITEM;
+
+      let searchUrl =
+        searchInputAdmin !== "" ? "/search/" + searchInputAdmin : "";
+
+      const path = searchUrl + paginationUrl;
+
+      getProducts(path)
+        .then((res) => {
+          setProductsList(res.data.results);
+          setTotalItemAdmin(res.data.totalRecords);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      //Duc code here
+    }
+  }, [currentPageAdmin, searchInputAdmin]);
 
   useEffect(() => {
     setToDashBoard(true);
+
     getUsers()
       .then((res) => {
         setUsersList(res.data);
+        setTotalItemAdmin(res.data.length);
       })
       .catch((err) => console.log(err));
 
@@ -37,7 +106,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
   return (
     <AuthenticatedGuard routeRules={rules}>
       <nav className="navbar navbar-expand-lg navbar-light bg-light admin">
-        <div className="container-fluid">
+        <div className="container">
           <a className="navbar-brand" href="#">
             Admin
           </a>
@@ -92,7 +161,16 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
 
       <div className="container mt-4">
         <h1 className="text-center mb-4">Admin Dashboard</h1>
-
+        <div className="row mb-3">
+          <div className="col-4">
+            <input
+              type="text"
+              className="form-control search"
+              placeholder="Search"
+              onChange={(e) => setSearchInputAdmin(e.target.value)}
+            />
+          </div>
+        </div>
         {manageType === "user" ? (
           <table className="table table-striped table-hover">
             <thead className="table-dark ">
@@ -224,6 +302,43 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
             </tbody>
           </table>
         )}
+
+        <ul className="home-pagination">
+          <li className="page-item">
+            <button
+              onClick={handlePrev}
+              disabled={currentPageAdmin == 1 ? true : false}
+              className="page-item-btn"
+            >
+              Previous
+            </button>
+          </li>
+          {totalPageArr.map((page) => (
+            <li
+              key={page}
+              className={
+                page == currentPageAdmin
+                  ? "page-item page-item-active"
+                  : "page-item"
+              }
+              onClick={(e) =>
+                setCurrentPageAdmin((e.target as any).textContent)
+              }
+            >
+              {page}
+            </li>
+          ))}
+
+          <li className="page-item">
+            <button
+              onClick={handleNext}
+              disabled={currentPageAdmin === totalPage ? true : false}
+              className="page-item-btn"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
       </div>
     </AuthenticatedGuard>
   );
