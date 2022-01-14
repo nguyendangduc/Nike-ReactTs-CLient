@@ -1,20 +1,15 @@
 import "./App.css";
 import { useEffect, useState, createContext } from "react";
-import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import Home from "./pages/Home/Home";
+import Home from "./pages/home/Home";
 import ProductDetail from "./pages/ProductDetail";
 import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
-import {
-  checkItemsInCart,
-  getLocalStorage,
-} from "./services/functions/getLocalstorage";
-import { useDispatch, useSelector } from "react-redux";
+import { checkItemsInCart } from "./services/functions/getLocalstorage";
+import { useSelector } from "react-redux";
 import Footer from "./components/Footer";
 import AppNike from "./pages/AppNike";
 import { getProducts } from "./services/apis/functions/productsApi";
@@ -154,9 +149,7 @@ function App() {
 
             <Route
               path="/admin"
-              children={
-                <Admin setToDashBoard={setToDashBoard} products={products} />
-              }
+              children={<Admin setToDashBoard={setToDashBoard} />}
             />
             <Route path="/" children={<Home />} />
           </Switch>

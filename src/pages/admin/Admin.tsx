@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "../../components/admin/Navbar";
+import Pagination from "../../components/admin/Pagination";
+import ProductsList from "../../components/admin/ProductsList";
+import UserList from "../../components/admin/UsersList";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import { getProducts } from "../../services/apis";
 import {
@@ -12,10 +16,9 @@ const rules = ["admin"];
 
 interface Props {
   setToDashBoard: (value: boolean) => void;
-  products: Array<Product>;
 }
 
-const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
+const Admin: React.FC<Props> = ({ setToDashBoard }) => {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [productsList, setProductsList] = useState<Array<Product>>([]);
   const [manageType, setManageType] = useState("user");
@@ -31,18 +34,6 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
   let totalPageArr = [];
   for (let i = 0; i < totalPage; i++) {
     totalPageArr.push(i + 1);
-  }
-
-  function handlePrev() {
-    currentPageAdmin > 1
-      ? setCurrentPageAdmin(Number(currentPageAdmin) - 1)
-      : setCurrentPageAdmin(1);
-  }
-
-  function handleNext() {
-    currentPageAdmin < totalPage
-      ? setCurrentPageAdmin(Number(currentPageAdmin) + 1)
-      : setCurrentPageAdmin(totalPage);
   }
 
   useEffect(() => {
@@ -105,59 +96,11 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
 
   return (
     <AuthenticatedGuard routeRules={rules}>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light admin">
-        <div className="container">
-          <a className="navbar-brand" href="#">
-            Admin
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <span
-                  className={
-                    manageType === "user"
-                      ? `me-3 ${style.admin_sidebar_item_active}`
-                      : `me-3 ${style.admin_sidebar_item}`
-                  }
-                  onClick={() => setManageType("user")}
-                >
-                  User
-                </span>
-              </li>
-              <li className="nav-item">
-                <span
-                  className={
-                    manageType === "product"
-                      ? `me-3 ${style.admin_sidebar_item_active}`
-                      : `me-3 ${style.admin_sidebar_item}`
-                  }
-                  onClick={() => setManageType("product")}
-                >
-                  Product
-                </span>
-              </li>
-            </ul>
-            <Link
-              to="/home"
-              className="btn btn-dark"
-              onClick={() => setToDashBoard(false)}
-            >
-              Back to home
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar
+        manageType={manageType}
+        setManageType={setManageType}
+        setToDashBoard={setToDashBoard}
+      />
 
       <div className="container mt-4">
         <h1 className="text-center mb-4">Admin Dashboard</h1>
@@ -176,183 +119,17 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
           </div>
         </div>
         {manageType === "user" ? (
-          <table className="table table-striped table-hover">
-            <thead className="table-dark ">
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Email</th>
-                <th scope="col">Password</th>
-                <th scope="col">Address</th>
-                <th scope="col">City</th>
-                <th scope="col">Avatar</th>
-                <th scope="col">Phone number</th>
-                <th scope="col">Rules</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {usersList ? (
-                usersList.map((user) => {
-                  return (
-                    <tr key={user.id}>
-                      <th scope="row">{user.id}</th>
-                      <td>{user.email}</td>
-                      <td>{user.password}</td>
-                      <td>{user.address.address}</td>
-                      <td>{user.address.city}</td>
-                      <td>{user.avatar}</td>
-                      <td>{user.phoneNumber}</td>
-                      <td>{user.rules}</td>
-                      <td>
-                        <div
-                          className="btn-group"
-                          role="group"
-                          aria-label="Basic example"
-                        >
-                          <button
-                            type="button"
-                            className="btn btn-outline-dark"
-                          >
-                            Edit
-                          </button>
-                          <button type="button" className="btn btn-dark">
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <></>
-              )}
-            </tbody>
-          </table>
+          <UserList usersList={usersList} />
         ) : (
-          <table className="table table-striped table-hover">
-            <thead className="table-dark">
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Color</th>
-                <th scope="col">Thumbnail</th>
-                <th scope="col">Detail Image</th>
-                <th scope="col">Color Image</th>
-                <th scope="col">Size</th>
-                <th scope="col">Type</th>
-                <th scope="col">Gender</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {productsList ? (
-                productsList.map((product) => {
-                  return (
-                    <tr key={product.id}>
-                      <th scope="row">{product.id}</th>
-                      <td>{product.name}</td>
-                      <td>{product.price}</td>
-                      <td>{product.color}</td>
-                      <td>
-                        <img
-                          src={product.thumbnail}
-                          alt="thumb"
-                          className={`${style.img_admin}`}
-                        />
-                      </td>
-                      <td>
-                        {product.detailimg.map((url: string) => {
-                          return (
-                            <img
-                              src={url}
-                              alt="detail"
-                              className={`${style.img_admin}`}
-                            />
-                          );
-                        })}
-                      </td>
-                      <td>
-                        {product.colorimg.map((url: string) => {
-                          return (
-                            <img
-                              src={url}
-                              alt="color"
-                              className={`${style.img_admin}`}
-                            />
-                          );
-                        })}
-                      </td>
-                      <td>
-                        {product.size.map((size: string) => {
-                          return <span>{`${size.replace("EU", "")}, `}</span>;
-                        })}
-                      </td>
-                      <td>{product.type}</td>
-                      <td>{product.gender}</td>
-                      <td>
-                        <div
-                          className="btn-group"
-                          role="group"
-                          aria-label="Basic example"
-                        >
-                          <button
-                            type="button"
-                            className="btn btn-outline-dark"
-                          >
-                            Edit
-                          </button>
-                          <button type="button" className="btn btn-dark">
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <></>
-              )}
-            </tbody>
-          </table>
+          <ProductsList productsList={productsList} />
         )}
 
-        <ul className="home-pagination">
-          <li className="page-item">
-            <button
-              onClick={handlePrev}
-              disabled={currentPageAdmin == 1 ? true : false}
-              className="page-item-btn"
-            >
-              Previous
-            </button>
-          </li>
-          {totalPageArr.map((page) => (
-            <li
-              key={page}
-              className={
-                page == currentPageAdmin
-                  ? "page-item page-item-active"
-                  : "page-item"
-              }
-              onClick={(e) =>
-                setCurrentPageAdmin((e.target as any).textContent)
-              }
-            >
-              {page}
-            </li>
-          ))}
-
-          <li className="page-item">
-            <button
-              onClick={handleNext}
-              disabled={currentPageAdmin === totalPage ? true : false}
-              className="page-item-btn"
-            >
-              Next
-            </button>
-          </li>
-        </ul>
+        <Pagination
+          currentPageAdmin={currentPageAdmin}
+          setCurrentPageAdmin={setCurrentPageAdmin}
+          totalPage={totalPage}
+          totalPageArr={totalPageArr}
+        />
       </div>
     </AuthenticatedGuard>
   );
