@@ -19,9 +19,16 @@ const avtCss = {
 interface Props {
   isAdmin: boolean;
   setToDashBoard: (value: boolean) => void;
+  gender: string;
+  setGender: (value: string) => void;
 }
 
-const NavBar: React.FC<Props> = ({ isAdmin, setToDashBoard }) => {
+const NavBar: React.FC<Props> = ({
+  isAdmin,
+  setToDashBoard,
+  gender,
+  setGender,
+}) => {
   let { itemsInCart } = useContext(ContextElement);
   const [isClickLogin, setIsClickLogin] = useState(false);
   const [email, setEmail] = useState("");
@@ -147,16 +154,22 @@ const NavBar: React.FC<Props> = ({ isAdmin, setToDashBoard }) => {
                 <NavLink
                   to="/products"
                   className="navbar__link me-3"
-                  activeClassName="navbar__link--active"
+                  activeClassName={
+                    gender === "Men" ? "navbar__link--active" : ""
+                  }
+                  onClick={() => setGender("Men")}
                 >
                   Men
                 </NavLink>
                 <NavLink
                   to="/products"
                   className="navbar__link me-3"
-                  activeClassName="navbar__link--active"
+                  activeClassName={
+                    gender === "Women" ? "navbar__link--active" : ""
+                  }
+                  onClick={() => setGender("Women")}
                 >
-                  Woman
+                  Women
                 </NavLink>
                 <NavLink
                   to="/app"

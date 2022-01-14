@@ -49,6 +49,8 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [toDashboard, setToDashBoard] = useState(false);
 
+  const [gender, setGender] = useState("");
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()
@@ -83,7 +85,7 @@ function App() {
         })
         .catch((error) => console.log(error));
     }
-  }, [sortInput, currentPage, searchInput, pageLimit, category]);
+  }, [sortInput, currentPage, searchInput, pageLimit, category, gender]);
 
   useEffect(() => {
     if (dataUser) {
@@ -94,6 +96,20 @@ function App() {
       }
     }
   }, [dataUser]);
+
+  useEffect(() => {
+    let productsClone = [...products];
+    console.log(
+      products.filter((product: Product) => {
+        console.log(product.gender === gender);
+        return product.gender === gender;
+      })
+    );
+    productsClone = productsClone.filter((product: Product) => {
+      return product.gender === gender;
+    });
+    setProducts(productsClone);
+  }, [gender]);
 
   return (
     <>
@@ -107,7 +123,12 @@ function App() {
       >
         <Router>
           {!toDashboard ? (
-            <NavBar isAdmin={isAdmin} setToDashBoard={setToDashBoard} />
+            <NavBar
+              isAdmin={isAdmin}
+              setToDashBoard={setToDashBoard}
+              gender={gender}
+              setGender={setGender}
+            />
           ) : null}
 
           <Switch>
@@ -143,6 +164,7 @@ function App() {
                   setSearchInput={setSearchInput}
                   setCategory={setCategory}
                   category={category}
+                  gender={gender}
                 />
               }
             />

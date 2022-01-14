@@ -18,6 +18,7 @@ interface Props {
   setSearchInput: (value: string) => void;
   setCategory: (value: string) => void;
   category: string;
+  gender: string;
 }
 
 const Products: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const Products: React.FC<Props> = ({
   setSearchInput,
   setCategory,
   category,
+  gender,
 }) => {
   return (
     <div className="App products">

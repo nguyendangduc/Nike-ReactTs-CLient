@@ -15,7 +15,9 @@ const Navbar: React.FC<Props> = ({
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light admin">
       <div className="container">
-        <span className="navbar-brand">Admin</span>
+        <Link to="/admin" className="navbar-brand">
+          Admin
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -30,7 +32,8 @@ const Navbar: React.FC<Props> = ({
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <span
+              <Link
+                to="/admin"
                 className={
                   manageType === "user"
                     ? `me-3 ${style.admin_sidebar_item_active}`
@@ -39,10 +42,11 @@ const Navbar: React.FC<Props> = ({
                 onClick={() => setManageType("user")}
               >
                 User
-              </span>
+              </Link>
             </li>
             <li className="nav-item">
-              <span
+              <Link
+                to="/admin"
                 className={
                   manageType === "product"
                     ? `me-3 ${style.admin_sidebar_item_active}`
@@ -51,7 +55,7 @@ const Navbar: React.FC<Props> = ({
                 onClick={() => setManageType("product")}
               >
                 Product
-              </span>
+              </Link>
             </li>
           </ul>
           <Link
