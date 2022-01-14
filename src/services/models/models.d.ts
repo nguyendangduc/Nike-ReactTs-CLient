@@ -65,3 +65,8 @@ interface CartItem {
   price: number;
   size: string;
 }
+
+interface UserSettingsStatus {
+  status:number;
+  message:string;
+}

@@ -15,3 +15,9 @@ export interface IUserFetchError extends IAction {
 
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export interface ILogoutSuccess extends IAction {}
+
+
+export const USER_SETTINGS_STATUS = "USER_SETTINGS_STATUS";
+export interface IUserSettingsStatus extends IAction {
+  payload: UserSettingsStatus;
+}
