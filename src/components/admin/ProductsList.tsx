@@ -107,7 +107,9 @@ const ProductsList: React.FC<Props> = ({ productsList, setProductsList }) => {
                       aria-label="Basic example"
                     >
                       <button type="button" className="btn btn-outline-dark">
-                        Edit
+                        <Link to={`/admin/editproduct/${product.id}`}>
+                          Edit
+                        </Link>
                       </button>
                       <button
                         type="button"

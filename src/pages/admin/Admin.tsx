@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Dashboard from "../../components/admin/Dashboard";
 import Navbar from "../../components/admin/Navbar";
-import Pagination from "../../components/admin/Pagination";
-import ProductForm from "../../components/admin/ProductForm";
-import ProductsList from "../../components/admin/ProductsList";
-import UserList from "../../components/admin/UsersList";
+import ProductAddForm from "../../components/admin/ProductAddForm";
+import ProductEditForm from "../../components/admin/ProductEditForm";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import { getProducts } from "../../services/apis";
 import {
   getAllProducts,
   getUsers,
 } from "../../services/apis/functions/adminApi";
-import style from "./Admin.module.scss";
 
 const rules = ["admin"];
 
@@ -108,7 +105,12 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
       <h1 className="text-center mb-4">Admin Dashboard</h1>
 
       <Switch>
-        <Route exact path="/admin/addproduct" children={<ProductForm />} />
+        <Route exact path="/admin/addproduct" children={<ProductAddForm />} />
+        <Route
+          exact
+          path="/admin/editproduct/:id"
+          children={<ProductEditForm />}
+        />
 
         {/* <Route exact path="/admin/adduser" children={<UsertForm />} /> */}
 
