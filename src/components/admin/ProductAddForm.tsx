@@ -1,23 +1,82 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { nanoid } from "nanoid";
+import { postProduct } from "../../services/apis/functions/adminApi";
 
 const ProductAddForm: React.FC<{}> = () => {
   const [nameInput, setNameInput] = useState("");
   const [priceInput, setPriceInput] = useState(0);
-  const [colorNumber, setColorNumber] = useState(0);
+  const [colorNumberInput, setColorNumberInput] = useState(0);
   const [thumbnailInput, setThumbnailInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [genderInput, setGenderInput] = useState("");
+  const [detailImgInput, setDetailImgInput] = useState("");
+  const [colorImgInput, setColorImgInput] = useState("");
+  const [sizeInput, setSizeInput] = useState("");
+
+  function handleChangePrice(input: string) {
+    if (!isNaN(parseInt(input))) {
+      setPriceInput(parseInt(input));
+    }
+  }
+
+  function handleChangeColorNumber(input: string) {
+    if (!isNaN(parseInt(input))) {
+      setColorNumberInput(parseInt(input));
+    }
+  }
+
+  function handleChangeDetailImg(input: string) {
+    setDetailImgInput(input);
+  }
+
+  function handleChangeColorImg(input: string) {
+    setColorImgInput(input);
+  }
+
+  function handleChangeSize(input: string) {
+    setSizeInput(input);
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    let newProductInfo = {
+      id: nanoid(),
+      name: nameInput,
+      price: priceInput,
+      color: colorNumberInput,
+      thumbnail: thumbnailInput,
+      detailimg: detailImgInput.split(";"),
+      colorimg: colorImgInput.split(";"),
+      size: sizeInput.split(";"),
+      type: categoryInput,
+      gender: genderInput,
+    };
+
+    postProduct(newProductInfo)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div className="container">
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="row">
           <div className="col-4">
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
                 Name
               </label>
-              <input type="text" className="form-control" id="name" />
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                value={nameInput}
+                onChange={(e) => setNameInput(e.target.value)}
+                placeholder="Name"
+                required
+              />
             </div>
           </div>
 
@@ -26,7 +85,13 @@ const ProductAddForm: React.FC<{}> = () => {
               <label htmlFor="price" className="form-label">
                 Price
               </label>
-              <input type="text" className="form-control" id="price" />
+              <input
+                type="text"
+                className="form-control"
+                id="price"
+                value={priceInput}
+                onChange={(e) => handleChangePrice(e.target.value)}
+              />
             </div>
           </div>
 
@@ -35,7 +100,13 @@ const ProductAddForm: React.FC<{}> = () => {
               <label htmlFor="color" className="form-label">
                 Color's number
               </label>
-              <input type="text" className="form-control" id="color" />
+              <input
+                type="text"
+                className="form-control"
+                id="color"
+                value={colorNumberInput}
+                onChange={(e) => handleChangeColorNumber(e.target.value)}
+              />
             </div>
           </div>
 
@@ -44,7 +115,14 @@ const ProductAddForm: React.FC<{}> = () => {
               <label htmlFor="gender" className="form-label">
                 Gender
               </label>
-              <input type="text" className="form-control" id="gender" />
+              <select
+                className="form-select"
+                id="gender"
+                onChange={(e) => setGenderInput(e.target.value)}
+              >
+                <option value={"Men"}>Men</option>
+                <option value={"Women"}>Women</option>
+              </select>
             </div>
           </div>
 
@@ -53,34 +131,64 @@ const ProductAddForm: React.FC<{}> = () => {
               <label htmlFor="category" className="form-label">
                 Category
               </label>
-              <input type="text" className="form-control" id="category" />
+              <select
+                className="form-select"
+                id="category"
+                onChange={(e) => setCategoryInput(e.target.value)}
+              >
+                <option value={"Sandals"}>Sandals</option>
+                <option value={"Jordan"}>Jordan</option>
+                <option value={"Running"}>Running</option>
+                <option value={"Basketball"}>Basketball</option>
+                <option value={"Football"}>Football</option>
+                <option value={"Traning"}>Traning</option>
+              </select>
             </div>
           </div>
 
           <div className="col-12">
             <div className="mb-3">
               <label htmlFor="thumbnail" className="form-label">
-                Thumbnail url
+                Thumbnail URL
               </label>
-              <input type="text" className="form-control" id="thumbnail" />
+              <input
+                type="text"
+                className="form-control"
+                id="thumbnail"
+                onChange={(e) => setThumbnailInput(e.target.value)}
+                placeholder="Thumbnail URL"
+                required
+              />
             </div>
           </div>
 
           <div className="col-12">
             <div className="mb-3">
               <label htmlFor="detailimg" className="form-label">
-                Detail image url
+                Detail image URL
               </label>
-              <textarea className="form-control" id="detailimg" />
+              <textarea
+                className="form-control"
+                id="detailimg"
+                onChange={(e) => handleChangeDetailImg(e.target.value)}
+                placeholder="URL1; URL2;..."
+                required
+              />
             </div>
           </div>
 
           <div className="col-12">
             <div className="mb-3">
               <label htmlFor="colorimg" className="form-label">
-                Color image url
+                Color image URL
               </label>
-              <textarea className="form-control" id="colorimg" />
+              <textarea
+                className="form-control"
+                id="colorimg"
+                placeholder="URL1; URL2;..."
+                onChange={(e) => handleChangeColorImg(e.target.value)}
+                required
+              />
             </div>
           </div>
 
@@ -89,13 +197,19 @@ const ProductAddForm: React.FC<{}> = () => {
               <label htmlFor="size" className="form-label">
                 Size
               </label>
-              <textarea className="form-control" id="size" />
+              <textarea
+                className="form-control"
+                id="size"
+                placeholder="size1; size2;..."
+                onChange={(e) => handleChangeSize(e.target.value)}
+                required
+              />
             </div>
           </div>
         </div>
 
         <button type="button" className="btn btn-outline-dark me-4">
-          Cancel
+          <Link to="/admin">Cancel</Link>
         </button>
         <button type="submit" className="btn btn-dark">
           Add
