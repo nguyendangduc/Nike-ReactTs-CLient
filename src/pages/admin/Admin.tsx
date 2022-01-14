@@ -253,25 +253,23 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
                       <td>
                         <img
                           src={product.thumbnail}
-                          alt=""
+                          alt="thumb"
                           className={`${style.admin_thumbnail}`}
                         />
                       </td>
-
-                      {/* <td>{`${product.thumbnail.substring(0, 20)}...`}</td> */}
                       <td>
                         {product.detailimg.map((url: string) => {
-                          return <p>{`${url.substring(0, 20)}...`}</p>;
+                          return <img src={url} alt="detail" />;
                         })}
                       </td>
                       <td>
                         {product.colorimg.map((url: string) => {
-                          return <p>{`${url.substring(0, 20)}...`}</p>;
+                          return <img src={url} alt="color" />;
                         })}
                       </td>
                       <td>
                         {product.size.map((size: string) => {
-                          return <p>{size}</p>;
+                          return <span>{`${size.replace("EU", "")}, `}</span>;
                         })}
                       </td>
                       <td>{product.type}</td>
