@@ -68,7 +68,8 @@ function App() {
 
   useEffect(() => {
     let sortUrl = sortInput !== "" ? `/sort/price/${sortInput}` : "";
-    let paginationUrl = "/page/" + currentPage + "/" + pageLimit;
+    let paginationUrl =
+      "/page/" + (currentPage - 1) * Number(pageLimit) + "/" + pageLimit;
     let searchUrl = searchInput !== "" ? "/search/" + searchInput : "";
     let categoryUrl =
       category !== "" && category !== "All" ? `/type/${category}` : "";
