@@ -170,6 +170,10 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
               onChange={(e) => setSearchInputAdmin(e.target.value)}
             />
           </div>
+          <div className="col-6"></div>
+          <div className="col-2">
+            <div className="btn btn-dark w-100">Add</div>
+          </div>
         </div>
         {manageType === "user" ? (
           <table className="table table-striped table-hover">
@@ -254,17 +258,29 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
                         <img
                           src={product.thumbnail}
                           alt="thumb"
-                          className={`${style.admin_thumbnail}`}
+                          className={`${style.img_admin}`}
                         />
                       </td>
                       <td>
                         {product.detailimg.map((url: string) => {
-                          return <img src={url} alt="detail" />;
+                          return (
+                            <img
+                              src={url}
+                              alt="detail"
+                              className={`${style.img_admin}`}
+                            />
+                          );
                         })}
                       </td>
                       <td>
                         {product.colorimg.map((url: string) => {
-                          return <img src={url} alt="color" />;
+                          return (
+                            <img
+                              src={url}
+                              alt="color"
+                              className={`${style.img_admin}`}
+                            />
+                          );
                         })}
                       </td>
                       <td>
