@@ -5,6 +5,7 @@ import { ContextElement } from "../App";
 import { addItemToCart } from "../services/functions/getLocalstorage";
 import ProductInfo from "../components/productDetail/ProductInfo";
 import AddCartMessage from "../components/productDetail/AddCartMessage";
+import { nanoid } from "nanoid";
 
 interface Props {
   products: Array<Product>;
@@ -12,8 +13,12 @@ interface Props {
 }
 
 const ProductDetail: React.FC<Props> = ({ products, loading }) => {
-  let { setItemsInCart, addItemToCartMessage, setAddItemToCartMessage } =
-    useContext(ContextElement);
+  let {
+    setItemsInCart,
+    addItemToCartMessage,
+    setAddItemToCartMessage,
+    itemsInCart,
+  } = useContext(ContextElement);
 
   let { id }: any = useParams();
 
@@ -24,13 +29,17 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
 
   function handleAddCart() {
     let itemInfo = {
-      id: currentProduct.id,
+      idProduct: currentProduct.id,
+      idCart: nanoid(),
       name: currentProduct.name,
       price: currentProduct.price,
       size: sizeValue,
       color: currentProduct.colorimg[colorValue],
+      quantity: 1,
     };
-    setItemsInCart(addItemToCart(itemInfo));
+
+    setItemsInCart(addItemToCart(itemInfo, itemsInCart));
+
     document.body.classList.toggle("stopScrolling");
     setAddItemToCartMessage(true);
   }

@@ -60,13 +60,15 @@ interface Product {
 
 interface CartItem {
   color: string;
-  id: number;
+  idProduct: number;
+  idCart: string;
   name: string;
   price: number;
   size: string;
+  quantity: number;
 }
 
 interface UserSettingsStatus {
-  status:number;
-  message:string;
+  status: number;
+  message: string;
 }

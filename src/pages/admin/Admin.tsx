@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import {
   getAllProducts,
@@ -35,20 +36,57 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
 
   return (
     <AuthenticatedGuard routeRules={rules}>
-      <nav className="admin">
-        <div className="admin-sidebar mt-4">
-          <span
-            className={`mb-3 ${style.admin_sidebar_item}`}
-            onClick={() => setManageType("user")}
+      <nav className="navbar navbar-expand-lg navbar-light bg-light admin">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="#">
+            Admin
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-            User
-          </span>
-          <span
-            className={`mb-3 ${style.admin_sidebar_item}`}
-            onClick={() => setManageType("product")}
-          >
-            Product
-          </span>
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <span
+                  className={
+                    manageType === "user"
+                      ? `me-3 ${style.admin_sidebar_item_active}`
+                      : `me-3 ${style.admin_sidebar_item}`
+                  }
+                  onClick={() => setManageType("user")}
+                >
+                  User
+                </span>
+              </li>
+              <li className="nav-item">
+                <span
+                  className={
+                    manageType === "product"
+                      ? `me-3 ${style.admin_sidebar_item_active}`
+                      : `me-3 ${style.admin_sidebar_item}`
+                  }
+                  onClick={() => setManageType("product")}
+                >
+                  Product
+                </span>
+              </li>
+            </ul>
+            <Link
+              to="/home"
+              className="btn btn-dark"
+              onClick={() => setToDashBoard(false)}
+            >
+              Back to home
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -134,7 +172,15 @@ const Admin: React.FC<Props> = ({ setToDashBoard, products }) => {
                       <td>{product.name}</td>
                       <td>{product.price}</td>
                       <td>{product.color}</td>
-                      <td>{`${product.thumbnail.substring(0, 20)}...`}</td>
+                      <td>
+                        <img
+                          src={product.thumbnail}
+                          alt=""
+                          className={`${style.admin_thumbnail}`}
+                        />
+                      </td>
+
+                      {/* <td>{`${product.thumbnail.substring(0, 20)}...`}</td> */}
                       <td>
                         {product.detailimg.map((url: string) => {
                           return <p>{`${url.substring(0, 20)}...`}</p>;

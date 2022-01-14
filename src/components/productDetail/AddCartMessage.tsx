@@ -10,7 +10,6 @@ const AddCartMessage: React.FC<Props> = ({
   addItemToCartMessage,
   setAddItemToCartMessage,
 }) => {
-  console.log(addItemToCartMessage);
   return (
     <div
       className={

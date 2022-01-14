@@ -193,7 +193,7 @@ const NavBar: React.FC<Props> = ({ isAdmin, setToDashBoard }) => {
                     }}
                     className="ms-3"
                   >
-                    <b>Admin dashboard</b>
+                    <b>Dashboard</b>
                   </Link>
                 ) : null}
               </>
