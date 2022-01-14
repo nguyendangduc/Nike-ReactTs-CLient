@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 
 let formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -16,6 +17,8 @@ const Summary: React.FC<Props> = ({ subTotal, shipping, total }) => {
       <h2 className="mb-3">Summary</h2>
       <div className="subtotal d-flex justify-content-between">
         <p>Subtotal</p>
+        {console.log("subTotal", subTotal)
+        }
         <p>{formatter.format(subTotal)}</p>
       </div>
       <div className="shipping d-flex justify-content-between">
@@ -27,9 +30,11 @@ const Summary: React.FC<Props> = ({ subTotal, shipping, total }) => {
         <p>Total</p>
         <p>{formatter.format(total)}</p>
       </div>
-      <button type="button" className="btn btn-dark checkout-btn">
-        Checkout
-      </button>
+      <Link to="/cart/checkout">
+        <button type="button" className="btn btn-dark checkout-btn">
+          Checkout
+        </button>
+      </Link>
     </>
   );
 };

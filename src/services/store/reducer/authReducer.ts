@@ -25,17 +25,19 @@ function authReducer(
 ) {
   switch (action.type) {
     case USER_FETCH_SUCCESS:
-      // console.log(state.dataUser)
+      console.log(state.dataUser);
       window.localStorage.setItem("token", action.payload.token);
-      // console.log(action.payload);
+      console.log(action.payload);
       return {
+        ...state,
         dataUser: action.payload,
         error: null,
         isAuth: true,
       };
     case USER_FETCH_ERROR:
-      // console.log(state.dataUser)
+      console.log(state.dataUser);
       return {
+        ...state,
         dataUser: null,
         error: action.payload,
         isAuth: false,
@@ -43,9 +45,8 @@ function authReducer(
     case LOGOUT_SUCCESS:
       window.localStorage.removeItem("token");
       return initState;
-
     default:
-      return initState;
+      return state;
   }
 }
 

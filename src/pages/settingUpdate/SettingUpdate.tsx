@@ -1,9 +1,14 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { NavBarProfile } from "../../components/NavBarProfile";
-import { updateInfo } from "../../services/apis";
+import { updateInfo, authByToken } from "../../services/apis";
 import { useHistory } from "react-router-dom";
-import { useAppSelector, userSettingsStatus } from "../../services/store";
+import {
+  useAppSelector,
+  userSettingsStatus,
+  userFetchSuccess,
+  userFetchError,
+} from "../../services/store";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
@@ -11,11 +16,11 @@ let rules = ["user"];
 export const SettingUpdate = () => {
   const history = useHistory();
   const { dataUser, error } = useAppSelector((state) => state.authReducer);
-  // const { status,message } = useAppSelector((state) => state.settingsReducer);
+  const { nameInput, message } = useAppSelector(
+    (state) => state.settingsReducer
+  );
 
   const dispatch = useDispatch();
-  console.log(dataUser);
-
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
@@ -56,15 +61,30 @@ export const SettingUpdate = () => {
                 };
                 updateInfo(dataUser.id, dataBody)
                   .then((res) => {
-                    console.log(res);
+                    dispatch(
+                      userSettingsStatus({
+                        nameInput: "",
+                        message: "",
+                      })
+                    );
+                    if (localStorage.getItem("token")) {
+                      authByToken()
+                        .then((res: any) => {
+                          dispatch(userFetchSuccess(res.data));
+                        })
+                        .catch((err: any) =>
+                          dispatch(userFetchError(err.response.data.message))
+                        );
+                    }
                     alert("Setting Successfully!");
-                    
-                    dispatch(userSettingsStatus({status:200,message:'Setting Successfully!'}));
                   })
                   .catch((error) => {
-                    alert(error.response.data.message);
-
-                    // dispatch(userSettingsStatus({status:error.response.status,message:error.response.data.message}));
+                    dispatch(
+                      userSettingsStatus({
+                        nameInput: error.response.data.nameInput,
+                        message: error.response.data.message,
+                      })
+                    );
                   });
               }}
             >
@@ -75,6 +95,7 @@ export const SettingUpdate = () => {
                       <div className="col-sm-6">
                         <label htmlFor="email">Email:</label>
                         <Field
+                          value={dataUser.email}
                           disabled
                           id="email"
                           name="email"
@@ -99,6 +120,9 @@ export const SettingUpdate = () => {
                             component="div"
                             className="text-danger"
                           />
+                          <small className="text-danger">
+                            {nameInput == "email" ? message : ""}
+                          </small>
                         </div>
                         <div className="form-group">
                           <label htmlFor="password">Confirm Password:</label>
@@ -113,6 +137,9 @@ export const SettingUpdate = () => {
                             component="div"
                             className="text-danger"
                           />
+                          <small className="text-danger">
+                            {nameInput == "password" ? message : ""}
+                          </small>
                         </div>
                       </div>
                       <div className="col-sm-6">
@@ -146,6 +173,7 @@ export const SettingUpdate = () => {
                         <div className="form-group">
                           <label htmlFor="phone">Phone:</label>
                           <Field
+                            type="number"
                             id="phone"
                             name="phone"
                             className="form-control my-2"
@@ -178,7 +206,6 @@ export const SettingUpdate = () => {
                       alt=""
                     />
                   </div>
-                  <p>{error}</p>
                   <button className="btn btn-dark w-100 mt-2" type="submit">
                     Submit
                   </button>

@@ -69,6 +69,6 @@ interface CartItem {
 }
 
 interface UserSettingsStatus {
-  status: number;
+  nameInput: string;
   message: string;
 }
