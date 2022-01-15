@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { memo, useContext, useState } from "react";
 import { ContextElement } from "../App";
 import Summary from "../components/cart/Summary";
+<<<<<<< HEAD
+=======
+import ItemsInCart from "../components/cart/ItemsInCart/ItemsInCart";
+>>>>>>> master
 import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import { useAppSelector, userSettingsStatus } from "../services/store";
 import { deleteCarts } from "../services/apis/functions/ordersApi";
@@ -53,48 +57,49 @@ function Cart() {
   return (
     <>
       {/* <AuthenticatedGuard routeRules={rules}> */}
-        {itemsInCart.length > 0 ? (
-          <div className="container mt-5 mb-5">
-            <div className="row">
-              <div className="col-12 col-md-8">
-                <h2 className="mb-3">Bag</h2>
-                <div className="bag-items">
-                  <ItemsInCart
-                    itemsInCart={itemsInCart}
-                    handleDeleteBtn={handleDeleteBtn}
-                    handleEditBtn={handleEditBtn}
-                    // edit={edit}
-                    // setEdit={setEdit}
-                  />
-                </div>
-              </div>
-
-              <div className="col-12 col-md-4">
-                <Summary
-                  subTotal={subTotal}
-                  shipping={shipping}
-                  total={total}
+      {itemsInCart.length > 0 ? (
+        <div className="container mt-5 mb-5">
+          <div className="row">
+            <div className="col-12 col-md-8">
+              <h2 className="mb-3">Bag</h2>
+              <div className="bag-items">
+                <ItemsInCart
+                  itemsInCart={itemsInCart}
+                  handleDeleteBtn={handleDeleteBtn}
+                  handleEditBtn={handleEditBtn}
+                // edit={edit}
+                // setEdit={setEdit}
                 />
               </div>
             </div>
+
+            <div className="col-12 col-md-4">
+              <Summary
+                subTotal={subTotal}
+                shipping={shipping}
+                total={total}
+              />
+            </div>
           </div>
-        ) : (
-          <div className="container  mt-5 mb-5">
-            <div className="row">
-              <div className="col-12 col-md-8">
-                <h2 className="mb-3">Bag</h2>
-                <div className="bag-items">
-                  <h2>Your bag is empty</h2>
-                  <Link to="/products">
-                    <button type="button" className="btn btn-dark">
-                      Back to shop
-                    </button>
-                  </Link>
-                </div>
+        </div>
+
+      ) : (
+        <div className="container  mt-5 mb-5">
+          <div className="row">
+            <div className="col-12 col-md-8">
+              <h2 className="mb-3">Bag</h2>
+              <div className="bag-items">
+                <h2>Your bag is empty</h2>
+                <Link to="/products">
+                  <button type="button" className="btn btn-dark">
+                    Back to shop
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
-        )}
+        </div>
+      )}
       {/* </AuthenticatedGuard> */}
     </>
   );

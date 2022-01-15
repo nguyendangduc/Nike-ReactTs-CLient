@@ -3,8 +3,8 @@ interface User {
   email: string;
   password: string;
   token: string;
-  phoneNumber: number;
-  address: Address;
+  phoneNumber: string;
+  address: { address: string; city: string };
   avatar: string;
   rules: string[];
 }
@@ -46,7 +46,7 @@ interface FormData {
 }
 
 interface Product {
-  id: number;
+  id: any;
   name: string;
   price: number;
   color: number;
@@ -55,6 +55,7 @@ interface Product {
   colorimg: Array[string];
   size: Array[string];
   type: string;
+  gender: string;
 }
 
 interface CartItem {
@@ -68,6 +69,22 @@ interface CartItem {
 }
 
 interface UserSettingsStatus {
-  status:number;
-  message:string;
+  nameInput: string;
+  message: string;
+}
+
+interface BodyCreateUser {
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: { address: string; city: string };
+  avatar: string;
+}
+
+interface BodyUpdateUser {
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: { address: string; city: string };
+  avatar: string;
 }

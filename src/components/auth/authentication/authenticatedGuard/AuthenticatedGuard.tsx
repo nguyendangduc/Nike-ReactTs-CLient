@@ -37,14 +37,16 @@ const AuthenticatedGuard: FC<Props> = (props) => {
       dataUser ? dataUser?.rules : []
     );
   };
-  console.log(checkAuthorization(), routeRules , dataUser?.rules);
+  // console.log(checkAuthorization(), routeRules , dataUser?.rules);
   return (
     <>
       {isAuth ? (
         checkAuthorization() ? (
           children
         ) : (
-          <h4 className="p-4 text-decoration-underline text-danger">Access Denied</h4>
+          <h4 className="p-4 text-decoration-underline text-danger">
+            Access Denied
+          </h4>
         )
       ) : (
         <Redirect

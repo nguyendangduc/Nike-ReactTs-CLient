@@ -1,8 +1,6 @@
 import "./App.css";
 import { useEffect, useState, createContext } from "react";
-import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Home from "./pages/Home/Home";
@@ -10,11 +8,8 @@ import ProductDetail from "./pages/ProductDetail";
 import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
-import {
-  checkItemsInCart,
-  getLocalStorage,
-} from "./services/functions/getLocalstorage";
-import { useDispatch, useSelector } from "react-redux";
+import { checkItemsInCart } from "./services/functions/getLocalstorage";
+import { useSelector } from "react-redux";
 import Footer from "./components/Footer";
 import AppNike from "./pages/AppNike";
 import { getProducts } from "./services/apis/functions/productsApi";
@@ -30,6 +25,7 @@ import {
 } from "./services/store";
 import Admin from "./pages/admin/Admin";
 import { getCarts } from "./services/apis/functions/ordersApi";
+import { Checkout } from "./components/cart/Checkout";
 
 export const ContextElement = createContext("") as any;
 
@@ -58,6 +54,13 @@ function App() {
 
   const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
 
+  let { dataUser } = useSelector((state: any) => state.authReducer);
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [toDashboard, setToDashBoard] = useState(false);
+
+  const [gender, setGender] = useState("");
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()
@@ -68,16 +71,17 @@ function App() {
           dispatch(userFetchError(err.response.data.message))
         );
     }
-
-    
   }, []);
+
   useEffect(() => {
     let sortUrl = sortInput !== "" ? `/sort/price/${sortInput}` : "";
-    let paginationUrl = "/page/" + currentPage + "/" + pageLimit;
+    let paginationUrl =
+      "/page/" + (currentPage - 1) * Number(pageLimit) + "/" + pageLimit;
     let searchUrl = searchInput !== "" ? "/search/" + searchInput : "";
     let categoryUrl =
       category !== "" && category !== "All" ? `/type/${category}` : "";
     const path = categoryUrl + searchUrl + sortUrl + paginationUrl;
+
     if (sortInput !== null || searchInput !== null || category !== null) {
       getProducts(path)
         .then((response) => {
@@ -91,7 +95,31 @@ function App() {
         })
         .catch((error) => console.log(error));
     }
-  }, [sortInput, currentPage, searchInput, pageLimit, category]);
+  }, [sortInput, currentPage, searchInput, pageLimit, category, gender]);
+
+  useEffect(() => {
+    if (dataUser) {
+      if (dataUser.rules.includes("admin")) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    }
+  }, [dataUser]);
+
+  useEffect(() => {
+    let productsClone = [...products];
+    console.log(
+      products.filter((product: Product) => {
+        console.log(product.gender === gender);
+        return product.gender === gender;
+      })
+    );
+    productsClone = productsClone.filter((product: Product) => {
+      return product.gender === gender;
+    });
+    setProducts(productsClone);
+  }, [gender]);
 
   return (
     <>
@@ -104,19 +132,28 @@ function App() {
         }}
       >
         <Router>
-          <NavBar />
+          {!toDashboard ? (
+            <NavBar
+              isAdmin={isAdmin}
+              setToDashBoard={setToDashBoard}
+              gender={gender}
+              setGender={setGender}
+            />
+          ) : null}
 
           <Switch>
             <Route path="/login" children={<Login />} />
             <Route path="/register" children={<Register />} />
 
-            <Route path="/cart" children={<Cart />} />
+            <Route exact path="/cart" children={<Cart />} />
+            <Route path="/cart/checkout" children={<Checkout />} />
 
             <Route path="/ordershistory" children={<OrdersHistory />} />
             <Route path="/profile" children={<Profile />} />
             <Route path="/update" children={<SettingUpdate />} />
 
             <Route path="/app" children={<AppNike />} />
+
             <Route
               path="/products/:id"
               children={<ProductDetail products={products} loading={loading} />}
@@ -137,30 +174,21 @@ function App() {
                   setSearchInput={setSearchInput}
                   setCategory={setCategory}
                   category={category}
+                  gender={gender}
                 />
               }
             />
 
-            <Route path="/admin" children={<Admin />} />
             <Route
-              path="/"
-              children={
-                <Home
-                // setSortInput={setSortInput}
-                // products={products}
-                // totalProducts={totalProducts}
-                // currentPage={currentPage}
-                // setCurrentPage={setCurrentPage}
-                // pageLimit={pageLimit}
-                // setPageLimit={setPageLimit}
-                // loading={loading}
-                />
-              }
+              path="/admin"
+              children={<Admin setToDashBoard={setToDashBoard} />}
             />
+            <Route path="/" children={<Home />} />
           </Switch>
         </Router>
       </ContextElement.Provider>
-      <Footer />
+
+      {!toDashboard ? <Footer /> : null}
     </>
   );
 }

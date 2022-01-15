@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import client from '../client'
+import client from "../client";
 
 interface LoginData {
   email: string;
@@ -17,11 +17,15 @@ export function postRegister(registerData: RegisterData): Promise<any> {
 }
 export function authByToken(): Promise<any> {
   const token = localStorage.getItem("token")
-  ? localStorage.getItem("token")
-  : "";
-  return client.post(`/auth/authWithToken`,{token:token},{
-    headers: {'Authorization': 'Bearer ' + token}
-  });
+    ? localStorage.getItem("token")
+    : "";
+  return client.post(
+    `/auth/authWithToken`,
+    { token: token },
+    {
+      headers: { Authorization: "Bearer " + token },
+    }
+  );
 }
 
 export function logout(): Promise<any> {
@@ -37,13 +41,11 @@ export function logout(): Promise<any> {
   );
 }
 
-export function updateInfo(id:any,bodyUserUpdate : any) {
+export function updateInfo(id: any, bodyUserUpdate: BodyUpdateUser) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
-  return client.put(`/users/${id}`, bodyUserUpdate,
-  {
+  return client.put(`/users/${id}`, bodyUserUpdate, {
     headers: { Authorization: "Bearer " + token },
   });
 }
-

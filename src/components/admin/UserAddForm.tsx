@@ -1,8 +1,9 @@
+import { useState ,useEffect} from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { NavBarProfile } from "../../components/NavBarProfile";
-import { updateInfo, authByToken } from "../../services/apis";
-import { useHistory } from "react-router-dom";
+import { updateInfo, authByToken,addUser } from "../../services/apis";
+import { useHistory,useParams } from "react-router-dom";
 import {
   useAppSelector,
   userSettingsStatus,
@@ -13,77 +14,47 @@ import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
 
-export const SettingUpdate = () => {
-  const { dataUser, error } = useAppSelector((state) => state.authReducer);
-  const { nameInput, message } = useAppSelector(
-    (state) => state.settingsReducer
-  );
+export const UserAddForm = () => {
+  const history = useHistory();
 
-  const dispatch = useDispatch();
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
-        <NavBarProfile />
         <div className="col-8 mx-auto">
-          {dataUser ? (
             <Formik
               initialValues={{
-                email: dataUser.email,
-                newEmail: dataUser.email,
-                password: "",
-                address: dataUser.address.address,
-                city: dataUser.address.city,
-                phone: dataUser.phoneNumber,
-                avatar: dataUser.avatar,
+                email: '',
+                password: '',
+                confirmPassword: '',
+                address: '',
+                city: '',
+                phone: '',
+                avatar: '',
               }}
               validationSchema={Yup.object().shape({
                 email: Yup.string().required("* Required!"),
-                newEmail: Yup.string().required("* Required!"),
-                password: Yup.string().required("* Required!"),
+                password: Yup.string().required('Password is required'),
+                confirmPassword: Yup.string()
+                   .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+
                 address: Yup.string().required("* Required!"),
                 city: Yup.string().required("* Required!"),
                 phone: Yup.string().required("* Required!"),
               })}
               onSubmit={(values) => {
-                // dataUser.email = values.email;
-                // dataUser.address.address = values.address;
-                // dataUser.address.city = values.city;
-                // dataUser.phone = values.phone;
-
-                const dataBody = {
-                  id: dataUser?.id,
-                  email: values.newEmail,
+                const dataBody:BodyCreateUser = {
+                  email: values.email,
                   address: { address: values.address, city: values.city },
                   password: values.password,
                   phoneNumber: values.phone,
                   avatar: values.avatar,
                 };
-                updateInfo(dataUser.id, dataBody)
+                addUser(dataBody)
                   .then((res) => {
-                    dispatch(
-                      userSettingsStatus({
-                        nameInput: "",
-                        message: "",
-                      })
-                    );
-                    if (localStorage.getItem("token")) {
-                      authByToken()
-                        .then((res: any) => {
-                          dispatch(userFetchSuccess(res.data));
-                        })
-                        .catch((err: any) =>
-                          dispatch(userFetchError(err.response.data.message))
-                        );
-                    }
                     alert("Setting Successfully!");
                   })
                   .catch((error) => {
-                    dispatch(
-                      userSettingsStatus({
-                        nameInput: error.response.data.nameInput,
-                        message: error.response.data.message,
-                      })
-                    );
+                   alert(error.response.data.message);
                   });
               }}
             >
@@ -94,8 +65,7 @@ export const SettingUpdate = () => {
                       <div className="col-sm-6">
                         <label htmlFor="email">Email:</label>
                         <Field
-                          value={dataUser.email}
-                          disabled
+                          
                           id="email"
                           name="email"
                           type="email"
@@ -106,25 +76,8 @@ export const SettingUpdate = () => {
                           component="div"
                           className="text-danger"
                         />
-                        <div className="form-group">
-                          <label htmlFor="newEmail">New Email:</label>
-                          <Field
-                            id="newEmail"
-                            name="newEmail"
-                            type="email"
-                            className="form-control my-2"
-                          />
-                          <ErrorMessage
-                            name="newEmail"
-                            component="div"
-                            className="text-danger"
-                          />
-                          <small className="text-danger">
-                            {nameInput == "email" ? message : ""}
-                          </small>
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="password">Confirm Password:</label>
+                          <div className="form-group">
+                          <label htmlFor="password">Password:</label>
                           <Field
                             type="password"
                             id="password"
@@ -136,9 +89,38 @@ export const SettingUpdate = () => {
                             component="div"
                             className="text-danger"
                           />
-                          <small className="text-danger">
-                            {nameInput == "password" ? message : ""}
-                          </small>
+                          
+                        </div>
+                         <div className="form-group">
+                          <label htmlFor="password">Confirm Password:</label>
+                          <Field
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            className="form-control my-2"
+                          />
+                          <ErrorMessage
+                            name="confirmPassword"
+                            component="div"
+                            className="text-danger"
+                          />
+                        
+                        </div>
+                        <div className="d-flex justify-content-center py-2 w-100">
+                        {!props.values.avatar ? (
+                          <img
+                          style={{ width: "12rem", padding: "1rem" }}
+
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU"
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            style={{ width: "12rem", padding: "1rem", }}
+                            src={props.values.avatar}
+                            alt=""
+                          />
+                        )}
                         </div>
                       </div>
                       <div className="col-sm-6">
@@ -199,21 +181,19 @@ export const SettingUpdate = () => {
                       component="div"
                       className="text-danger"
                     />
-                    <img
-                      style={{ width: "14rem", padding: "1rem" }}
-                      src={props.values.avatar}
-                      alt=""
-                    />
+                  
+                   
                   </div>
-                  <button className="btn btn-dark w-100 mt-2" type="submit">
+                  <button className="btn btn-dark my-2" type="submit">
                     Submit
+                  </button>
+                  <button onClick={()=>props.setValues({...props.values, email:'',password:'',confirmPassword:'',address:'',city:'',phone:'',avatar:''})} className="btn btn-secondary m-2" >
+                    Clear
                   </button>
                 </Form>
               )}
             </Formik>
-          ) : (
-            ""
-          )}
+         
         </div>
       </div>
     </AuthenticatedGuard>
