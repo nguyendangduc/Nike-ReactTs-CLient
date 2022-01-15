@@ -2,7 +2,7 @@ import { useState ,useEffect} from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { NavBarProfile } from "../../components/NavBarProfile";
-import { updateInfo, authByToken,getDetailUser } from "../../services/apis";
+import { updateInfo, authByToken,getDetailUser,deleteUser } from "../../services/apis";
 import { useHistory,useParams } from "react-router-dom";
 import {
   useAppSelector,
@@ -13,8 +13,10 @@ import {
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
-
-export const UserEditForm = () => {
+interface Props {
+  usersList: Array<User>;
+}
+export const UserEditForm:React.FC<Props> = ({usersList}) => {
     const {id} = useParams() as any
   const history = useHistory();
   const { dataUser, error } = useAppSelector((state) => state.authReducer);
@@ -24,10 +26,11 @@ export const UserEditForm = () => {
   useEffect(() => {
     getDetailUser(id).then((res) => setUserEditData(res.data)).catch((err) =>console.log(err));
   },[reLoad])
+  
   const { nameInput, message } = useAppSelector(
     (state) => state.settingsReducer
   );
-
+ 
   const dispatch = useDispatch();
   return (
     <AuthenticatedGuard routeRules={rules}>
@@ -210,13 +213,14 @@ export const UserEditForm = () => {
                   
                    
                   </div>
-                  <div className="">
-                  <button className="btn btn-dark my-2 " type="submit">
+                  <div className=" d-flex justify-content-between py-2 w-100">
+                 <div className=""> <button className="btn btn-dark my-2 " type="submit">
                     Submit
                   </button>
-                  <button onClick={()=>props.setValues({...props.values, newEmail:'',address:'',city:'',phone:'',avatar:''})} className="btn btn-secondary m-2" >
+                  <button className="btn btn-outline-dark my-2 "  onClick={()=>props.setValues({...props.values, newEmail:'',address:'',city:'',phone:'',avatar:''})}  >
                     Clear
-                  </button>
+                  </button></div>
+                
                   </div>
                 </Form>
               )}

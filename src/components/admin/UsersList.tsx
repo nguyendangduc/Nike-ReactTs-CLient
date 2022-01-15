@@ -13,14 +13,14 @@ const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
-    let productsListClone = [...usersList];
-    productsListClone = productsListClone.filter(
+    let userListClone = [...usersList];
+    userListClone = userListClone.filter(
       (product) => product.id !== id
     );
 
-    setUsersList(productsListClone);
+    setUsersList(userListClone);
   }
-
+ 
   return (
     <>
       <NavLink to="/admin/adduser">
@@ -36,7 +36,6 @@ const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
             <th scope="col">Password</th>
             <th scope="col">Address</th>
             <th scope="col">City</th>
-            <th scope="col">Avatar</th>
             <th scope="col">Phone number</th>
             <th scope="col">Rules</th>
             <th scope="col"></th>
@@ -52,7 +51,6 @@ const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
                   <td>{user.password}</td>
                   <td>{user.address.address}</td>
                   <td>{user.address.city}</td>
-                  <td>{user.avatar}</td>
                   <td>{user.phoneNumber}</td>
                   <td>{user.rules}</td>
                   <td>

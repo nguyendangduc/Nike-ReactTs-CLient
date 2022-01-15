@@ -6,7 +6,6 @@ import ProductAddForm from "../../components/admin/ProductAddForm";
 import ProductEditForm from "../../components/admin/ProductEditForm";
 import {UserEditForm} from "../../components/admin/UserEditForm";
 import {UserAddForm} from "../../components/admin/UserAddForm";
-
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import { getProducts,getUsersBySearchPage } from "../../services/apis";
 import {
@@ -147,7 +146,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
         <Route
           exact
           path="/admin/edituser/:id"
-          children={<UserEditForm/>}
+          children={<UserEditForm usersList={usersList} />}
         />
 
         {/* <Route exact path="/admin/adduser" children={<UsertForm />} /> */}
