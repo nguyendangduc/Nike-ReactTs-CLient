@@ -9,8 +9,8 @@ interface User {
   rules: string[];
 }
 interface IOrder {
-  id: number;
-  idUser: number;
+  id: string;
+  idUser: string;
   urlImg: string;
   productName: string;
   size: number;
@@ -58,11 +58,13 @@ interface Product {
 }
 
 interface CartItem {
-  color: string;
-  id: number;
-  name: string;
+  id: string;
+  idUser: string;
+  urlImg: string;
+  productName: string;
+  size: number;
+  quantity: number;
   price: number;
-  size: string;
 }
 
 interface UserSettingsStatus {

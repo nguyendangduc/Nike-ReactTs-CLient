@@ -24,10 +24,12 @@ import { SettingUpdate } from "./pages/settingUpdate/SettingUpdate";
 import { authByToken } from "./services/apis";
 import {
   useAppDispatch,
+  useAppSelector,
   userFetchError,
   userFetchSuccess,
 } from "./services/store";
 import Admin from "./pages/admin/Admin";
+import { getCarts } from "./services/apis/functions/ordersApi";
 
 export const ContextElement = createContext("") as any;
 
@@ -35,7 +37,7 @@ const REACT_APP_LIMIT_PER_PAGE = "10";
 
 function App() {
   const dispatch = useAppDispatch();
-
+  const { dataUser } = useAppSelector((state) => state.authReducer);
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [sortInput, setSortInput] = useState("");
@@ -45,10 +47,17 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
 
-  const [itemsInCart, setItemsInCart] = useState(checkItemsInCart());
+  const [itemsInCart, setItemsInCart] = useState([]);
+  useEffect(() => {
+    if(dataUser){
+      getCarts(dataUser.id)
+        .then(res=>setItemsInCart(res.data))
+        .catch(err =>console.error(err));
+    }
+  })
+
   const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
 
-  let { dataUser } = useSelector((state: any) => state.authReducer);
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()

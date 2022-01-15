@@ -5,6 +5,8 @@ import { ContextElement } from "../App";
 import { addItemToCart } from "../services/functions/getLocalstorage";
 import ProductInfo from "../components/productDetail/ProductInfo";
 import AddCartMessage from "../components/productDetail/AddCartMessage";
+import { postCarts } from "../services/apis/functions/ordersApi";
+import { useAppSelector } from "../services/store";
 
 interface Props {
   products: Array<Product>;
@@ -14,7 +16,7 @@ interface Props {
 const ProductDetail: React.FC<Props> = ({ products, loading }) => {
   let { setItemsInCart, addItemToCartMessage, setAddItemToCartMessage } =
     useContext(ContextElement);
-
+  const { dataUser } = useAppSelector((state) => state.authReducer);
   let { id }: any = useParams();
 
   let currentProduct = products.filter((product: any) => product.id == id)[0];
@@ -24,13 +26,18 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
 
   function handleAddCart() {
     let itemInfo = {
-      id: currentProduct.id,
-      name: currentProduct.name,
-      price: currentProduct.price,
+      urlImg: currentProduct.colorimg[colorValue],
+      productName: currentProduct.name,
       size: sizeValue,
-      color: currentProduct.colorimg[colorValue],
+      price: currentProduct.price,
     };
-    setItemsInCart(addItemToCart(itemInfo));
+    
+    if(dataUser){
+      postCarts(dataUser.id, itemInfo)
+        .then(res=>console.log("success")
+        )
+        .catch(err=>console.error(err))
+    }
     document.body.classList.toggle("stopScrolling");
     setAddItemToCartMessage(true);
   }

@@ -2,14 +2,12 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { NavBarProfile } from "../../components/NavBarProfile";
 import { updateInfo } from "../../services/apis";
-import { useHistory } from "react-router-dom";
 import { useAppSelector, userSettingsStatus } from "../../services/store";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
 
 export const SettingUpdate = () => {
-  const history = useHistory();
   const { dataUser, error } = useAppSelector((state) => state.authReducer);
   // const { status,message } = useAppSelector((state) => state.settingsReducer);
 

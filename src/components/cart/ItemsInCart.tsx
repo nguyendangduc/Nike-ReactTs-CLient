@@ -7,7 +7,7 @@ let formatter = new Intl.NumberFormat("en-US", {
 
 interface Props {
   itemsInCart: any;
-  handleDeleteBtn: (value: number) => void;
+  handleDeleteBtn: (value: string) => void;
   handleEditBtn: (value: number) => void;
 }
 
@@ -16,15 +16,15 @@ const ItemInCart: React.FC<Props> = ({
   handleDeleteBtn,
   handleEditBtn,
 }) => {
-  return itemsInCart.map((item: CartItem, index: number) => (
-    <div className="bag-item mb-4 mt-4" key={index}>
+  return itemsInCart.map((item: IOrder) => (
+    <div className="bag-item mb-4 mt-4" key={item.id}>
       <div className="row">
         <div className="col-4 col-md-3 bag-item-img">
-          <img src={item.color} alt="" />
+          <img src={item.urlImg} alt="" />
         </div>
         <div className="col-8 col-md-5 d-flex flex-column justify-content-between">
           <div className="bag-item-info">
-            <strong>{item.name}</strong>
+            <strong>{item.productName}</strong>
             <p>Size: {item.size}</p>
           </div>
 
@@ -32,7 +32,7 @@ const ItemInCart: React.FC<Props> = ({
             {/* <p className="me-2" onClick={() => handleEditBtn(index)}>
               {edit === false ? "Edit" : "Save"}
             </p> */}
-            <p onClick={() => handleDeleteBtn(index)}>Remove</p>
+            <p onClick={() => handleDeleteBtn(item.id)}>Remove</p>
           </div>
         </div>
         <div className="col-1 col-md-1"></div>
