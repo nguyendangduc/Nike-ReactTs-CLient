@@ -1,11 +1,32 @@
+import {NavLink}  from 'react-router-dom'
+import {deleteUser} from '../../services/apis'
+
 interface Props {
   usersList: Array<User>;
+  setUsersList: (value: Array<User>) => void;
 }
 
-const UserList: React.FC<Props> = ({ usersList }) => {
+const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
+
+  function handleDelete(id: number) {
+    deleteUser(id)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    let productsListClone = [...usersList];
+    productsListClone = productsListClone.filter(
+      (product) => product.id !== id
+    );
+
+    setUsersList(productsListClone);
+  }
+
   return (
     <>
+      <NavLink to="/admin/adduser">
       <div className="btn btn-dark mb-4">Add user</div>
+      </NavLink>
+     
 
       <table className="table table-striped table-hover">
         <thead className="table-dark ">
@@ -40,12 +61,18 @@ const UserList: React.FC<Props> = ({ usersList }) => {
                       role="group"
                       aria-label="Basic example"
                     >
+                      <NavLink to={`/admin/edituser/${user.id}`}>
                       <button type="button" className="btn btn-outline-dark">
                         Edit
                       </button>
-                      <button type="button" className="btn btn-dark">
+                      </NavLink>
+                      
+                      <button onClick={()=> handleDelete(user.id)} type="button" className="btn btn-dark">
                         Delete
                       </button>
+                    
+                    
+                      
                     </div>
                   </td>
                 </tr>

@@ -8,6 +8,7 @@ interface Props {
   usersList: Array<User>;
   productsList: Array<Product>;
   setProductsList: (value: Array<Product>) => void;
+  setUsersList: (value: Array<User>) => void;
   currentPageAdmin: number;
   setCurrentPageAdmin: (value: number) => void;
   totalPage: number;
@@ -24,6 +25,7 @@ const Dashboard: React.FC<Props> = ({
   setCurrentPageAdmin,
   totalPage,
   totalPageArr,
+  setUsersList
 }) => {
   return (
     <div className="container mt-4">
@@ -38,7 +40,7 @@ const Dashboard: React.FC<Props> = ({
         </div>
       </div>
       {manageType === "user" ? (
-        <UserList usersList={usersList} />
+        <UserList setUsersList={setUsersList} usersList={usersList} />
       ) : (
         <ProductsList
           productsList={productsList}

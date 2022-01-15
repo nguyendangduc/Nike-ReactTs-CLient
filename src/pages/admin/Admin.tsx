@@ -4,8 +4,11 @@ import Dashboard from "../../components/admin/Dashboard";
 import Navbar from "../../components/admin/Navbar";
 import ProductAddForm from "../../components/admin/ProductAddForm";
 import ProductEditForm from "../../components/admin/ProductEditForm";
+import {UserEditForm} from "../../components/admin/UserEditForm";
+import {UserAddForm} from "../../components/admin/UserAddForm";
+
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
-import { getProducts } from "../../services/apis";
+import { getProducts,getUsersBySearchPage } from "../../services/apis";
 import {
   getAllProducts,
   getUsers,
@@ -39,6 +42,17 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
     if (manageType === "user") {
       setTotalItemAdmin(usersList.length);
       //Duc code here
+      setTotalItemAdmin(usersList.length);
+
+      let paginationUrl = "/page/0/" + LIMIT_ITEM;
+
+      getUsersBySearchPage(paginationUrl)
+        .then((res) => {
+          console.log(res.data)
+          setUsersList(res.data.results);
+          setTotalItemAdmin(res.data.totalRecords);
+        })
+        .catch((err) => console.log(err));
     } else {
       setTotalItemAdmin(productsList.length);
 
@@ -74,25 +88,43 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
         .catch((err) => console.log(err));
     } else {
       //Duc code here
+      let paginationUrl =
+      "/page/" +
+      (currentPageAdmin - 1) * Number(LIMIT_ITEM) +
+      "/" +
+      LIMIT_ITEM;
+
+    let searchUrl =
+      searchInputAdmin !== "" ? "/search/" + searchInputAdmin : "";
+
+    const path = searchUrl + paginationUrl;
+
+    getUsersBySearchPage(path)
+      .then((res) => {
+        console.log(res)
+        setUsersList(res.data.results);
+        setTotalItemAdmin(res.data.totalRecords);
+      })
+      .catch((err) => console.log(err));
     }
-  }, [currentPageAdmin, searchInputAdmin]);
+  }, [currentPageAdmin, searchInputAdmin,manageType]);
 
-  useEffect(() => {
-    setToDashBoard(true);
+  // useEffect(() => {
+  //   setToDashBoard(true);
 
-    getUsers()
-      .then((res) => {
-        setUsersList(res.data);
-        setTotalItemAdmin(res.data.length);
-      })
-      .catch((err) => console.log(err));
+  //   getUsers()
+  //     .then((res) => {
+  //       setUsersList(res.data);
+  //       setTotalItemAdmin(res.data.length);
+  //     })
+  //     .catch((err) => console.log(err));
 
-    getAllProducts()
-      .then((res) => {
-        setProductsList(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  //   getAllProducts()
+  //     .then((res) => {
+  //       setProductsList(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [searchInputAdmin,currentPageAdmin]);
 
   return (
     <AuthenticatedGuard routeRules={rules}>
@@ -111,6 +143,12 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
           path="/admin/editproduct/:id"
           children={<ProductEditForm productsList={productsList} />}
         />
+        <Route exact path="/admin/adduser" children={<UserAddForm />} />
+        <Route
+          exact
+          path="/admin/edituser/:id"
+          children={<UserEditForm/>}
+        />
 
         {/* <Route exact path="/admin/adduser" children={<UsertForm />} /> */}
 
@@ -118,6 +156,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
           path="/admin"
           children={
             <Dashboard
+              setUsersList = {setUsersList}
               setSearchInputAdmin={setSearchInputAdmin}
               manageType={manageType}
               usersList={usersList}

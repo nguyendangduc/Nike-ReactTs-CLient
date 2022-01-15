@@ -3,7 +3,7 @@ interface User {
   email: string;
   password: string;
   token: string;
-  phoneNumber: number;
+  phoneNumber: string;
   address: { address: string; city: string };
   avatar: string;
   rules: string[];
@@ -71,4 +71,20 @@ interface CartItem {
 interface UserSettingsStatus {
   nameInput: string;
   message: string;
+}
+
+interface BodyCreateUser {
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: { address: string; city: string };
+  avatar: string;
+}
+
+interface BodyUpdateUser {
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: { address: string; city: string };
+  avatar: string;
 }

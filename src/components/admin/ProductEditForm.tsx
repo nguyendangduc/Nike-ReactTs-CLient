@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 import {
   postProduct,
@@ -15,6 +15,7 @@ interface Props {
 }
 
 const ProductEditForm: React.FC<Props> = ({ productsList }) => {
+  const history = useHistory()
   let param: Param = useParams();
   let currentProductId = param.id;
   let currentProduct: Product = productsList.filter(
@@ -97,7 +98,10 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
     };
 
     updateProduct(currentProductId, newProductInfo)
-      .then((res) => console.log(res))
+      .then((res) =>
+        alert("Add product successfully.Click Ok to back to product page!")
+      )
+      .then(() => history.push("/admin"))
       .catch((err) => console.log(err));
   }
 
