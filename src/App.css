@@ -290,7 +290,7 @@ svg {
 .footer svg {
   fill: #7e7e7e;
   transition: 0.4s;
-  margin-right: 20px;
+  margin-right: 15px;
 }
 .footer svg:hover {
   fill: white;
@@ -317,6 +317,23 @@ svg {
 .nikeapp-desc p{
   line-height: 1.6;
 }
-.test {}
-.testt {}
 
+.h2-bold {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.nikeproduct-img img {
+  height: 550px;
+  width: 100%;
+  
+}
+
+@media (max-width: 575.98px) { 
+  .nikeproduct-img img {
+    height: 250px;
+    object-fit: cover;
+
+  }
+  
+}
