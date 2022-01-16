@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../services/store";
 
 interface Props {
   addItemToCartMessage: boolean;
@@ -10,7 +11,9 @@ const AddCartMessage: React.FC<Props> = ({
   addItemToCartMessage,
   setAddItemToCartMessage,
 }) => {
-  return (
+  const { dataUser } = useAppSelector((state) => state.authReducer);
+
+  return dataUser ? (
     <div
       className={
         addItemToCartMessage === false
@@ -27,7 +30,7 @@ const AddCartMessage: React.FC<Props> = ({
               type="button"
               className="btn btn-dark me-5"
               onClick={() => {
-                document.body.classList.toggle("stopScrolling");
+                document.body.classList.remove("stopScrolling");
                 setAddItemToCartMessage(false);
               }}
             >
@@ -39,12 +42,39 @@ const AddCartMessage: React.FC<Props> = ({
             type="button"
             className="btn btn-outline-dark"
             onClick={() => {
-              document.body.classList.toggle("stopScrolling");
+              document.body.classList.remove("stopScrolling");
               setAddItemToCartMessage(false);
             }}
           >
             Continue shopping
           </button>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div
+      className={
+        addItemToCartMessage === false
+          ? "add-cart-messeage text-center"
+          : "add-cart-messeage text-center active"
+      }
+    >
+      <div className="add-cart-message-overlay"></div>
+      <div className="add-cart-message-pop-up">
+        <h4 className="mb-3">You have to login</h4>
+        <div className="d-flex justify-content-center">
+          <Link to="/login">
+            <button
+              type="button"
+              className="btn btn-dark"
+              onClick={() => {
+                document.body.classList.remove("stopScrolling");
+                setAddItemToCartMessage(false);
+              }}
+            >
+              Login
+            </button>
+          </Link>
         </div>
       </div>
     </div>

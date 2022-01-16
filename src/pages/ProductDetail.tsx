@@ -2,7 +2,6 @@ import React, { memo } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ContextElement } from "../App";
-import { addItemToCart } from "../services/functions/getLocalstorage";
 import ProductInfo from "../components/productDetail/ProductInfo";
 import AddCartMessage from "../components/productDetail/AddCartMessage";
 import { useAppSelector } from "../services/store";
@@ -18,8 +17,7 @@ interface Param {
 }
 
 const ProductDetail: React.FC<Props> = ({ products, loading }) => {
-  let history = useHistory();
-  let { setItemsInCart, addItemToCartMessage, setAddItemToCartMessage } =
+  let { addItemToCartMessage, setAddItemToCartMessage } =
     useContext(ContextElement);
   const { dataUser } = useAppSelector((state) => state.authReducer);
   let param: Param = useParams();
@@ -44,10 +42,10 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
         .then((res) => console.log(res.data))
         .catch((err) => console.error(err));
       setAddItemToCartMessage(true);
-      document.body.classList.toggle("stopScrolling");
+      document.body.classList.add("stopScrolling");
     } else {
-      history.push("/login");
-      alert("You have to login");
+      setAddItemToCartMessage(true);
+      document.body.classList.add("stopScrolling");
     }
   }
 
