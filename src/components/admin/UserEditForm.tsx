@@ -71,7 +71,7 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                   city: Yup.string().required("* Required!"),
                   phone: Yup.string().required("* Required!"),
                 })}
-                onReset={() => {}}
+                onReset={() => { }}
                 onSubmit={(values) => {
                   const dataBody: BodyUpdateUser = {
                     email: values.newEmail,
@@ -208,13 +208,13 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                       <div className="">
                         {" "}
                         <button
-                          className="btn btn-dark my-2  me-2"
+                          className="btn btn-primary my-2  me-2"
                           type="submit"
                         >
                           Submit
                         </button>
                         <button
-                          className="btn btn-secondary my-2  me-2"
+                          className="btn btn-danger my-2  me-2"
                           onClick={() =>
                             props.setValues({
                               ...props.values,
@@ -230,18 +230,22 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                         </button>
                         <button
                           type="button"
-                          className="btn btn-outline-dark me-2"
+                          className="btn btn-warning me-2"
                         >
                           <Link to="/admin">Cancel</Link>
                         </button>
+
                       </div>
-                      <button
-                        type="button"
-                        className="btn btn-dark float-right"
-                        onClick={() => handleDelete(id)}
-                      >
-                        Delete user
-                      </button>
+                      <div>
+                        <button
+                          type="button"
+                          className="btn btn-danger float-right my-2"
+                          onClick={() => handleDelete(id)}
+                        >
+                          Delete user
+                        </button>
+
+                      </div>
                     </div>
                   </Form>
                 )}

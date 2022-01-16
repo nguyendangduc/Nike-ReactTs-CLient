@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import {NavLink}  from 'react-router-dom'
-import {deleteUser} from '../../services/apis'
+import { NavLink } from 'react-router-dom'
+import { deleteUser } from '../../services/apis'
 import PasswordItem from '../../components/admin/PasswordItem'
 
 interface Props {
@@ -8,8 +8,13 @@ interface Props {
   setUsersList: (value: Array<User>) => void;
 }
 
+<<<<<<< HEAD
 const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
   
+=======
+
+const UserList: React.FC<Props> = ({ usersList, setUsersList }) => {
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
   let listRoles = [
     { id: "admin", name: "Senior administrator" },
     { id: "user", name: "User" },
@@ -17,11 +22,24 @@ const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
     { id: "user_admin", name: "User administrator" },
   ];
 
+<<<<<<< HEAD
+=======
+    setUsersList(userListClone);
+  }
+  useEffect(() => {
+
+  }, [])
+
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
   return (
     <>
       <NavLink to="/admin/adduser">
-      <div className="btn btn-dark mb-4">Add user</div>
+        <div className="btn btn-success mb-4">Add user</div>
       </NavLink>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
       <table className="table table-striped table-hover">
         <thead className="table-dark ">
           <tr>
@@ -40,31 +58,31 @@ const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
                   <td>
                     <PasswordItem password={user.password} />
                   </td>
-                  <td>{user.rules.map((rule,index) =>(
+                  <td>{user.rules.map((rule, index) => (
                     <b key={index}>{listRoles?.find((role) => role.id == rule)?.name}
-                    {index !=user.rules.length-1? ", ": ''}
-                    </b> 
+                      {index != user.rules.length - 1 ? ", " : ''}
+                    </b>
                   ))}</td>
-                  <td>
+                  <td className='d-flex justify-content-end'>
                     <div
                       className="btn-group"
                       role="group"
                       aria-label="Basic example"
                     >
                       <NavLink to={`/admin/setting/profile/${user.id}`}>
-                      <button type="button" className="btn btn-dark">
-                        Profile Setting
-                      </button>
+                        <button type="button" className="btn btn-dark me-2">
+                          Profile Setting
+                        </button>
                       </NavLink>
                       <NavLink to={`/admin/setting/account/${user.id}`}>
-                      <button type="button" className="btn btn-outline-dark">
-                        Account Setting
-                      </button>
+                        <button type="button" className="btn btn-outline-dark me-2">
+                          Account Setting
+                        </button>
                       </NavLink>
                       <NavLink to={`/admin/setting/roles/${user.id}`}>
-                      <button type="button" className="btn btn-dark">
-                        User Roles
-                      </button>
+                        <button type="button" className="btn btn-dark">
+                          User Roles
+                        </button>
                       </NavLink>
                     </div>
                   </td>

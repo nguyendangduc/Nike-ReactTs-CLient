@@ -1,6 +1,21 @@
+<<<<<<< HEAD
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { addUser } from "../../services/apis";
 import { useHistory, Link } from "react-router-dom";
+=======
+import { useState, useEffect } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useDispatch } from "react-redux";
+import { NavBarProfile } from "../../components/NavBarProfile";
+import { updateInfo, authByToken, addUser } from "../../services/apis";
+import { useHistory, Link } from "react-router-dom";
+import {
+  useAppSelector,
+  userSettingsStatus,
+  userFetchSuccess,
+  userFetchError,
+} from "../../services/store";
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
@@ -14,6 +29,7 @@ export const UserAddForm = () => {
         <div className="col-8 mx-auto">
           <Formik
             initialValues={{
+<<<<<<< HEAD
               email: "",
               password: "",
               confirmPassword: "",
@@ -28,6 +44,21 @@ export const UserAddForm = () => {
               confirmPassword: Yup.string()
                 .required("*Required!")
                 .oneOf([Yup.ref("password"), null], "Passwords must match"),
+=======
+              email: '',
+              password: '',
+              confirmPassword: '',
+              address: '',
+              city: '',
+              phone: '',
+              avatar: '',
+            }}
+            validationSchema={Yup.object().shape({
+              email: Yup.string().required("* Required!"),
+              password: Yup.string().required('Password is required'),
+              confirmPassword: Yup.string().required('*Required!')
+                .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
 
               address: Yup.string().required("* Required!"),
               city: Yup.string().required("* Required!"),
@@ -44,7 +75,11 @@ export const UserAddForm = () => {
               addUser(dataBody)
                 .then((res) => {
                   alert("Setting Successfully!");
+<<<<<<< HEAD
                   history.push("/admin");
+=======
+                  history.push('/admin')
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
                 })
                 .catch((error) => {
                   alert(error.response.data.message);
@@ -58,6 +93,10 @@ export const UserAddForm = () => {
                     <div className="col-sm-6">
                       <label htmlFor="email">Email:</label>
                       <Field
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
                         id="email"
                         name="email"
                         type="email"
@@ -81,6 +120,10 @@ export const UserAddForm = () => {
                           component="div"
                           className="text-danger"
                         />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
                       </div>
                       <div className="form-group">
                         <label htmlFor="password">Confirm Password:</label>
@@ -95,11 +138,19 @@ export const UserAddForm = () => {
                           component="div"
                           className="text-danger"
                         />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
                       </div>
                       <div className="d-flex justify-content-center py-2 w-100">
                         {!props.values.avatar ? (
                           <img
                             style={{ width: "12rem", padding: "1rem" }}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU"
                             alt=""
                           />
@@ -157,6 +208,7 @@ export const UserAddForm = () => {
                     </div>
                   </div>
                 </div>
+<<<<<<< HEAD
 
                 <div className="form-group">
                   <label htmlFor="avatar">Avatar: </label>
@@ -197,6 +249,41 @@ export const UserAddForm = () => {
               </Form>
             )}
           </Formik>
+=======
+
+                <div className="form-group">
+                  <label htmlFor="avatar">Avatar: </label>
+                  <Field
+                    id="avatar"
+                    name="avatar"
+                    className="form-control my-2"
+                  />
+                  <ErrorMessage
+                    name="avatar"
+                    component="div"
+                    className="text-danger"
+                  />
+
+
+                </div>
+                <button className="btn btn-primary my-2" type="submit">
+                  Submit
+                </button>
+                <button onClick={() => props.setValues({ ...props.values, email: '', password: '', confirmPassword: '', address: '', city: '', phone: '', avatar: '' })} className="btn btn-danger m-2" >
+                  Clear
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-warning me-4"
+                >
+                  <Link to="/admin">Cancel</Link>
+                </button>
+
+              </Form>
+            )}
+          </Formik>
+
+>>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
         </div>
       </div>
     </AuthenticatedGuard>
