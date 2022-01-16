@@ -67,7 +67,7 @@ const ProductAddForm: React.FC<{}> = () => {
     <div className="container">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="row">
-          <div className="col-4">
+          <div className="col-6 col-md-4">
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
                 Name
@@ -84,7 +84,7 @@ const ProductAddForm: React.FC<{}> = () => {
             </div>
           </div>
 
-          <div className="col-2">
+          <div className="col-6 col-md-2">
             <div className="mb-3">
               <label htmlFor="price" className="form-label">
                 Price
@@ -99,7 +99,7 @@ const ProductAddForm: React.FC<{}> = () => {
             </div>
           </div>
 
-          <div className="col-2">
+          <div className="col-4 col-md-2">
             <div className="mb-3">
               <label htmlFor="color" className="form-label">
                 Color's number
@@ -114,7 +114,7 @@ const ProductAddForm: React.FC<{}> = () => {
             </div>
           </div>
 
-          <div className="col-2">
+          <div className="col-4 col-md-2">
             <div className="mb-3">
               <label htmlFor="gender" className="form-label">
                 Gender
@@ -130,7 +130,7 @@ const ProductAddForm: React.FC<{}> = () => {
             </div>
           </div>
 
-          <div className="col-2">
+          <div className="col-4 col-md-2">
             <div className="mb-3">
               <label htmlFor="category" className="form-label">
                 Category

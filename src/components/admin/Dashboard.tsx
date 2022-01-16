@@ -30,7 +30,7 @@ const Dashboard: React.FC<Props> = ({
   return (
     <div className="container mt-4">
       <div className="row mb-3">
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <input
             type="text"
             className="form-control search"
