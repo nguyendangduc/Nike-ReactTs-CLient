@@ -1,9 +1,70 @@
 import client from "../client";
 
+//===========Users============
 export function getUsers(): Promise<any> {
-  return client.get("/users");
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.get("/users",{
+    headers: { Authorization: "Bearer " + token },
+  })
+}
+export function getDetailUser(id:number): Promise<any> {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.get("/users/"+id,{
+    headers: { Authorization: "Bearer " + token },
+  })
+}
+export function getUsersBySearchPage(url: string): Promise<any> {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.get("/users" + url,{
+    headers: { Authorization: "Bearer " + token },
+  });
 }
 
+export function addUser(bodyUser: BodyCreateUser) {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.post(`/users`, bodyUser, {
+    headers: { Authorization: "Bearer " + token },
+  });
+}
+
+export function deleteUser(id: any): Promise<any> {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.delete(`/users/${id}`, {
+    headers: { Authorization: "Bearer " + token },
+  });
+}
+//===========AccountSetting============
+
+
+export function putAccountSetting(id: any, body: AccountSetting) {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.put(`/admin/account-setting/${id}`, body, {
+    headers: { Authorization: "Bearer " + token },
+  });
+}
+
+export function putRole(id: any, body: UserRole) {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.put(`/admin/user-role/${id}`, body, {
+    headers: { Authorization: "Bearer " + token },
+  });
+}
+
+// =========Products===========
 export function getAllProducts(): Promise<any> {
   return client.get("/products");
 }

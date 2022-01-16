@@ -4,7 +4,7 @@ import {
 } from "../types/ActionTypes";
 
 const initState: UserSettingsStatus = {
-  status: 0,
+  nameInput: '',
   message: "",
 };
 
@@ -14,11 +14,15 @@ function settingsReducer(
 ) {
   switch (action.type) {
     case USER_SETTINGS_STATUS:
-        console.log(action.payload)
-      return {status: action.payload.status, message: action.payload.message}
+      console.log(action.payload);
+      return {
+        ...state,
+        nameInput: action.payload.nameInput,
+        message: action.payload.message,
+      };
 
     default:
-      return initState;
+      return state;
   }
 }
 

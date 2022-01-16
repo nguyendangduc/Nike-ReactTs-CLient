@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { postProduct } from "../../services/apis/functions/adminApi";
 
@@ -13,6 +13,8 @@ const ProductAddForm: React.FC<{}> = () => {
   const [detailImgInput, setDetailImgInput] = useState("");
   const [colorImgInput, setColorImgInput] = useState("");
   const [sizeInput, setSizeInput] = useState("");
+
+  const history = useHistory()
 
   function handleChangePrice(input: string) {
     if (!isNaN(parseInt(input))) {
@@ -55,7 +57,7 @@ const ProductAddForm: React.FC<{}> = () => {
     };
 
     postProduct(newProductInfo)
-      .then((res) => console.log(res))
+      .then((res) => alert("Add product successfully.Click Ok to back to product page!")).then(()=>history.push('/admin'))
       .catch((err) => console.log(err));
   }
 

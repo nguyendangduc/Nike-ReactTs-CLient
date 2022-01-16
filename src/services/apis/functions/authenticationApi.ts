@@ -41,7 +41,7 @@ export function logout(): Promise<any> {
   );
 }
 
-export function updateInfo(id: any, bodyUserUpdate: any) {
+export function updateInfo(id: any, bodyUserUpdate: BodyUpdateUser) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";

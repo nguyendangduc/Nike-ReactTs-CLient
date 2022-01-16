@@ -8,6 +8,7 @@ interface Props {
   usersList: Array<User>;
   productsList: Array<Product>;
   setProductsList: (value: Array<Product>) => void;
+  setUsersList: (value: Array<User>) => void;
   currentPageAdmin: number;
   setCurrentPageAdmin: (value: number) => void;
   totalPage: number;
@@ -24,7 +25,9 @@ const Dashboard: React.FC<Props> = ({
   setCurrentPageAdmin,
   totalPage,
   totalPageArr,
+  setUsersList
 }) => {
+  console.log(manageType)
   return (
     <div className="container mt-4">
       <div className="row mb-3">
@@ -38,15 +41,18 @@ const Dashboard: React.FC<Props> = ({
         </div>
       </div>
       {manageType === "user" ? (
-        <UserList usersList={usersList} />
-      ) : (
-        <ProductsList
+        <UserList setUsersList={setUsersList} usersList={usersList} />
+      ) : manageType === "product" ?(
+       <div>
+          <ProductsList
           productsList={productsList}
           setProductsList={setProductsList}
         />
-      )}
+       
+       </div>
+      ):''}
 
-      <Pagination
+<Pagination
         currentPageAdmin={currentPageAdmin}
         setCurrentPageAdmin={setCurrentPageAdmin}
         totalPage={totalPage}

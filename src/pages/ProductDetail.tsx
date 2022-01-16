@@ -5,7 +5,8 @@ import { ContextElement } from "../App";
 import { addItemToCart } from "../services/functions/getLocalstorage";
 import ProductInfo from "../components/productDetail/ProductInfo";
 import AddCartMessage from "../components/productDetail/AddCartMessage";
-import { nanoid } from "nanoid";
+import { useAppSelector } from "../services/store";
+import { postCarts } from "../services/apis";
 
 interface Props {
   products: Array<Product>;
@@ -13,14 +14,10 @@ interface Props {
 }
 
 const ProductDetail: React.FC<Props> = ({ products, loading }) => {
-  let {
-    setItemsInCart,
-    addItemToCartMessage,
-    setAddItemToCartMessage,
-    itemsInCart,
-  } = useContext(ContextElement);
-
-  let { id }: any = useParams();
+  let { setItemsInCart, addItemToCartMessage, setAddItemToCartMessage } =
+    useContext(ContextElement);
+  const { dataUser } = useAppSelector((state) => state.authReducer);
+  let { id } : any = useParams();
 
   let currentProduct = products.filter((product: any) => product.id == id)[0];
 
@@ -29,17 +26,17 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
 
   function handleAddCart() {
     let itemInfo = {
-      idProduct: currentProduct.id,
-      idCart: nanoid(),
-      name: currentProduct.name,
-      price: currentProduct.price,
+      urlImg: currentProduct.colorimg[colorValue],
+      productName: currentProduct.name,
       size: sizeValue,
-      color: currentProduct.colorimg[colorValue],
-      quantity: 1,
+      price: currentProduct.price,
     };
-
-    setItemsInCart(addItemToCart(itemInfo, itemsInCart));
-
+    
+    if(dataUser){
+      postCarts(dataUser.id, itemInfo)
+        .then(res=>console.log(res.data))
+        .catch(err=>console.error(err))
+    }
     document.body.classList.toggle("stopScrolling");
     setAddItemToCartMessage(true);
   }

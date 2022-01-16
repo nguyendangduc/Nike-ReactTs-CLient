@@ -3,19 +3,22 @@ interface User {
   email: string;
   password: string;
   token: string;
-  phoneNumber: number;
+  phoneNumber: string;
   address: { address: string; city: string };
   avatar: string;
   rules: string[];
 }
 interface IOrder {
-  id: number;
-  idUser: number;
+  id: string;
+  idUser: string;
   urlImg: string;
   productName: string;
-  size: number;
+  size: string;
   quantity: number;
   price: number;
+  name:string;
+  address:string;
+  phoneNumber:string;
 }
 interface State {
   abbreviation: string;
@@ -59,16 +62,40 @@ interface Product {
 }
 
 interface CartItem {
-  color: string;
-  idProduct: number;
-  idCart: string;
-  name: string;
-  price: number;
+  id: string;
+  idUser: string;
+  urlImg: string;
+  productName: string;
   size: string;
   quantity: number;
+  price: number;
 }
 
 interface UserSettingsStatus {
-  status: number;
+  nameInput: string;
   message: string;
+}
+
+interface BodyCreateUser {
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: { address: string; city: string };
+  avatar: string;
+}
+
+interface BodyUpdateUser {
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: { address: string; city: string };
+  avatar: string;
+}
+
+interface AccountSetting {
+  newEmail: string;
+  newPassword: string;
+}
+ interface UserRole {
+  role: string;
 }
