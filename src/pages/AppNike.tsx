@@ -1,6 +1,13 @@
-import { memo } from "react";
+import { memo, useContext, useEffect } from "react";
+import { ContextElement } from "../App";
 
 function AppNike() {
+  let { setToDashBoard } = useContext(ContextElement);
+
+  useEffect(() => {
+    setToDashBoard(false);
+  }, []);
+
   return (
     <div className="nikeapp mb-5">
       <div className="container">

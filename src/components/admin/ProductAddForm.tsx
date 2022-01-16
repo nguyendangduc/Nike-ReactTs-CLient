@@ -5,7 +5,6 @@ import { postProduct } from "../../services/apis/functions/adminApi";
 const ProductAddForm: React.FC<{}> = () => {
   const [nameInput, setNameInput] = useState("");
   const [priceInput, setPriceInput] = useState(0);
-  const [colorNumberInput, setColorNumberInput] = useState(0);
   const [thumbnailInput, setThumbnailInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [genderInput, setGenderInput] = useState("");
@@ -18,12 +17,6 @@ const ProductAddForm: React.FC<{}> = () => {
   function handleChangePrice(input: string) {
     if (!isNaN(parseInt(input))) {
       setPriceInput(parseInt(input));
-    }
-  }
-
-  function handleChangeColorNumber(input: string) {
-    if (!isNaN(parseInt(input))) {
-      setColorNumberInput(parseInt(input));
     }
   }
 
@@ -46,7 +39,7 @@ const ProductAddForm: React.FC<{}> = () => {
       id: -1,
       name: nameInput,
       price: priceInput,
-      color: colorNumberInput,
+      color: colorImgInput.split(";").length,
       thumbnail: thumbnailInput,
       detailimg: detailImgInput.split(";"),
       colorimg: colorImgInput.split(";"),
@@ -99,22 +92,7 @@ const ProductAddForm: React.FC<{}> = () => {
             </div>
           </div>
 
-          <div className="col-2">
-            <div className="mb-3">
-              <label htmlFor="color" className="form-label">
-                Color's number
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="color"
-                value={colorNumberInput}
-                onChange={(e) => handleChangeColorNumber(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="col-2">
+          <div className="col-3">
             <div className="mb-3">
               <label htmlFor="gender" className="form-label">
                 Gender
@@ -130,7 +108,7 @@ const ProductAddForm: React.FC<{}> = () => {
             </div>
           </div>
 
-          <div className="col-2">
+          <div className="col-3">
             <div className="mb-3">
               <label htmlFor="category" className="form-label">
                 Category

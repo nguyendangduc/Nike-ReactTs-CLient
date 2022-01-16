@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavBarProfile } from "../components/NavBarProfile";
 import { Order } from "../components/ordersHistory/Order";
 import { getOrders } from "../services/apis/functions/ordersApi";
 import { useAppSelector } from "../services/store";
 import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
+import { ContextElement } from "../App";
 let rules = ["user"];
 
 export const OrdersHistory = () => {
@@ -12,7 +13,10 @@ export const OrdersHistory = () => {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([] as IOrder[]);
 
+  let { setToDashBoard } = useContext(ContextElement);
+
   useEffect(() => {
+    setToDashBoard(false);
     if (dataUser) {
       getOrders(dataUser.id)
         .then((res) => {

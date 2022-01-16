@@ -21,10 +21,6 @@ const ProductsList: React.FC<Props> = ({ productsList, setProductsList }) => {
     setProductsList(productsListClone);
   }
 
-  function handleAdd() {}
-
-  function handleEdit(id: number) {}
-
   return (
     <>
       <Link to="/admin/addproduct" className="btn btn-dark mb-4">

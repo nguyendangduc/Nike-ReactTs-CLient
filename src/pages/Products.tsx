@@ -1,10 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, useContext, useEffect } from "react";
 import Sort from "../components/products/Sort";
 import Product from "../components/products/Product";
 import SideBar from "../components/products/SideBar";
 import Pagination from "../components/products/Pagination";
 import LimitPage from "../components/products/LimitPage";
 import Search from "../components/products/Search";
+import { ContextElement } from "../App";
 
 interface Props {
   setSortInput: (value: string) => void;
@@ -32,9 +33,13 @@ const Products: React.FC<Props> = ({
   loading,
   setSearchInput,
   setCategory,
-  category,
-  gender,
 }) => {
+  let { setToDashBoard } = useContext(ContextElement);
+
+  useEffect(() => {
+    setToDashBoard(false);
+  }, []);
+
   return (
     <div className="App products">
       <div className="container">

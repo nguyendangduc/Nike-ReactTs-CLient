@@ -40,7 +40,11 @@ const Dashboard: React.FC<Props> = ({
         </div>
       </div>
       {manageType === "user" ? (
-        <UserList setUsersList={setUsersList} usersList={usersList} />
+        <UserList
+          setUsersList={setUsersList}
+          usersList={usersList}
+          setCurrentPageAdmin={setCurrentPageAdmin}
+        />
       ) : manageType === "product" ? (
         <div>
           <ProductsList
