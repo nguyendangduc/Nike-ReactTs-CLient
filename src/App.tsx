@@ -65,6 +65,7 @@ function App() {
         })
         .catch((err) => dispatch(userFetchError(err.response.data.message)));
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -106,7 +107,9 @@ function App() {
     productsClone = productsClone.filter((product: Product) => {
       return product.gender === gender;
     });
+    // eslint-disable-next-line
     setProducts(productsClone);
+    // eslint-disable-next-line
   }, [gender]);
 
   return (

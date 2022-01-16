@@ -58,7 +58,9 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
             >
               {listRoles
                 ? listRoles.map((role, index) => (
-                    <option value={role.id}>{role.name}</option>
+                    <option value={role.id} key={index}>
+                      {role.name}
+                    </option>
                   ))
                 : ""}
             </select>

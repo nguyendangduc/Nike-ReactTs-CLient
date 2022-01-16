@@ -43,29 +43,18 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
   const [genderInput, setGenderInput] = useState(currentProduct.gender);
   const [detailImgInput, setDetailImgInput] = useState(
     currentProduct.detailimg
-      .map((url: string) => {
-        return url;
-      })
       .toString()
       .replaceAll(",h", ";\nh")
       .replaceAll("g,", "g;\n")
   );
   const [colorImgInput, setColorImgInput] = useState(
     currentProduct.colorimg
-      .map((url: string) => {
-        return url;
-      })
       .toString()
       .replaceAll(",h", ";\nh")
       .replaceAll("g,", "g;\n")
   );
   const [sizeInput, setSizeInput] = useState(
-    currentProduct.size
-      .map((size: string) => {
-        return size;
-      })
-      .toString()
-      .replaceAll(",", ";")
+    currentProduct.size.toString().replaceAll(",", ";")
   );
 
   function handleChangePrice(input: string) {
