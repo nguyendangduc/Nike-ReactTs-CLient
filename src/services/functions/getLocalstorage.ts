@@ -14,7 +14,10 @@ export function checkItemsInCart() {
   return JSON.parse(itemCard);
 }
 
-export function addItemToCart(addedItem: any, itemsInCart: Array<CartItem>) {
+export function addItemToCart(
+  addedItem: CartItem,
+  itemsInCart: Array<CartItem>
+) {
   let itemsInCartLocal = localStorage.getItem("cartItem");
 
   if (typeof itemsInCartLocal == "string") {

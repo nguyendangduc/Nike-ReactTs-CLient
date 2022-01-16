@@ -14,7 +14,9 @@ const Navbar: React.FC<Props> = ({
   setToDashBoard,
 }) => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  const handleNaviUserPage = (event: any) => {
+  const handleNaviUserPage = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     event.preventDefault();
     if (
       dataUser?.rules.includes("admin") ||
@@ -25,7 +27,9 @@ const Navbar: React.FC<Props> = ({
       alert("Access Denied!");
     }
   };
-  const handleNaviProductPage = (event: any) => {
+  const handleNaviProductPage = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     event.preventDefault();
     if (
       dataUser?.rules.includes("admin") ||

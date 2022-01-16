@@ -42,7 +42,9 @@ const Pagination: React.FC<Props> = ({
               ? "page-item page-item-active"
               : "page-item"
           }
-          onClick={(e) => setCurrentPageAdmin((e.target as any).textContent)}
+          onClick={(e) =>
+            setCurrentPageAdmin(Number((e.target as HTMLElement).innerText))
+          }
         >
           {page}
         </li>

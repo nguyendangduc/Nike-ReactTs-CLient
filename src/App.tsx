@@ -60,12 +60,10 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()
-        .then((res: any) => {
+        .then((res) => {
           dispatch(userFetchSuccess(res.data));
         })
-        .catch((err: any) =>
-          dispatch(userFetchError(err.response.data.message))
-        );
+        .catch((err) => dispatch(userFetchError(err.response.data.message)));
     }
   }, []);
 

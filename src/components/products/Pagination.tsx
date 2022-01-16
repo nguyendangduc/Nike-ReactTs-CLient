@@ -2,8 +2,8 @@ import { memo } from "react";
 
 interface Props {
   totalProducts: number;
-  currentPage: any;
-  setCurrentPage: (value: any) => void;
+  currentPage: number;
+  setCurrentPage: (value: number) => void;
   pageLimit: string;
 }
 
@@ -51,7 +51,9 @@ const Pagination: React.FC<Props> = ({
             //eslint-disable-next-line
             page == currentPage ? "page-item page-item-active" : "page-item"
           }
-          onClick={(e) => setCurrentPage((e.target as any).textContent)}
+          onClick={(e) =>
+            setCurrentPage(Number((e.target as HTMLElement).innerText))
+          }
         >
           {page}
         </li>

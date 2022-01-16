@@ -40,7 +40,7 @@ export function logout(): Promise<any> {
   );
 }
 
-export function updateInfo(id: any, bodyUserUpdate: BodyUpdateUser) {
+export function updateInfo(id: number, bodyUserUpdate: BodyUpdateUser) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";

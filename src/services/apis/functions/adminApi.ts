@@ -35,7 +35,7 @@ export function addUser(bodyUser: BodyCreateUser) {
   });
 }
 
-export function deleteUser(id: any): Promise<any> {
+export function deleteUser(id: number): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
@@ -45,7 +45,7 @@ export function deleteUser(id: any): Promise<any> {
 }
 //===========AccountSetting============
 
-export function putAccountSetting(id: any, body: AccountSetting) {
+export function putAccountSetting(id: number, body: AccountSetting) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
@@ -54,7 +54,7 @@ export function putAccountSetting(id: any, body: AccountSetting) {
   });
 }
 
-export function putRole(id: any, body: UserRole) {
+export function putRole(id: number, body: UserRole) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
@@ -77,7 +77,7 @@ export function postProduct(productInfo: Product): Promise<any> {
   });
 }
 
-export function updateProduct(id: any, bodyProductUpdate: any) {
+export function updateProduct(id: number, bodyProductUpdate: Product) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
@@ -86,7 +86,7 @@ export function updateProduct(id: any, bodyProductUpdate: any) {
   });
 }
 
-export function deleteProduct(id: any): Promise<any> {
+export function deleteProduct(id: number): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";

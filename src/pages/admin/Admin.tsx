@@ -19,8 +19,14 @@ interface Props {
   setToDashBoard: (value: boolean) => void;
 }
 
+interface LocationState {
+  from: {
+    pathname: string;
+  };
+}
+
 const Admin: React.FC<Props> = ({ setToDashBoard }) => {
-  const location = useLocation() as any;
+  const location = useLocation<LocationState>();
 
   const { dataUser } = useAppSelector((state) => state.authReducer);
 

@@ -7,8 +7,12 @@ let rules = ["user"];
 interface Props {
   usersList: Array<User>;
 }
+interface Param {
+  id: string;
+}
 export const UserRoles: React.FC<Props> = ({ usersList }) => {
-  const { id } = useParams() as any;
+  const param: Param = useParams();
+  let id = Number(param.id);
   const history = useHistory();
   const [reLoad, setReload] = useState(true as boolean);
   const [userSettingData, setUserSettingData] = useState(null as null | User);

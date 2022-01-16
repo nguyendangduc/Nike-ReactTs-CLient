@@ -8,7 +8,7 @@ interface Param {
 
 interface Props {
   productsList: Array<Product>;
-  setProductsList: (value: any) => void;
+  setProductsList: (value: Array<Product>) => void;
 }
 
 const ProductEditForm: React.FC<Props> = ({ productsList }) => {
