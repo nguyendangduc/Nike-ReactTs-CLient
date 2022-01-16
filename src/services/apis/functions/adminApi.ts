@@ -94,3 +94,7 @@ export function deleteProduct(id: number): Promise<any> {
     headers: { Authorization: "Bearer " + token },
   });
 }
+
+export function getProductId(id: number): Promise<any> {
+  return client.get(`/products/${id}`);
+}

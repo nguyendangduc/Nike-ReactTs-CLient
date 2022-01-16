@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { memo, useContext, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { ContextElement } from "../App";
 import Summary from "../components/cart/Summary";
 import ItemsInCart from "../components/cart/ItemsInCart/ItemsInCart";
@@ -9,22 +9,21 @@ import AuthenticatedGuard from "../components/auth/authentication/authenticatedG
 let rules = ["user"];
 
 function Cart() {
-  let { itemsInCart } = useContext(ContextElement);
+  let { itemsInCart, setToDashBoard } = useContext(ContextElement);
   const { dataUser } = useAppSelector((state) => state.authReducer);
   let shipping = 20;
   let getSubTotal = (itemsInCart: CartItem[]) => {
     let price = itemsInCart.map((item: CartItem) => item.price);
     if (price.length > 0) {
       return price.reduce((a: number, b: number) => a + b);
-    }
-    else {
+    } else {
       return 0;
     }
   };
 
   const [subTotal, setSubTotal] = useState(getSubTotal(itemsInCart));
 
-  function subTotalCal(items: CartItem[]){
+  function subTotalCal(items: CartItem[]) {
     let newSubTotal = getSubTotal(items);
     setSubTotal(newSubTotal);
   }
@@ -39,8 +38,11 @@ function Cart() {
     }
   }
 
-
   let total = subTotal + shipping;
+
+  useEffect(() => {
+    setToDashBoard(false);
+  }, []);
 
   return (
     <>

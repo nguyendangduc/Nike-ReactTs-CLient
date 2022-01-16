@@ -135,6 +135,7 @@ function App() {
           setItemsInCart,
           addItemToCartMessage,
           setAddItemToCartMessage,
+          setToDashBoard,
         }}
       >
         <Router>

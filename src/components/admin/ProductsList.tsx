@@ -21,17 +21,13 @@ const ProductsList: React.FC<Props> = ({ productsList, setProductsList }) => {
     setProductsList(productsListClone);
   }
 
-  function handleAdd() { }
-
-  function handleEdit(id: number) { }
-
   return (
     <>
       <Link to="/admin/addproduct" className="btn btn-success mb-4">
         Add product
       </Link>
 
-      <div className='table-overflow'>
+      <div className="table-overflow">
         <table className="table table-striped table-hover">
           <thead className="table-dark">
             <tr>
@@ -91,7 +87,10 @@ const ProductsList: React.FC<Props> = ({ productsList, setProductsList }) => {
                     <td>
                       {product.size.map((size: string, index: number) => {
                         return (
-                          <span key={index}>{`${size.replace("EU", "")}, `}</span>
+                          <span key={index}>{`${size.replace(
+                            "EU",
+                            ""
+                          )}, `}</span>
                         );
                       })}
                     </td>

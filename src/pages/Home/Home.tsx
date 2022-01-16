@@ -1,9 +1,16 @@
-import { memo } from "react";
+import { memo, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { ContextElement } from "../../App";
 
 import style from "./Home.module.scss";
 
 function Home() {
+  let { setToDashBoard } = useContext(ContextElement);
+
+  useEffect(() => {
+    setToDashBoard(false);
+  }, []);
+
   return (
     <>
       <div className="App">

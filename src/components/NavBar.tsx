@@ -3,7 +3,7 @@ import { Link, NavLink, useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { ContextElement } from "../App";
 import { userFetchSuccess } from "../services/store";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logoutSuccess, useAppSelector } from "../services/store";
 const URL_AVATAR =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU";
@@ -34,7 +34,7 @@ const NavBar: React.FC<Props> = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { dataUser,isAuth } = useAppSelector((state) => state.authReducer);
+  const { dataUser, isAuth } = useAppSelector((state) => state.authReducer);
   let history = useHistory();
 
   function handleLoginBtn() {

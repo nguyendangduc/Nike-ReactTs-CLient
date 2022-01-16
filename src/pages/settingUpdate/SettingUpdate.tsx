@@ -10,8 +10,8 @@ import {
 } from "../../services/store";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
-import { UpdateMessage } from "./UpdateMessage";
-import { useState } from "react";
+import { useContext, useEffect } from "react";
+import { ContextElement } from "../../App";
 let rules = ["user"];
 
 export const SettingUpdate = () => {
@@ -19,6 +19,13 @@ export const SettingUpdate = () => {
   const [updateMessage, setUpdateMessage] = useState(false);
 
   const dispatch = useDispatch();
+
+  let { setToDashBoard } = useContext(ContextElement);
+
+  useEffect(() => {
+    setToDashBoard(false);
+  }, []);
+
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
@@ -169,9 +176,9 @@ export const SettingUpdate = () => {
           )}
         </div>
         <UpdateMessage
-            updateMessage={updateMessage}
-            setUpdateMessage={setUpdateMessage}
-          />
+          updateMessage={updateMessage}
+          setUpdateMessage={setUpdateMessage}
+        />
       </div>
     </AuthenticatedGuard>
   );

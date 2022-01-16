@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import {  useParams } from "react-router-dom";
+import React, { memo, useEffect } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ContextElement } from "../App";
 import ProductInfo from "../components/productDetail/ProductInfo";
@@ -17,7 +17,7 @@ interface Param {
 }
 
 const ProductDetail: React.FC<Props> = ({ products, loading }) => {
-  let { addItemToCartMessage, setAddItemToCartMessage } =
+  let { addItemToCartMessage, setAddItemToCartMessage, setToDashBoard } =
     useContext(ContextElement);
   const { dataUser } = useAppSelector((state) => state.authReducer);
   let param: Param = useParams();
@@ -60,6 +60,10 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
   function handleChooseSize(size: string) {
     setSizeValue(size);
   }
+
+  useEffect(() => {
+    setToDashBoard(false);
+  }, []);
 
   return (
     <div className="container">

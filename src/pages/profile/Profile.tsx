@@ -2,6 +2,8 @@ import { NavBarProfile } from "../../components/NavBarProfile";
 import { useAppSelector } from "../../services/store";
 import styles from "./Profile.module.scss";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
+import { useContext, useEffect } from "react";
+import { ContextElement } from "../../App";
 const URL_AVATAR =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-hjuFaNMnEAp28Q9Mo7x6QK_IyHnKdOqqA&usqp=CAU";
 let rules = ["user"];
@@ -10,6 +12,12 @@ export const Profile = () => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
   let email = dataUser?.email;
   let name = email?.split("@")[0];
+
+  let { setToDashBoard } = useContext(ContextElement);
+
+  useEffect(() => {
+    setToDashBoard(false);
+  }, []);
 
   return (
     <AuthenticatedGuard routeRules={rules}>

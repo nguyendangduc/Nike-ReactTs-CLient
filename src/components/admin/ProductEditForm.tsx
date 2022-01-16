@@ -19,23 +19,21 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
   let currentProduct: Product = productsList
     ? productsList.filter((product) => product.id === currentProductId)?.[0]
     : {
-      id: -1,
-      name: "",
-      price: -1,
-      color: -1,
-      thumbnail: "",
-      detailimg: [],
-      colorimg: [],
-      size: [],
-      type: "",
-      gender: "",
-    };
+        id: -1,
+        name: "",
+        price: -1,
+        color: -1,
+        thumbnail: "",
+        detailimg: [],
+        colorimg: [],
+        size: [],
+        type: "",
+        gender: "",
+      };
 
-  const [nameInput, setNameInput] = useState(currentProduct?.name);
-  const [priceInput, setPriceInput] = useState(currentProduct?.price);
-  const [colorNumberInput, setColorNumberInput] = useState(
-    currentProduct?.color
-  );
+  const [nameInput, setNameInput] = useState(currentProduct.name);
+  const [priceInput, setPriceInput] = useState(currentProduct.price);
+
   const [thumbnailInput, setThumbnailInput] = useState(
     currentProduct?.thumbnail
   );
@@ -63,12 +61,6 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
     }
   }
 
-  function handleChangeColorNumber(input: string) {
-    if (!isNaN(parseInt(input))) {
-      setColorNumberInput(parseInt(input));
-    }
-  }
-
   function handleChangeDetailImg(input: string) {
     setDetailImgInput(input);
   }
@@ -88,7 +80,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
       id: currentProductId,
       name: nameInput,
       price: priceInput,
-      color: colorNumberInput,
+      color: colorImgInput.split(";").length,
       thumbnail: thumbnailInput,
       detailimg: detailImgInput.split(";"),
       colorimg: colorImgInput.split(";"),
@@ -141,22 +133,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
             </div>
           </div>
 
-          <div className="col-2">
-            <div className="mb-3">
-              <label htmlFor="color" className="form-label">
-                Color's number
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="color"
-                value={colorNumberInput}
-                onChange={(e) => handleChangeColorNumber(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="col-2">
+          <div className="col-3">
             <div className="mb-3">
               <label htmlFor="gender" className="form-label">
                 Gender
@@ -173,7 +150,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
             </div>
           </div>
 
-          <div className="col-2">
+          <div className="col-3">
             <div className="mb-3">
               <label htmlFor="category" className="form-label">
                 Category
