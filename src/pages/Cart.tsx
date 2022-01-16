@@ -4,26 +4,27 @@ import { ContextElement } from "../App";
 import Summary from "../components/cart/Summary";
 import ItemsInCart from "../components/cart/ItemsInCart/ItemsInCart";
 import { useAppSelector } from "../services/store";
-import { useDispatch } from "react-redux";
 import { deleteCarts } from "../services/apis";
 import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
 
 function Cart() {
-  let { itemsInCart, setItemsInCart } = useContext(ContextElement);
+  let { itemsInCart } = useContext(ContextElement);
   const { dataUser } = useAppSelector((state) => state.authReducer);
   let shipping = 20;
-  let getSubTotal = (itemsInCart: any) => {
+  let getSubTotal = (itemsInCart: CartItem[]) => {
     let price = itemsInCart.map((item: CartItem) => item.price);
     if (price.length > 0) {
       return price.reduce((a: number, b: number) => a + b);
     }
+    else {
+      return 0;
+    }
   };
 
   const [subTotal, setSubTotal] = useState(getSubTotal(itemsInCart));
-  const [edit, setEdit] = useState(false);
 
-  function subTotalCal(items: any) {
+  function subTotalCal(items: CartItem[]){
     let newSubTotal = getSubTotal(items);
     setSubTotal(newSubTotal);
   }
@@ -38,9 +39,6 @@ function Cart() {
     }
   }
 
-  function handleEditBtn(index: number) {
-    setEdit(true);
-  }
 
   let total = subTotal + shipping;
 
@@ -56,7 +54,6 @@ function Cart() {
                   <ItemsInCart
                     itemsInCart={itemsInCart}
                     handleDeleteBtn={handleDeleteBtn}
-                    handleEditBtn={handleEditBtn}
                   />
                 </div>
               </div>
