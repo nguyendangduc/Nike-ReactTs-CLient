@@ -17,7 +17,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
 
   let currentProductId = Number(param.id);
   let currentProduct: Product = productsList
-    ? productsList.filter((product) => product.id === currentProductId)[0]
+    ? productsList.filter((product) => product.id === currentProductId)?.[0]
     : {
       id: -1,
       name: "",
@@ -31,30 +31,30 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
       gender: "",
     };
 
-  const [nameInput, setNameInput] = useState(currentProduct.name);
-  const [priceInput, setPriceInput] = useState(currentProduct.price);
+  const [nameInput, setNameInput] = useState(currentProduct?.name);
+  const [priceInput, setPriceInput] = useState(currentProduct?.price);
   const [colorNumberInput, setColorNumberInput] = useState(
-    currentProduct.color
+    currentProduct?.color
   );
   const [thumbnailInput, setThumbnailInput] = useState(
-    currentProduct.thumbnail
+    currentProduct?.thumbnail
   );
-  const [categoryInput, setCategoryInput] = useState(currentProduct.type);
-  const [genderInput, setGenderInput] = useState(currentProduct.gender);
+  const [categoryInput, setCategoryInput] = useState(currentProduct?.type);
+  const [genderInput, setGenderInput] = useState(currentProduct?.gender);
   const [detailImgInput, setDetailImgInput] = useState(
-    currentProduct.detailimg
+    currentProduct?.detailimg
       .toString()
       .replaceAll(",h", ";\nh")
       .replaceAll("g,", "g;\n")
   );
   const [colorImgInput, setColorImgInput] = useState(
-    currentProduct.colorimg
+    currentProduct?.colorimg
       .toString()
       .replaceAll(",h", ";\nh")
       .replaceAll("g,", "g;\n")
   );
   const [sizeInput, setSizeInput] = useState(
-    currentProduct.size.toString().replaceAll(",", ";")
+    currentProduct?.size.toString().replaceAll(",", ";")
   );
 
   function handleChangePrice(input: string) {
