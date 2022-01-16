@@ -46,7 +46,6 @@ a:hover {
 }
 .sidebar-category {
   font-weight: bold;
-  margin-top: 30px;
   cursor: pointer;
   transition: 0.4s;
 }
