@@ -9,7 +9,7 @@ export const getCarts = (id:string)=>{
       });
 }
 
-export const postCarts = (id:string, obj:any)=>{
+export const postCarts = (id:string, obj:ICartAdd)=>{
     const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";

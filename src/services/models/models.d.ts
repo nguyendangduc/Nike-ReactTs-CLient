@@ -99,3 +99,17 @@ interface AccountSetting {
  interface UserRole {
   role: string;
 }
+
+interface ICheckout {
+  name: string;
+  address:string;
+  city:string;
+  phoneNumber:string;
+}
+
+interface ICartAdd {
+  urlImg: string;
+  productName: string;
+  size: string;
+  price: number;
+}

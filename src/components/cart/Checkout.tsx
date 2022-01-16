@@ -38,7 +38,7 @@ export const Checkout = () => {
                   onSubmit={(values) => {
                       checkOut(dataUser.id, values)
                         .then(res=>console.log("success!"))
-                        .catch(err=>console.log("error"))
+                        .catch(err=>console.log(err))
                       setCheckoutMessage(true);
                   }}
                 >

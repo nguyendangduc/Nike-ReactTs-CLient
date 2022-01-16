@@ -2,7 +2,6 @@ import React, { memo } from "react";
 import { useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ContextElement } from "../App";
-import { addItemToCart } from "../services/functions/getLocalstorage";
 import ProductInfo from "../components/productDetail/ProductInfo";
 import AddCartMessage from "../components/productDetail/AddCartMessage";
 import { useAppSelector } from "../services/store";
@@ -13,13 +12,17 @@ interface Props {
   loading: boolean;
 }
 
+interface Param {
+  id:undefined|string;
+}
+
 const ProductDetail: React.FC<Props> = ({ products, loading }) => {
-  let { setItemsInCart, addItemToCartMessage, setAddItemToCartMessage } =
+  let {addItemToCartMessage, setAddItemToCartMessage } =
     useContext(ContextElement);
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  let { id } : any = useParams();
+  let { id } : Param = useParams();
 
-  let currentProduct = products.filter((product: any) => product.id == id)[0];
+  let currentProduct = products.filter((product: Product) => product.id === Number(id))[0];
 
   const [colorValue, setColorValue] = useState(0);
   const [sizeValue, setSizeValue] = useState("EU 38.5");

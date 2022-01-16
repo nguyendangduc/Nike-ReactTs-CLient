@@ -10,6 +10,8 @@ import {
 } from "../../services/store";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
+import { UpdateMessage } from "./UpdateMessage";
+import { useState } from "react";
 let rules = ["user"];
 
 export const SettingUpdate = () => {
@@ -17,6 +19,7 @@ export const SettingUpdate = () => {
   const { nameInput, message } = useAppSelector(
     (state) => state.settingsReducer
   );
+  const [updateMessage, setUpdateMessage] =  useState(false);
 
   const dispatch = useDispatch();
   return (
@@ -44,10 +47,6 @@ export const SettingUpdate = () => {
                 phone: Yup.string().required("* Required!"),
               })}
               onSubmit={(values) => {
-                // dataUser.email = values.email;
-                // dataUser.address.address = values.address;
-                // dataUser.address.city = values.city;
-                // dataUser.phone = values.phone;
 
                 const dataBody = {
                   id: dataUser?.id,
@@ -67,14 +66,14 @@ export const SettingUpdate = () => {
                     );
                     if (localStorage.getItem("token")) {
                       authByToken()
-                        .then((res: any) => {
+                        .then((res) => {
                           dispatch(userFetchSuccess(res.data));
                         })
-                        .catch((err: any) =>
+                        .catch((err) =>
                           dispatch(userFetchError(err.response.data.message))
                         );
                     }
-                    alert("Setting Successfully!");
+                    setUpdateMessage(true);
                   })
                   .catch((error) => {
                     dispatch(
@@ -213,6 +212,10 @@ export const SettingUpdate = () => {
             ""
           )}
         </div>
+        <UpdateMessage
+            updateMessage={updateMessage}
+            setUpdateMessage={setUpdateMessage}
+          />
       </div>
     </AuthenticatedGuard>
   );

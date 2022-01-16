@@ -1,18 +1,14 @@
-import { Link, Route } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { memo, useContext, useState } from "react";
 import { ContextElement } from "../App";
 import Summary from "../components/cart/Summary";
 import ItemsInCart from "../components/cart/ItemsInCart/ItemsInCart";
-import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
-import { useAppSelector, userSettingsStatus } from "../services/store";
-import { useDispatch } from "react-redux";
+import { useAppSelector} from "../services/store";
 import { deleteCarts } from "../services/apis";
-let rules = ["user"];
 
 function Cart() {
-  let { itemsInCart, setItemsInCart } = useContext(ContextElement);
+  let { itemsInCart } = useContext(ContextElement);
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  const dispatch = useDispatch();
   let shipping = 20;
   let getSubTotal = (itemsInCart: any) => {
     let price = itemsInCart.map((item: CartItem) => item.price);
@@ -22,7 +18,6 @@ function Cart() {
   };
 
   const [subTotal, setSubTotal] = useState(getSubTotal(itemsInCart));
-  const [edit, setEdit] = useState(false);
 
   function subTotalCal(items: any) {
     let newSubTotal = getSubTotal(items);
@@ -37,14 +32,6 @@ function Cart() {
         })
         .catch(err => console.log(err))
     }
-    // let newItemsList = [...itemsInCart];
-    // newItemsList.splice(index, 1);
-    // setItemsInCart(newItemsList);
-    // localStorage.setItem("cartItem", JSON.stringify(newItemsList));
-  }
-
-  function handleEditBtn(index: number) {
-    setEdit(true);
   }
 
   let total = subTotal + shipping;
@@ -61,9 +48,6 @@ function Cart() {
                 <ItemsInCart
                   itemsInCart={itemsInCart}
                   handleDeleteBtn={handleDeleteBtn}
-                  handleEditBtn={handleEditBtn}
-                // edit={edit}
-                // setEdit={setEdit}
                 />
               </div>
             </div>

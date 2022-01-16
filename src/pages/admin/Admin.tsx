@@ -38,9 +38,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
 
   const LIMIT_ITEM = 10;
 
-  //calculate total page
   let totalPage = Math.ceil(totalItemAdmin / 10);
-  //create array inclue total page number
   let totalPageArr = [];
   for (let i = 0; i < totalPage; i++) {
     totalPageArr.push(i + 1);
@@ -126,22 +124,22 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
     }
   }, [currentPageAdmin, searchInputAdmin, manageType]);
 
-  // useEffect(() => {
-  //   setToDashBoard(true);
+  useEffect(() => {
+    setToDashBoard(true);
 
-  //   getUsers()
-  //     .then((res) => {
-  //       setUsersList(res.data);
-  //       setTotalItemAdmin(res.data.length);
-  //     })
-  //     .catch((err) => console.log(err));
+    getUsers()
+      .then((res) => {
+        setUsersList(res.data);
+        setTotalItemAdmin(res.data.length);
+      })
+      .catch((err) => console.log(err));
 
-  //   getAllProducts()
-  //     .then((res) => {
-  //       setProductsList(res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [searchInputAdmin,currentPageAdmin]);
+    getAllProducts()
+      .then((res) => {
+        setProductsList(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [searchInputAdmin,currentPageAdmin]);
 
   return (
     <AuthenticatedGuard routeRules={rules}>
