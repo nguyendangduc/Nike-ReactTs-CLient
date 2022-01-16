@@ -21,13 +21,13 @@ const ProductsList: React.FC<Props> = ({ productsList, setProductsList }) => {
     setProductsList(productsListClone);
   }
 
-  function handleAdd() {}
+  function handleAdd() { }
 
-  function handleEdit(id: number) {}
+  function handleEdit(id: number) { }
 
   return (
     <>
-      <Link to="/admin/addproduct" className="btn btn-dark mb-4">
+      <Link to="/admin/addproduct" className="btn btn-success mb-4">
         Add product
       </Link>
 
@@ -102,14 +102,14 @@ const ProductsList: React.FC<Props> = ({ productsList, setProductsList }) => {
                       role="group"
                       aria-label="Basic example"
                     >
-                      <button type="button" className="btn btn-outline-dark">
+                      <button type="button" className="btn btn-info">
                         <Link to={`/admin/editproduct/${product.id}`}>
                           Edit
                         </Link>
                       </button>
                       <button
                         type="button"
-                        className="btn btn-dark"
+                        className="btn btn-danger"
                         onClick={() => handleDelete(product.id)}
                       >
                         Delete

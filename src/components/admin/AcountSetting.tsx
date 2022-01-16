@@ -164,14 +164,14 @@ export const AccountSetting: React.FC<Props> = ({ usersList }) => {
                       <div className="">
                         {" "}
                         <button
-                          className="btn btn-dark my-2  me-2"
+                          className="btn btn-primary my-2  me-2"
                           type="submit"
                         >
                           Submit
                         </button>
                         <button
                           type="button"
-                          className="btn btn-outline-dark me-2"
+                          className="btn btn-warning me-2"
                         >
                           <Link to="/admin">Cancel</Link>
                         </button>

@@ -19,17 +19,17 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
   let currentProduct: Product = productsList
     ? productsList.filter((product) => product.id === currentProductId)[0]
     : {
-        id: -1,
-        name: "",
-        price: -1,
-        color: -1,
-        thumbnail: "",
-        detailimg: [],
-        colorimg: [],
-        size: [],
-        type: "",
-        gender: "",
-      };
+      id: -1,
+      name: "",
+      price: -1,
+      color: -1,
+      thumbnail: "",
+      detailimg: [],
+      colorimg: [],
+      size: [],
+      type: "",
+      gender: "",
+    };
 
   const [nameInput, setNameInput] = useState(currentProduct.name);
   const [priceInput, setPriceInput] = useState(currentProduct.price);
@@ -260,10 +260,10 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
           </div>
         </div>
 
-        <button type="button" className="btn btn-outline-dark me-4">
+        <button type="button" className="btn btn-warning me-4">
           <Link to="/admin">Cancel</Link>
         </button>
-        <button type="submit" className="btn btn-dark">
+        <button type="submit" className="btn btn-success">
           Update
         </button>
       </form>

@@ -39,7 +39,7 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
       setReload(!reLoad);
     });
   };
-  function handleDelete(id: number) {}
+  function handleDelete(id: number) { }
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
@@ -58,15 +58,15 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
             >
               {listRoles
                 ? listRoles.map((role, index) => (
-                    <option value={role.id} key={index}>
-                      {role.name}
-                    </option>
-                  ))
+                  <option value={role.id} key={index}>
+                    {role.name}
+                  </option>
+                ))
                 : ""}
             </select>
           </div>
           <div className="col-sm-2">
-            <button onClick={handleAddRole} className="btn btn-dark">
+            <button onClick={handleAddRole} className="btn btn-success">
               Add role
             </button>
           </div>
@@ -88,23 +88,23 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
               <tbody>
                 {userSettingData
                   ? userSettingData?.rules?.map((rule, index) => (
-                      <tr key={index}>
-                        <td>
-                          {
-                            listRoles?.find((item, index) => item.id == rule)
-                              ?.name
-                          }
-                        </td>
-                        <td>___</td>
-                        <td>___</td>
-                        <td></td>
-                      </tr>
-                    ))
+                    <tr key={index}>
+                      <td>
+                        {
+                          listRoles?.find((item, index) => item.id == rule)
+                            ?.name
+                        }
+                      </td>
+                      <td>___</td>
+                      <td>___</td>
+                      <td></td>
+                    </tr>
+                  ))
                   : ""}
               </tbody>
             </table>
             <br />
-            <button type="button" className="btn btn-dark me-2">
+            <button type="button" className="btn btn-warning me-2">
               <Link to="/admin">Cancel</Link>
             </button>
           </div>
