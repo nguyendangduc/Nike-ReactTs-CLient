@@ -4,25 +4,34 @@ import Dashboard from "../../components/admin/Dashboard";
 import Navbar from "../../components/admin/Navbar";
 import ProductAddForm from "../../components/admin/ProductAddForm";
 import ProductEditForm from "../../components/admin/ProductEditForm";
-import {UserEditForm} from "../../components/admin/UserEditForm";
-import {UserAddForm} from "../../components/admin/UserAddForm";
+import { UserEditForm } from "../../components/admin/UserEditForm";
+import { UserAddForm } from "../../components/admin/UserAddForm";
+import { UserRoles } from "../../components/admin/UserRoles";
+import { AccountSetting } from "../../components/admin/AcountSetting";
+import { useAppSelector } from "../../services/store";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
-import { getProducts,getUsersBySearchPage } from "../../services/apis";
+import { getProducts, getUsersBySearchPage } from "../../services/apis";
+import { hasPermission } from "../../services/functions";
 import {
   getAllProducts,
   getUsers,
 } from "../../services/apis/functions/adminApi";
+import { useLocation } from "react-router-dom";
 
-const rules = ["admin"];
+const rules = ["admin", "product_admin", "user_admin"];
 
 interface Props {
   setToDashBoard: (value: boolean) => void;
 }
 
 const Admin: React.FC<Props> = ({ setToDashBoard }) => {
+  const location = useLocation() as any;
+
+  const { dataUser } = useAppSelector((state) => state.authReducer);
+
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [productsList, setProductsList] = useState<Array<Product>>([]);
-  const [manageType, setManageType] = useState("user");
+  const [manageType, setManageType] = useState("");
   const [currentPageAdmin, setCurrentPageAdmin] = useState(1);
   const [totalItemAdmin, setTotalItemAdmin] = useState(0);
   const [searchInputAdmin, setSearchInputAdmin] = useState("");
@@ -38,6 +47,16 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
   }
 
   useEffect(() => {
+    if (
+      dataUser?.rules.includes("admin") ||
+      dataUser?.rules.includes("user_admin")
+    ) {
+      setManageType("user");
+    } else if (dataUser?.rules.includes("product_admin")) {
+      setManageType("product");
+    }
+  }, [dataUser]);
+  useEffect(() => {
     if (manageType === "user") {
       setTotalItemAdmin(usersList.length);
       //Duc code here
@@ -47,12 +66,11 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
 
       getUsersBySearchPage(paginationUrl)
         .then((res) => {
-          console.log(res.data)
           setUsersList(res.data.results);
           setTotalItemAdmin(res.data.totalRecords);
         })
-        .catch((err) => console.log(err));
-    } else {
+        .catch((err) => console.log(err.response.data.message));
+    } else if (manageType === "product") {
       setTotalItemAdmin(productsList.length);
 
       let paginationUrl = "/page/0/" + LIMIT_ITEM;
@@ -62,9 +80,9 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
           setProductsList(res.data.results);
           setTotalItemAdmin(res.data.totalRecords);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err.response.data.message));
     }
-  }, [manageType]);
+  }, [manageType, location.pathname]);
 
   useEffect(() => {
     if (manageType === "product") {
@@ -84,29 +102,29 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
           setProductsList(res.data.results);
           setTotalItemAdmin(res.data.totalRecords);
         })
-        .catch((err) => console.log(err));
-    } else {
+        .catch((err) => console.log(err.response.data.message));
+    } else if (manageType === "user") {
       //Duc code here
       let paginationUrl =
-      "/page/" +
-      (currentPageAdmin - 1) * Number(LIMIT_ITEM) +
-      "/" +
-      LIMIT_ITEM;
+        "/page/" +
+        (currentPageAdmin - 1) * Number(LIMIT_ITEM) +
+        "/" +
+        LIMIT_ITEM;
 
-    let searchUrl =
-      searchInputAdmin !== "" ? "/search/" + searchInputAdmin : "";
+      let searchUrl =
+        searchInputAdmin !== "" ? "/search/" + searchInputAdmin : "";
 
-    const path = searchUrl + paginationUrl;
+      const path = searchUrl + paginationUrl;
 
-    getUsersBySearchPage(path)
-      .then((res) => {
-        console.log(res)
-        setUsersList(res.data.results);
-        setTotalItemAdmin(res.data.totalRecords);
-      })
-      .catch((err) => console.log(err));
+      getUsersBySearchPage(path)
+        .then((res) => {
+          console.log(res);
+          setUsersList(res.data.results);
+          setTotalItemAdmin(res.data.totalRecords);
+        })
+        .catch((err) => console.log(err.response.data.message));
     }
-  }, [currentPageAdmin, searchInputAdmin,manageType]);
+  }, [currentPageAdmin, searchInputAdmin, manageType]);
 
   // useEffect(() => {
   //   setToDashBoard(true);
@@ -145,8 +163,18 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
         <Route exact path="/admin/adduser" children={<UserAddForm />} />
         <Route
           exact
-          path="/admin/edituser/:id"
+          path="/admin/setting/profile/:id"
           children={<UserEditForm usersList={usersList} />}
+        />
+        <Route
+          exact
+          path="/admin/setting/roles/:id"
+          children={<UserRoles usersList={usersList} />}
+        />
+        <Route
+          exact
+          path="/admin/setting/account/:id"
+          children={<AccountSetting usersList={usersList} />}
         />
 
         {/* <Route exact path="/admin/adduser" children={<UsertForm />} /> */}
@@ -155,7 +183,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
           path="/admin"
           children={
             <Dashboard
-              setUsersList = {setUsersList}
+              setUsersList={setUsersList}
               setSearchInputAdmin={setSearchInputAdmin}
               manageType={manageType}
               usersList={usersList}

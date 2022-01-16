@@ -1,4 +1,5 @@
 import "./App.css";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useEffect, useState, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/login/Login";

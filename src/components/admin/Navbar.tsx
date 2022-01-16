@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import style from "../../pages/admin/Admin.module.scss";
+import { useAppSelector } from "../../services/store";
 
 interface Props {
   manageType: string;
@@ -12,6 +13,33 @@ const Navbar: React.FC<Props> = ({
   setManageType,
   setToDashBoard,
 }) => {
+  const { dataUser } = useAppSelector((state) => state.authReducer);
+  const handleNaviUserPage = (event:any) => {
+    event.preventDefault();
+    if (
+      dataUser?.rules.includes("admin") ||
+      dataUser?.rules.includes("user_admin")
+    ) {
+    console.log('')
+
+      setManageType("user");
+    } else {
+      alert("Access Denied!");
+    }
+  };
+  const handleNaviProductPage = (event: any) => {
+    event.preventDefault();
+    if (
+      dataUser?.rules.includes("admin") ||
+      dataUser?.rules.includes("product_admin")
+    ) {
+    console.log('132')
+
+      setManageType("product");
+    } else {
+      alert("Access denied!");
+    }
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light admin">
       <div className="container">
@@ -39,7 +67,7 @@ const Navbar: React.FC<Props> = ({
                     ? `me-3 ${style.admin_sidebar_item_active}`
                     : `me-3 ${style.admin_sidebar_item}`
                 }
-                onClick={() => setManageType("user")}
+                onClick={handleNaviUserPage}
               >
                 User
               </Link>
@@ -52,7 +80,7 @@ const Navbar: React.FC<Props> = ({
                     ? `me-3 ${style.admin_sidebar_item_active}`
                     : `me-3 ${style.admin_sidebar_item}`
                 }
-                onClick={() => setManageType("product")}
+                onClick={handleNaviProductPage}
               >
                 Product
               </Link>

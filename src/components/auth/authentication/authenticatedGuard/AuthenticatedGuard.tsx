@@ -32,6 +32,7 @@ const AuthenticatedGuard: FC<Props> = (props) => {
     }
   }, []);
   const checkAuthorization = () => {
+    console.log(routeRules,dataUser?.rules)
     return hasPermission(
       routeRules ? routeRules : [],
       dataUser ? dataUser?.rules : []

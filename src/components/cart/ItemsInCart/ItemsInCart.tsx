@@ -25,14 +25,14 @@ const ItemInCart: React.FC<Props> = ({
   const [cartItems, setCartItems] = useState(itemsInCart)
 
 
-  function remove(id: number) {
+  function remove(id: number|string) {
     setQuantity(quantity - 1)
 
 
   }
 
 
-  function add(id: number) {
+  function add(id: number|string) {
     // setQuantity(quantity + 1)
 
     let newArr = [...cartItems];
@@ -68,14 +68,14 @@ const ItemInCart: React.FC<Props> = ({
           <div className="d-flex flex-row justify-content-end pb-3">
             <button
               className={`${style.remove}`}
-              onClick={() => remove(item.id)}
+              onClick={() => remove(item.idCart)}
             >-</button>
 
-            <input type="text" className={`${style.quality}`} value={quantity} id={`${item.id}`} />
+            <input type="text" className={`${style.quality}`} value={quantity} id={`${item.idCart}`} />
 
             <button
               className={`${style.add}`}
-              onClick={() => add(item.id)}
+              onClick={() => add(item.idCart)}
             >+</button>
           </div>
         </div>

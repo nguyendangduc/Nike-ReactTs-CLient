@@ -88,3 +88,11 @@ interface BodyUpdateUser {
   address: { address: string; city: string };
   avatar: string;
 }
+
+interface AccountSetting {
+  newEmail: string;
+  newPassword: string;
+}
+ interface UserRole {
+  role: string;
+}

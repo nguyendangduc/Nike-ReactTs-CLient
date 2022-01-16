@@ -27,6 +27,7 @@ const Dashboard: React.FC<Props> = ({
   totalPageArr,
   setUsersList
 }) => {
+  console.log(manageType)
   return (
     <div className="container mt-4">
       <div className="row mb-3">
@@ -41,14 +42,17 @@ const Dashboard: React.FC<Props> = ({
       </div>
       {manageType === "user" ? (
         <UserList setUsersList={setUsersList} usersList={usersList} />
-      ) : (
-        <ProductsList
+      ) : manageType === "product" ?(
+       <div>
+          <ProductsList
           productsList={productsList}
           setProductsList={setProductsList}
         />
-      )}
+       
+       </div>
+      ):''}
 
-      <Pagination
+<Pagination
         currentPageAdmin={currentPageAdmin}
         setCurrentPageAdmin={setCurrentPageAdmin}
         totalPage={totalPage}

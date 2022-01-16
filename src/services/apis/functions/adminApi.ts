@@ -43,7 +43,26 @@ export function deleteUser(id: any): Promise<any> {
     headers: { Authorization: "Bearer " + token },
   });
 }
+//===========AccountSetting============
 
+
+export function putAccountSetting(id: any, body: AccountSetting) {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.put(`/admin/account-setting/${id}`, body, {
+    headers: { Authorization: "Bearer " + token },
+  });
+}
+
+export function putRole(id: any, body: UserRole) {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  return client.put(`/admin/user-role/${id}`, body, {
+    headers: { Authorization: "Bearer " + token },
+  });
+}
 
 // =========Products===========
 export function getAllProducts(): Promise<any> {

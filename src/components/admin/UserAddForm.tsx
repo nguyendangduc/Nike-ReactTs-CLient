@@ -3,7 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { NavBarProfile } from "../../components/NavBarProfile";
 import { updateInfo, authByToken,addUser } from "../../services/apis";
-import { useHistory,useParams } from "react-router-dom";
+import { useHistory,Link } from "react-router-dom";
 import {
   useAppSelector,
   userSettingsStatus,
@@ -34,7 +34,7 @@ export const UserAddForm = () => {
               validationSchema={Yup.object().shape({
                 email: Yup.string().required("* Required!"),
                 password: Yup.string().required('Password is required'),
-                confirmPassword: Yup.string()
+                confirmPassword: Yup.string().required('*Required!')
                    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 
                 address: Yup.string().required("* Required!"),
@@ -52,6 +52,7 @@ export const UserAddForm = () => {
                 addUser(dataBody)
                   .then((res) => {
                     alert("Setting Successfully!");
+                    history.push('/admin')
                   })
                   .catch((error) => {
                    alert(error.response.data.message);
@@ -187,9 +188,15 @@ export const UserAddForm = () => {
                   <button className="btn btn-dark my-2" type="submit">
                     Submit
                   </button>
-                  <button onClick={()=>props.setValues({...props.values, email:'',password:'',confirmPassword:'',address:'',city:'',phone:'',avatar:''})} className="btn btn-secondary m-2" >
+                  <button  onClick={()=>props.setValues({...props.values, email:'',password:'',confirmPassword:'',address:'',city:'',phone:'',avatar:''})} className="btn btn-secondary m-2" >
                     Clear
-                  </button>
+                  </button><button
+                        type="button"
+                        className="btn btn-outline-dark me-4"
+                      >
+                        <Link to="/admin">Cancel</Link>
+                      </button>
+                  
                 </Form>
               )}
             </Formik>
