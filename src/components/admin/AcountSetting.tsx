@@ -2,21 +2,13 @@ import { useState, useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { NavBarProfile } from "../../components/NavBarProfile";
 import {
-  updateInfo,
-  authByToken,
   getDetailUser,
   deleteUser,
   putAccountSetting,
 } from "../../services/apis";
 import { useHistory, useParams } from "react-router-dom";
-import {
-  useAppSelector,
-  userSettingsStatus,
-  userFetchSuccess,
-  userFetchError,
-} from "../../services/store";
+import { useAppSelector } from "../../services/store";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
@@ -58,17 +50,19 @@ export const AccountSetting: React.FC<Props> = ({ usersList }) => {
                 initialValues={{
                   email: userEditData.email,
                   newEmail: userEditData.email,
-                  newPassword: '',
-                  confirmPassword:''
+                  newPassword: "",
+                  confirmPassword: "",
                 }}
                 validationSchema={Yup.object().shape({
                   email: Yup.string().required("* Required!"),
                   newEmail: Yup.string().required("* Required!"),
                   newPassword: Yup.string().required("* Required!"),
-                  confirmPassword: Yup.string().required("* Required!").oneOf(
-                    [Yup.ref("newPassword"), null],
-                    "Passwords must match"
-                  ),
+                  confirmPassword: Yup.string()
+                    .required("* Required!")
+                    .oneOf(
+                      [Yup.ref("newPassword"), null],
+                      "Passwords must match"
+                    ),
                 })}
                 onSubmit={(values) => {
                   const dataBody: AccountSetting = {
@@ -77,14 +71,15 @@ export const AccountSetting: React.FC<Props> = ({ usersList }) => {
                   };
                   putAccountSetting(userEditData.id, dataBody)
                     .then((res) => {
-                      console.log(res)
                       setReload(!reLoad);
-                      alert("Setting Successfully!")
+                      alert("Setting Successfully!");
                       setTimeout(() => {
-                        history.push("/admin")
-                      },1000)
+                        history.push("/admin");
+                      }, 1000);
                     })
-                    .catch((error) => {alert(error.response.data.message)});
+                    .catch((error) => {
+                      alert(error.response.data.message);
+                    });
                 }}
               >
                 {(props) => (

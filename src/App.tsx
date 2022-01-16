@@ -9,8 +9,6 @@ import ProductDetail from "./pages/ProductDetail";
 import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
-import { checkItemsInCart } from "./services/functions/getLocalstorage";
-import { useSelector } from "react-redux";
 import Footer from "./components/Footer";
 import AppNike from "./pages/AppNike";
 import { getProducts } from "./services/apis/functions/productsApi";
@@ -107,12 +105,6 @@ function App() {
 
   useEffect(() => {
     let productsClone = [...products];
-    console.log(
-      products.filter((product: Product) => {
-        console.log(product.gender === gender);
-        return product.gender === gender;
-      })
-    );
     productsClone = productsClone.filter((product: Product) => {
       return product.gender === gender;
     });

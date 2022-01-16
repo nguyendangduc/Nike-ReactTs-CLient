@@ -16,9 +16,9 @@ interface IOrder {
   size: string;
   quantity: number;
   price: number;
-  name:string;
-  address:string;
-  phoneNumber:string;
+  name: string;
+  address: string;
+  phoneNumber: string;
 }
 interface State {
   abbreviation: string;
@@ -49,7 +49,7 @@ interface FormData {
 }
 
 interface Product {
-  id: any;
+  id: number;
   name: string;
   price: number;
   color: number;
@@ -96,6 +96,6 @@ interface AccountSetting {
   newEmail: string;
   newPassword: string;
 }
- interface UserRole {
+interface UserRole {
   role: string;
 }

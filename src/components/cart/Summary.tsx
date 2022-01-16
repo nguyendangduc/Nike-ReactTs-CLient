@@ -17,8 +17,6 @@ const Summary: React.FC<Props> = ({ subTotal, shipping, total }) => {
       <h2 className="mb-3">Summary</h2>
       <div className="subtotal d-flex justify-content-between">
         <p>Subtotal</p>
-        {console.log("subTotal", subTotal)
-        }
         <p>{formatter.format(subTotal)}</p>
       </div>
       <div className="shipping d-flex justify-content-between">

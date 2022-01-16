@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 import { getDetailUser, putRole } from "../../services/apis";
 import { useHistory, useParams } from "react-router-dom";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
 interface Props {
@@ -20,8 +20,6 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
     { id: "product_admin", name: "Product administrator" },
     { id: "user_admin", name: "User administrator" },
   ];
-  console.log(roleSelected);
-  console.log(userSettingData);
   useEffect(() => {
     getDetailUser(id)
       .then((res) => setUserSettingData(res.data))
@@ -32,7 +30,6 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
   };
   const handleAddRole = (event: MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    console.log(roleSelected);
 
     putRole(id, { role: roleSelected }).then((res) => {
       setReload(!reLoad);
@@ -42,12 +39,10 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
-      <h3 className="text-decoration-underline">User Roles</h3>
-            <br/>
+        <h3 className="text-decoration-underline">User Roles</h3>
+        <br />
         <div className="row">
-
           <div className="col-sm-3">
-           
             <b>{userSettingData?.email}</b>
           </div>
           <div className="col-sm-4">
@@ -102,16 +97,12 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
                   : ""}
               </tbody>
             </table>
-            <br/>
-            <button
-                          type="button"
-                          className="btn btn-dark me-2"
-                        >
-                          <Link to="/admin">Cancel</Link>
-                        </button>
+            <br />
+            <button type="button" className="btn btn-dark me-2">
+              <Link to="/admin">Cancel</Link>
+            </button>
           </div>
         </div>
-     
       </div>
     </AuthenticatedGuard>
   );

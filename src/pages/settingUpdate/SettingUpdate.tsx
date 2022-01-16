@@ -13,7 +13,7 @@ import AuthenticatedGuard from "../../components/auth/authentication/authenticat
 let rules = ["user"];
 
 export const SettingUpdate = () => {
-  const { dataUser} = useAppSelector((state) => state.authReducer);
+  const { dataUser } = useAppSelector((state) => state.authReducer);
   const { nameInput, message } = useAppSelector(
     (state) => state.settingsReducer
   );
@@ -44,11 +44,6 @@ export const SettingUpdate = () => {
                 phone: Yup.string().required("* Required!"),
               })}
               onSubmit={(values) => {
-                // dataUser.email = values.email;
-                // dataUser.address.address = values.address;
-                // dataUser.address.city = values.city;
-                // dataUser.phone = values.phone;
-
                 const dataBody = {
                   id: dataUser?.id,
                   email: values.newEmail,

@@ -5,23 +5,23 @@ export function getUsers(): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
-  return client.get("/users",{
+  return client.get("/users", {
     headers: { Authorization: "Bearer " + token },
-  })
+  });
 }
-export function getDetailUser(id:number): Promise<any> {
+export function getDetailUser(id: number): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
-  return client.get("/users/"+id,{
+  return client.get("/users/" + id, {
     headers: { Authorization: "Bearer " + token },
-  })
+  });
 }
 export function getUsersBySearchPage(url: string): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
-  return client.get("/users" + url,{
+  return client.get("/users" + url, {
     headers: { Authorization: "Bearer " + token },
   });
 }
@@ -44,7 +44,6 @@ export function deleteUser(id: any): Promise<any> {
   });
 }
 //===========AccountSetting============
-
 
 export function putAccountSetting(id: any, body: AccountSetting) {
   const token = localStorage.getItem("token")
