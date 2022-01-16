@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ContextElement } from "../App";
 import ProductInfo from "../components/productDetail/ProductInfo";
@@ -13,16 +13,18 @@ interface Props {
 }
 
 interface Param {
-  id:undefined|string;
+  id: string;
 }
 
 const ProductDetail: React.FC<Props> = ({ products, loading }) => {
-  let {addItemToCartMessage, setAddItemToCartMessage } =
+  let { addItemToCartMessage, setAddItemToCartMessage } =
     useContext(ContextElement);
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  let { id } : Param = useParams();
-
-  let currentProduct = products.filter((product: Product) => product.id === Number(id))[0];
+  let param: Param = useParams();
+  let id = param.id;
+  let currentProduct = products.filter(
+    (product: Product) => product.id === Number(id)
+  )[0];
 
   const [colorValue, setColorValue] = useState(0);
   const [sizeValue, setSizeValue] = useState("EU 38.5");
@@ -34,14 +36,17 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
       size: sizeValue,
       price: currentProduct.price,
     };
-    
-    if(dataUser){
+
+    if (dataUser) {
       postCarts(dataUser.id, itemInfo)
-        .then(res=>console.log(res.data))
-        .catch(err=>console.error(err))
+        .then((res) => console.log(res.data))
+        .catch((err) => console.error(err));
+      setAddItemToCartMessage(true);
+      document.body.classList.add("stopScrolling");
+    } else {
+      setAddItemToCartMessage(true);
+      document.body.classList.add("stopScrolling");
     }
-    document.body.classList.toggle("stopScrolling");
-    setAddItemToCartMessage(true);
   }
 
   function handleChooseColor(imgUrl: string) {

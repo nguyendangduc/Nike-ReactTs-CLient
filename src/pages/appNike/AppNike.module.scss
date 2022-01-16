@@ -1,0 +1,34 @@
+.nikeapp_header {
+    margin: 50px 0 100px 0;
+}
+
+.nikeapp_desc {
+    margin: 150px;
+}
+
+.nikeapp_desc h3 {
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.nikeapp_desc p {
+    line-height: 1.6;
+}
+
+@media (max-width: 575.98px) {
+    .nikeapp_header {
+        margin: 30px 0 50px 0;
+    }
+
+    .nikeapp_desc {
+        margin: 0px;
+        padding: 20px;
+    }
+
+    .img_qr {
+        overflow: hidden;
+        .img_app {
+            transform: scale(2.5);
+        }
+    }
+  }

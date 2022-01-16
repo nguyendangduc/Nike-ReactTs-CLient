@@ -15,7 +15,7 @@ import { useState } from "react";
 let rules = ["user"];
 
 export const SettingUpdate = () => {
-  const { dataUser} = useAppSelector((state) => state.authReducer);
+  const { dataUser } = useAppSelector((state) => state.authReducer);
   const { nameInput, message } = useAppSelector(
     (state) => state.settingsReducer
   );
@@ -47,7 +47,6 @@ export const SettingUpdate = () => {
                 phone: Yup.string().required("* Required!"),
               })}
               onSubmit={(values) => {
-
                 const dataBody = {
                   id: dataUser?.id,
                   email: values.newEmail,

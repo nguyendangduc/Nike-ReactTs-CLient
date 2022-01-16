@@ -66,14 +66,26 @@ function Footer() {
           </div>
         </div>
         <hr />
-        <div className="footer-bottom d-flex justify-content-between">
-          <span>© 2021 Nike, Inc. All Rights Reserved</span>
-          <div className="footer-bottom-item d-flex">
-            <p>Guides</p>
-            <p>Terms of Sale</p>
-            <p>Terms of Use</p>
-            <p>Nike Privacy Policy</p>
+
+        <div className="footer-bottom">
+          <div className="row">
+
+            <div className="col-12 col-md-6">
+              <div className="footer-bottom-item d-flex">
+                <p>Guides</p>
+                <p>Terms of Sale</p>
+                <p>Terms of Use</p>
+                <p className="me-0">Nike Privacy Policy</p>
+              </div>
+            </div>
+            <div className="col-12 col-md-6">
+              <div className="d-flex justify-content-center justify-content-md-end">
+                <span>© 2021 Nike, Inc. All Rights Reserved</span>
+              </div>
+            </div>
+
           </div>
+
         </div>
       </div>
     </div>

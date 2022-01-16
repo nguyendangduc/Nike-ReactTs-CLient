@@ -1,12 +1,13 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthenticatedGuard/UnAuthenticatedGuard";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { postRegister } from "../../services/apis";
 import {
   userFetchSuccess,
   userFetchError,
   useAppSelector,
+  logoutSuccess
 } from "../../services/store";
 import { useDispatch } from "react-redux";
 interface FormData {
@@ -35,6 +36,9 @@ const Register = () => {
       postRegister({ email, password })
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
+          setTimeout(function () {
+            dispatch(logoutSuccess())
+          },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((error) => {
           dispatch(userFetchError(error.response.data.message));

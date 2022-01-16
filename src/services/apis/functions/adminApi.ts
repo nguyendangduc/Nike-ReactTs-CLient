@@ -5,23 +5,23 @@ export function getUsers(): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
-  return client.get("/users",{
+  return client.get("/users", {
     headers: { Authorization: "Bearer " + token },
-  })
+  });
 }
-export function getDetailUser(id:number): Promise<any> {
+export function getDetailUser(id: number): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
-  return client.get("/users/"+id,{
+  return client.get("/users/" + id, {
     headers: { Authorization: "Bearer " + token },
-  })
+  });
 }
 export function getUsersBySearchPage(url: string): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
-  return client.get("/users" + url,{
+  return client.get("/users" + url, {
     headers: { Authorization: "Bearer " + token },
   });
 }
@@ -35,7 +35,7 @@ export function addUser(bodyUser: BodyCreateUser) {
   });
 }
 
-export function deleteUser(id: any): Promise<any> {
+export function deleteUser(id: number): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
@@ -45,8 +45,7 @@ export function deleteUser(id: any): Promise<any> {
 }
 //===========AccountSetting============
 
-
-export function putAccountSetting(id: any, body: AccountSetting) {
+export function putAccountSetting(id: number, body: AccountSetting) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
@@ -55,7 +54,7 @@ export function putAccountSetting(id: any, body: AccountSetting) {
   });
 }
 
-export function putRole(id: any, body: UserRole) {
+export function putRole(id: number, body: UserRole) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
@@ -78,7 +77,7 @@ export function postProduct(productInfo: Product): Promise<any> {
   });
 }
 
-export function updateProduct(id: any, bodyProductUpdate: any) {
+export function updateProduct(id: number, bodyProductUpdate: Product) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";
@@ -87,7 +86,7 @@ export function updateProduct(id: any, bodyProductUpdate: any) {
   });
 }
 
-export function deleteProduct(id: any): Promise<any> {
+export function deleteProduct(id: number): Promise<any> {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";

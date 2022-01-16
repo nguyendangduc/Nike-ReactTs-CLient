@@ -14,34 +14,34 @@ const Navbar: React.FC<Props> = ({
   setToDashBoard,
 }) => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  const handleNaviUserPage = (event:any) => {
+  const handleNaviUserPage = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     event.preventDefault();
     if (
       dataUser?.rules.includes("admin") ||
       dataUser?.rules.includes("user_admin")
     ) {
-    console.log('')
-
       setManageType("user");
     } else {
       alert("Access Denied!");
     }
   };
-  const handleNaviProductPage = (event: any) => {
+  const handleNaviProductPage = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     event.preventDefault();
     if (
       dataUser?.rules.includes("admin") ||
       dataUser?.rules.includes("product_admin")
     ) {
-    console.log('132')
-
       setManageType("product");
     } else {
       alert("Access denied!");
     }
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light admin">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light admin pt-3">
       <div className="container">
         <Link to="/admin" className="navbar-brand">
           Admin
@@ -88,7 +88,7 @@ const Navbar: React.FC<Props> = ({
           </ul>
           <Link
             to="/home"
-            className="btn btn-dark"
+            className="btn btn-warning"
             onClick={() => setToDashBoard(false)}
           >
             Back to home

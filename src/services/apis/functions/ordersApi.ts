@@ -20,9 +20,9 @@ export const getOrders=(id:number)=>{
 
 export const checkOut=(id:number, obj:ICheckout) => {
   const token = localStorage.getItem("token")
-  ? localStorage.getItem("token")
-  : "";
-  return client.post('/carts/checkout/'+id,obj,{
-      headers: {'Authorization': 'Bearer ' + token}
-    });
-}
+    ? localStorage.getItem("token")
+    : "";
+  return client.post("/carts/checkout/" + id, obj, {
+    headers: { Authorization: "Bearer " + token },
+  });
+};

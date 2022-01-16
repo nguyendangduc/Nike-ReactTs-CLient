@@ -1,14 +1,20 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthenticatedGuard/UnAuthenticatedGuard";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { postLogin } from "../../services/apis";
-import { userFetchSuccess, userFetchError, useAppSelector } from "../../services/store";
+import {
+  userFetchSuccess,
+  userFetchError,
+  useAppSelector,
+  logoutSuccess
+} from "../../services/store";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch() as any;
-  const {error} = useAppSelector(state => state.authReducer)
+  const history = useHistory() as any;
+  const { error } = useAppSelector((state) => state.authReducer);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,9 +30,12 @@ const Login = () => {
       postLogin(formData)
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
+          setTimeout(function () {
+            dispatch(logoutSuccess())
+          },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((error) => {
-          dispatch(userFetchError(error.response.data.message));
+          dispatch(userFetchError(error.response?.data?.message));
         });
     }
   };
@@ -43,13 +52,11 @@ const Login = () => {
             <Col sm={4}></Col>
 
             <Col>
-              <p className="text-center px-5">
-                <h4>
-                  <b>YOUR ACCOUNT FOR EVERYTHING NIKE</b>
-                </h4>
-                
-              </p>
-              <br/>
+              <h4 className="text-center px-5">
+                <b>YOUR ACCOUNT FOR EVERYTHING NIKE</b>
+              </h4>
+
+              <br />
               <p className="text-danger">{error}</p>
 
               <Form onSubmit={handleSubmit}>
@@ -79,10 +86,12 @@ const Login = () => {
                     Sign in
                   </Button>
                   <br />
-                  <br/>
+                  <br />
                   <p>
                     <span>You don't have an account?</span>
-                    <Link to="/register" className="text-danger">Register</Link>
+                    <Link to="/register" className="text-danger">
+                      Register
+                    </Link>
                   </p>
                 </div>
               </Form>

@@ -10,11 +10,7 @@ interface Props {
   handleDeleteBtn: (value: string) => void;
 }
 
-
-const ItemInCart: React.FC<Props> = ({
-  itemsInCart,
-  handleDeleteBtn
-}) => {
+const ItemInCart: React.FC<Props> = ({ itemsInCart, handleDeleteBtn }) => {
   return itemsInCart.map((item: IOrder) => (
     <div className="bag-item mb-4 mt-4" key={item.id}>
       <div className="row">

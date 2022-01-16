@@ -14,7 +14,10 @@ export function checkItemsInCart() {
   return JSON.parse(itemCard);
 }
 
-export function addItemToCart(addedItem: any, itemsInCart: Array<CartItem>) {
+export function addItemToCart(
+  addedItem: CartItem,
+  itemsInCart: Array<CartItem>
+) {
   let itemsInCartLocal = localStorage.getItem("cartItem");
 
   if (typeof itemsInCartLocal == "string") {
@@ -22,16 +25,6 @@ export function addItemToCart(addedItem: any, itemsInCart: Array<CartItem>) {
   }
 
   if (Array.isArray(itemsInCartLocal)) {
-    // for (let i = 0; i < itemsInCart.length; i++) {
-    //   if (
-    //     itemsInCart[i].idProduct === addedItem.idProduct &&
-    //     itemsInCart[i].size === addedItem.size &&
-    //     itemsInCart[i].color === addedItem.color
-    //   ) {
-    //     itemsInCart[i].quantity++;
-    //   }
-    // }
-
     itemsInCartLocal.push(addedItem);
     localStorage.setItem("cartItem", JSON.stringify(itemsInCartLocal));
     return itemsInCartLocal;

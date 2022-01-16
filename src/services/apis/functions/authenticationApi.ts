@@ -1,4 +1,3 @@
-import axios, { AxiosResponse, AxiosError } from "axios";
 import client from "../client";
 
 interface LoginData {
@@ -41,7 +40,7 @@ export function logout(): Promise<any> {
   );
 }
 
-export function updateInfo(id: any, bodyUserUpdate: BodyUpdateUser) {
+export function updateInfo(id: number, bodyUserUpdate: BodyUpdateUser) {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : "";

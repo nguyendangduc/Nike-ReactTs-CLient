@@ -10,50 +10,59 @@ const SideBar: React.FC<Props> = ({ setCategory }) => {
   }
 
   return (
-    <div className="sidebar d-flex d-md-block">
-      <h3 className="sidebar-header">Men's Shoes</h3>
-      <p
-        className="sidebar-category me-3 me-md-0"
-        onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
-      >
-        All
-      </p>
-      <p
-        className="sidebar-category me-3 me-md-0"
-        onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
-      >
-        Sandals
-      </p>
-      <p
-        className="sidebar-category me-3 me-md-0"
-        onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
-      >
-        Jordan
-      </p>
-      <p
-        className="sidebar-category me-3 me-md-0"
-        onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
-      >
-        Running
-      </p>
-      <p
-        className="sidebar-category me-3 me-md-0"
-        onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
-      >
-        Basketball
-      </p>
-      <p
-        className="sidebar-category me-3 me-md-0"
-        onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
-      >
-        Football
-      </p>
-      <p
-        className="sidebar-category me-3 me-md-0"
-        onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
-      >
-        Training & Gym
-      </p>
+    <div className="sidebar d-md-block">
+      <div className="row">
+        <h3 className="sidebar-header col-12 ">Men's Shoes</h3>
+      </div>
+      <div className="row mt-4">
+        <div className="col-6 col-md-12">
+          <p
+            className="sidebar-category "
+            onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
+          >
+            All
+          </p>
+          <p
+            className="sidebar-category "
+            onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
+          >
+            Sandals
+          </p>
+          <p
+            className="sidebar-category "
+            onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
+          >
+            Jordan
+          </p>
+          <p
+            className="sidebar-category "
+            onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
+          >
+            Running
+          </p>
+        </div>
+        <div className="col-6 col-md-12">
+          <p
+            className="sidebar-category "
+            onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
+          >
+            Basketball
+          </p>
+          <p
+            className="sidebar-category "
+            onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
+          >
+            Football
+          </p>
+          <p
+            className="sidebar-category "
+            onClick={(e) => handleSetCategory((e.target as HTMLElement).innerText)}
+          >
+            Training & Gym
+          </p>
+        </div>
+      </div>
+
     </div>
   );
 };

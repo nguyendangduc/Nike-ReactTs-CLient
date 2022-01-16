@@ -1,5 +1,5 @@
 import "./App.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/login/Login";
@@ -9,10 +9,8 @@ import ProductDetail from "./pages/ProductDetail";
 import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
-import { checkItemsInCart } from "./services/functions/getLocalstorage";
-import { useSelector } from "react-redux";
 import Footer from "./components/Footer";
-import AppNike from "./pages/AppNike";
+import AppNike from "./pages/appNike/AppNike";
 import { getProducts } from "./services/apis/functions/productsApi";
 import { OrdersHistory } from "./pages/OrderHistory";
 import { Profile } from "./pages/profile/Profile";
@@ -45,12 +43,20 @@ function App() {
 
   const [itemsInCart, setItemsInCart] = useState([]);
   useEffect(() => {
-    if(dataUser){
-      getCarts(dataUser.id)
-        .then(res=>setItemsInCart(res.data))
-        .catch(err =>console.error(err));
+    if (dataUser) {
+      if (localStorage.getItem("token")) {
+        getCarts(dataUser.id)
+          .then((res) => setItemsInCart(res.data))
+          .catch((err) => {
+            if (err?.response?.status === 401) {
+              if (localStorage.getItem("token")) {
+                localStorage.removeItem("token");
+              }
+            }
+          });
+      }
     }
-  })
+  });
 
   const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
 
@@ -62,13 +68,19 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()
-        .then((res: any) => {
+        .then((res) => {
+          console.log(new Date(res.data.expired).getTime())
+
           dispatch(userFetchSuccess(res.data));
         })
-        .catch((err: any) =>
-          dispatch(userFetchError(err.response.data.message))
-        );
+        .catch((err) => {
+          if (localStorage.getItem("token")) {
+            localStorage.removeItem("token");
+          }
+          dispatch(userFetchError(err.response.data.message));
+        });
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -91,7 +103,7 @@ function App() {
           setLoading(false);
           setProducts(data.results);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error.response?.data?.message));
     }
   }, [sortInput, currentPage, searchInput, pageLimit, category, gender]);
 
@@ -107,16 +119,12 @@ function App() {
 
   useEffect(() => {
     let productsClone = [...products];
-    console.log(
-      products.filter((product: Product) => {
-        console.log(product.gender === gender);
-        return product.gender === gender;
-      })
-    );
     productsClone = productsClone.filter((product: Product) => {
       return product.gender === gender;
     });
+    // eslint-disable-next-line
     setProducts(productsClone);
+    // eslint-disable-next-line
   }, [gender]);
 
   return (

@@ -11,11 +11,6 @@ import { AccountSetting } from "../../components/admin/AcountSetting";
 import { useAppSelector } from "../../services/store";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import { getProducts, getUsersBySearchPage } from "../../services/apis";
-import { hasPermission } from "../../services/functions";
-import {
-  getAllProducts,
-  getUsers,
-} from "../../services/apis/functions/adminApi";
 import { useLocation } from "react-router-dom";
 
 const rules = ["admin", "product_admin", "user_admin"];
@@ -24,8 +19,14 @@ interface Props {
   setToDashBoard: (value: boolean) => void;
 }
 
+interface LocationState {
+  from: {
+    pathname: string;
+  };
+}
+
 const Admin: React.FC<Props> = ({ setToDashBoard }) => {
-  const location = useLocation() as any;
+  const location = useLocation<LocationState>();
 
   const { dataUser } = useAppSelector((state) => state.authReducer);
 
@@ -116,7 +117,6 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
 
       getUsersBySearchPage(path)
         .then((res) => {
-          console.log(res);
           setUsersList(res.data.results);
           setTotalItemAdmin(res.data.totalRecords);
         })
@@ -126,20 +126,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
 
   useEffect(() => {
     setToDashBoard(true);
-
-    getUsers()
-      .then((res) => {
-        setUsersList(res.data);
-        setTotalItemAdmin(res.data.length);
-      })
-      .catch((err) => console.log(err));
-
-    getAllProducts()
-      .then((res) => {
-        setProductsList(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, [searchInputAdmin,currentPageAdmin]);
+  }, []);
 
   return (
     <AuthenticatedGuard routeRules={rules}>
@@ -156,7 +143,12 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
         <Route
           exact
           path="/admin/editproduct/:id"
-          children={<ProductEditForm productsList={productsList} />}
+          children={
+            <ProductEditForm
+              productsList={productsList}
+              setProductsList={setProductsList}
+            />
+          }
         />
         <Route exact path="/admin/adduser" children={<UserAddForm />} />
         <Route

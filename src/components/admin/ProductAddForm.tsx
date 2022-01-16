@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { nanoid } from "nanoid";
 import { postProduct } from "../../services/apis/functions/adminApi";
 
 const ProductAddForm: React.FC<{}> = () => {
@@ -14,7 +13,7 @@ const ProductAddForm: React.FC<{}> = () => {
   const [colorImgInput, setColorImgInput] = useState("");
   const [sizeInput, setSizeInput] = useState("");
 
-  const history = useHistory()
+  const history = useHistory();
 
   function handleChangePrice(input: string) {
     if (!isNaN(parseInt(input))) {
@@ -44,7 +43,7 @@ const ProductAddForm: React.FC<{}> = () => {
     e.preventDefault();
 
     let newProductInfo = {
-      id: nanoid(),
+      id: -1,
       name: nameInput,
       price: priceInput,
       color: colorNumberInput,
@@ -57,7 +56,10 @@ const ProductAddForm: React.FC<{}> = () => {
     };
 
     postProduct(newProductInfo)
-      .then((res) => alert("Add product successfully.Click Ok to back to product page!")).then(()=>history.push('/admin'))
+      .then((res) =>
+        alert("Add product successfully.Click Ok to back to product page!")
+      )
+      .then(() => history.push("/admin"))
       .catch((err) => console.log(err));
   }
 
@@ -210,10 +212,10 @@ const ProductAddForm: React.FC<{}> = () => {
           </div>
         </div>
 
-        <button type="button" className="btn btn-outline-dark me-4">
+        <button type="button" className="btn btn-warning me-4">
           <Link to="/admin">Cancel</Link>
         </button>
-        <button type="submit" className="btn btn-dark">
+        <button type="submit" className="btn btn-success">
           Add
         </button>
       </form>
