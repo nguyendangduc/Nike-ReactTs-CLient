@@ -9,13 +9,16 @@ interface User {
   rules: string[];
 }
 interface IOrder {
-  id: number;
-  idUser: number;
+  id: string;
+  idUser: string;
   urlImg: string;
   productName: string;
-  size: number;
+  size: string;
   quantity: number;
   price: number;
+  name:string;
+  address:string;
+  phoneNumber:string;
 }
 interface State {
   abbreviation: string;
@@ -59,13 +62,13 @@ interface Product {
 }
 
 interface CartItem {
-  color: string;
-  idProduct: number;
-  idCart: string;
-  name: string;
-  price: number;
+  id: string;
+  idUser: string;
+  urlImg: string;
+  productName: string;
   size: string;
   quantity: number;
+  price: number;
 }
 
 interface UserSettingsStatus {

@@ -17,9 +17,10 @@ import { getProducts } from "./services/apis/functions/productsApi";
 import { OrdersHistory } from "./pages/OrderHistory";
 import { Profile } from "./pages/profile/Profile";
 import { SettingUpdate } from "./pages/settingUpdate/SettingUpdate";
-import { authByToken } from "./services/apis";
+import { authByToken, getCarts } from "./services/apis";
 import {
   useAppDispatch,
+  useAppSelector,
   userFetchError,
   userFetchSuccess,
 } from "./services/store";
@@ -32,7 +33,7 @@ const REACT_APP_LIMIT_PER_PAGE = "10";
 
 function App() {
   const dispatch = useAppDispatch();
-
+  const { dataUser } = useAppSelector((state) => state.authReducer);
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [sortInput, setSortInput] = useState("");
@@ -42,10 +43,16 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
 
-  const [itemsInCart, setItemsInCart] = useState(checkItemsInCart());
-  const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
+  const [itemsInCart, setItemsInCart] = useState([]);
+  useEffect(() => {
+    if(dataUser){
+      getCarts(dataUser.id)
+        .then(res=>setItemsInCart(res.data))
+        .catch(err =>console.error(err));
+    }
+  })
 
-  let { dataUser } = useSelector((state: any) => state.authReducer);
+  const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [toDashboard, setToDashBoard] = useState(false);

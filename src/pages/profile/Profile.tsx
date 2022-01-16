@@ -24,8 +24,10 @@ export const Profile = () => {
             />
           </div>
           <div className="col-lg-10 col-md-9 col-sm-9">
-            <p className="h5 text-capitalize">{name}</p>
+            <p className="h4 text-capitalize">{name}</p>
             <p>Nike Member Since January 2022</p>
+            <p>Address: {dataUser?.address?.address}, {dataUser?.address?.city}</p>
+            <p>Phone number: {dataUser?.phoneNumber}</p>
           </div>
         </div>
         <p className="h4 mt-5">Member Benefits</p>
@@ -68,6 +70,31 @@ export const Profile = () => {
             />
             <div className="card-body">
               <p className="card-text">Free Running and Training App</p>
+            </div>
+          </div>
+        </div>
+        <p className="h4 mt-5">App Nike</p>
+        <div className="row">
+        <div className={`${styles.benefit} card col-xl-3 mx-1`}>
+            <img
+              src="https://www.nike.com/static/dotcom-member/profile/dist/4.0.0/images/nrc.jpg"
+              className="card-img-top"
+              alt="..."
+            />
+            <div className="card-body">
+              <p className="card-title">Nike Run Club</p>
+              <p className="card-text">Run: Find the motivation you need to run better and more often.</p>
+            </div>
+          </div>
+          <div className={`${styles.benefit} card col-xl-3 mx-1`}>
+            <img
+              src="https://www.nike.com/static/dotcom-member/profile/dist/4.0.0/images/ntc.jpg"
+              className="card-img-top"
+              alt="..."
+            />
+            <div className="card-body">
+              <p className="card-title"> Nike Training Club</p>
+              <p className="card-text">Train: Break a sweat to over 160 guided workouts.</p>
             </div>
           </div>
         </div>

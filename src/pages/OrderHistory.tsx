@@ -15,10 +15,14 @@ export const OrdersHistory = () => {
   useEffect(() => {
     if (dataUser) {
       getOrders(dataUser.id)
-        .then((res) => setOrders(res.data))
+        .then((res) => {
+          console.log(res.data);
+          
+          setOrders(res.data)})
         .catch((err) => console.error(err));
     }
   },[]);
+  
 
   useEffect(()=>{
     const arr = orders.filter((order) => order.productName.toLowerCase().includes(search));

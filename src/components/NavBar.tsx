@@ -44,7 +44,7 @@ const NavBar: React.FC<Props> = ({
       password: password,
       id: -1,
       token: "",
-      phoneNumber: '',
+      phoneNumber: "",
       address: { address: "", city: "" },
       avatar: "",
       rules: [],

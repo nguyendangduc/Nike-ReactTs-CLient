@@ -10,7 +10,7 @@ let formatter = new Intl.NumberFormat("en-US", {
 
 interface Props {
   itemsInCart: any;
-  handleDeleteBtn: (value: number) => void;
+  handleDeleteBtn: (value: string) => void;
   handleEditBtn: (value: number) => void;
 }
 
@@ -20,38 +20,15 @@ const ItemInCart: React.FC<Props> = ({
   handleDeleteBtn,
   handleEditBtn,
 }) => {
-
-  const [quantity, setQuantity] = useState(1);
-  const [cartItems, setCartItems] = useState(itemsInCart)
-
-
-  function remove(id: number|string) {
-    setQuantity(quantity - 1)
-
-
-  }
-
-
-  function add(id: number|string) {
-    // setQuantity(quantity + 1)
-
-    let newArr = [...cartItems];
-    let itemIndex = newArr.findIndex((item) => id == item.id);
-
-    newArr[itemIndex].quantity = newArr[itemIndex].quantity + 1;
-    setCartItems(newArr);
-    // subTotalCal(newArr);
-  }
-
-  return cartItems.map((item: CartItem, index: number) => (
-    <div className="bag-item mb-4 mt-4" key={index}>
+  return itemsInCart.map((item: IOrder) => (
+    <div className="bag-item mb-4 mt-4" key={item.id}>
       <div className="row">
         <div className="col-4 col-md-3 bag-item-img">
-          <img src={item.color} alt="" />
+          <img src={item.urlImg} alt="" />
         </div>
         <div className="col-8 col-md-5 d-flex flex-column justify-content-between">
           <div className="bag-item-info">
-            <strong>{item.name}</strong>
+            <strong>{item.productName}</strong>
             <p>Size: {item.size}</p>
           </div>
 
@@ -59,15 +36,16 @@ const ItemInCart: React.FC<Props> = ({
             {/* <p className="me-2" onClick={() => handleEditBtn(index)}>
               {edit === false ? "Edit" : "Save"}
             </p> */}
-            <p onClick={() => handleDeleteBtn(index)} className="me-3">Delete</p>
+            <p onClick={() => handleDeleteBtn(item.id)}>Remove</p>
           </div>
         </div>
         <div className="col-1 col-md-1"></div>
         <div className="col-12 col-md-3 bag-item-price d-flex flex-column justify-content-between">
-          <p>{formatter.format(item.price * quantity)}</p>
-          <div className="d-flex flex-row justify-content-end pb-3">
+          <p>{formatter.format(item.price)}</p>
+          {/* <div className="d-flex flex-row justify-content-end pb-3">
             <button
               className={`${style.remove}`}
+<<<<<<< HEAD
               onClick={() => remove(item.idCart)}
             >-</button>
 
@@ -76,8 +54,20 @@ const ItemInCart: React.FC<Props> = ({
             <button
               className={`${style.add}`}
               onClick={() => add(item.idCart)}
+=======
+              // onClick={() => remove(item.id)}
+            >-</button>
+
+            <input type="text" className={`${style.quality}`} 
+            // value={quantity} 
+            id={`${item.id}`} />
+
+            <button
+              className={`${style.add}`}
+              // onClick={() => add(item.id)}
+>>>>>>> SonLV16
             >+</button>
-          </div>
+          </div> */}
         </div>
 
         {/* <div
