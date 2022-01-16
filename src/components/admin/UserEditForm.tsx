@@ -56,8 +56,6 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
               <Formik
                 initialValues={{
                   email: userEditData.email,
-                  newEmail: userEditData.email,
-                  password: userEditData.password,
                   address: userEditData.address.address,
                   city: userEditData.address.city,
                   phone: userEditData.phoneNumber,
@@ -65,18 +63,17 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                 }}
                 validationSchema={Yup.object().shape({
                   email: Yup.string().required("* Required!"),
-                  newEmail: Yup.string().required("* Required!"),
-                  password: Yup.string().required("* Required!"),
                   address: Yup.string().required("* Required!"),
                   city: Yup.string().required("* Required!"),
                   phone: Yup.string().required("* Required!"),
+                  avatar: Yup.string().required("* Required!"),
                 })}
                 onReset={() => { }}
                 onSubmit={(values) => {
                   const dataBody: BodyUpdateUser = {
-                    email: values.newEmail,
+                    email: userEditData.email,
                     address: { address: values.address, city: values.city },
-                    password: values.password,
+                    password: userEditData.password,
                     phoneNumber: values.phone + "",
                     avatar: values.avatar,
                   };
@@ -112,23 +109,7 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                             component="div"
                             className="text-danger"
                           />
-                          <div className="form-group">
-                            <label htmlFor="newEmail">New Email:</label>
-                            <Field
-                              id="newEmail"
-                              name="newEmail"
-                              type="email"
-                              className="form-control my-2"
-                            />
-                            <ErrorMessage
-                              name="newEmail"
-                              component="div"
-                              className="text-danger"
-                            />
-                            <small className="text-danger">
-                              {nameInput == "email" ? message : ""}
-                            </small>
-                          </div>
+                        
                           <div className="d-flex justify-content-center py-2 w-100">
                             {!props.values.avatar ? (
                               <img
@@ -218,7 +199,6 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                           onClick={() =>
                             props.setValues({
                               ...props.values,
-                              newEmail: "",
                               address: "",
                               city: "",
                               phone: "",

@@ -38,10 +38,6 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
       setReload(!reLoad);
     });
   };
-<<<<<<< HEAD
-=======
-  function handleDelete(id: number) { }
->>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">

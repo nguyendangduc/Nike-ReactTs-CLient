@@ -8,13 +8,8 @@ interface Props {
   setUsersList: (value: Array<User>) => void;
 }
 
-<<<<<<< HEAD
 const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
   
-=======
-
-const UserList: React.FC<Props> = ({ usersList, setUsersList }) => {
->>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
   let listRoles = [
     { id: "admin", name: "Senior administrator" },
     { id: "user", name: "User" },
@@ -22,24 +17,11 @@ const UserList: React.FC<Props> = ({ usersList, setUsersList }) => {
     { id: "user_admin", name: "User administrator" },
   ];
 
-<<<<<<< HEAD
-=======
-    setUsersList(userListClone);
-  }
-  useEffect(() => {
-
-  }, [])
-
->>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
   return (
     <>
       <NavLink to="/admin/adduser">
         <div className="btn btn-success mb-4">Add user</div>
       </NavLink>
-<<<<<<< HEAD
-=======
-
->>>>>>> 1405055fd8e66d1780eee5c7e9d48d0a634129d8
       <table className="table table-striped table-hover">
         <thead className="table-dark ">
           <tr>

@@ -8,6 +8,7 @@ import {
   userFetchSuccess,
   userFetchError,
 } from "../../services/store";
+import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
@@ -15,6 +16,7 @@ let rules = ["user"];
 export const SettingUpdate = () => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
 
+  const history = useHistory();
 
   const dispatch = useDispatch();
   return (
@@ -34,7 +36,6 @@ export const SettingUpdate = () => {
                 avatar: dataUser.avatar,
               }}
               validationSchema={Yup.object().shape({
-              
                 address: Yup.string().required("* Required!"),
                 city: Yup.string().required("* Required!"),
                 phone: Yup.string().required("* Required!"),
@@ -61,14 +62,21 @@ export const SettingUpdate = () => {
                         .then((res: any) => {
                           dispatch(userFetchSuccess(res.data));
                         })
+                        .then(() => {
+                          alert("Setting Successfully!");
+                        })
+                        .then(() => {
+                          setTimeout(() => {
+                            history.push("/profile");
+                          }, 1000);
+                        })
                         .catch((err: any) =>
                           dispatch(userFetchError(err.response.data.message))
                         );
                     }
-                    alert("Setting Successfully!");
                   })
                   .catch((error) => {
-                    alert(error.response.data.message)
+                    alert(error.response.data.message);
                   });
               }}
             >
@@ -91,7 +99,7 @@ export const SettingUpdate = () => {
                           component="div"
                           className="text-danger"
                         />
-                       <div className="form-group">
+                        <div className="form-group">
                           <label htmlFor="address">Address: </label>
                           <Field
                             id="address"
@@ -106,7 +114,6 @@ export const SettingUpdate = () => {
                         </div>
                       </div>
                       <div className="col-sm-6">
-                      
                         <div className="form-group">
                           <label htmlFor="city">City: </label>
                           <Field
