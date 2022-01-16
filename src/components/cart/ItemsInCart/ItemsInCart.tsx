@@ -40,22 +40,24 @@ const ItemInCart: React.FC<Props> = ({
           </div>
         </div>
         <div className="col-1 col-md-1"></div>
-        {/* <div className="col-12 col-md-3 bag-item-price d-flex flex-column justify-content-between">
-          <p>{formatter.format(item.price * quantity)}</p>
-          <div className="d-flex flex-row justify-content-end pb-3">
+        <div className="col-12 col-md-3 bag-item-price d-flex flex-column justify-content-between">
+          <p>{formatter.format(item.price)}</p>
+          {/* <div className="d-flex flex-row justify-content-end pb-3">
             <button
               className={`${style.remove}`}
-              onClick={() => remove(item.id)}
+              // onClick={() => remove(item.id)}
             >-</button>
 
-            <input type="text" className={`${style.quality}`} value={quantity} id={`${item.id}`} />
+            <input type="text" className={`${style.quality}`} 
+            // value={quantity} 
+            id={`${item.id}`} />
 
             <button
               className={`${style.add}`}
-              onClick={() => add(item.id)}
+              // onClick={() => add(item.id)}
             >+</button>
-          </div>
-        </div> */}
+          </div> */}
+        </div>
 
         {/* <div
           className={

@@ -2,7 +2,6 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { NavBarProfile } from "../../components/NavBarProfile";
 import { updateInfo, authByToken } from "../../services/apis";
-import { useHistory } from "react-router-dom";
 import {
   useAppSelector,
   userSettingsStatus,
@@ -14,7 +13,7 @@ import AuthenticatedGuard from "../../components/auth/authentication/authenticat
 let rules = ["user"];
 
 export const SettingUpdate = () => {
-  const { dataUser, error } = useAppSelector((state) => state.authReducer);
+  const { dataUser} = useAppSelector((state) => state.authReducer);
   const { nameInput, message } = useAppSelector(
     (state) => state.settingsReducer
   );
@@ -120,7 +119,7 @@ export const SettingUpdate = () => {
                             className="text-danger"
                           />
                           <small className="text-danger">
-                            {nameInput == "email" ? message : ""}
+                            {nameInput === "email" ? message : ""}
                           </small>
                         </div>
                         <div className="form-group">
@@ -137,7 +136,7 @@ export const SettingUpdate = () => {
                             className="text-danger"
                           />
                           <small className="text-danger">
-                            {nameInput == "password" ? message : ""}
+                            {nameInput === "password" ? message : ""}
                           </small>
                         </div>
                       </div>
@@ -172,7 +171,6 @@ export const SettingUpdate = () => {
                         <div className="form-group">
                           <label htmlFor="phone">Phone:</label>
                           <Field
-                            type="number"
                             id="phone"
                             name="phone"
                             className="form-control my-2"

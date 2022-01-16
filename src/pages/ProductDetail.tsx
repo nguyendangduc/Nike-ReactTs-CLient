@@ -5,8 +5,8 @@ import { ContextElement } from "../App";
 import { addItemToCart } from "../services/functions/getLocalstorage";
 import ProductInfo from "../components/productDetail/ProductInfo";
 import AddCartMessage from "../components/productDetail/AddCartMessage";
-import { postCarts } from "../services/apis/functions/ordersApi";
 import { useAppSelector } from "../services/store";
+import { postCarts } from "../services/apis";
 
 interface Props {
   products: Array<Product>;
@@ -17,7 +17,7 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
   let { setItemsInCart, addItemToCartMessage, setAddItemToCartMessage } =
     useContext(ContextElement);
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  let { id }: any = useParams();
+  let { id } : any = useParams();
 
   let currentProduct = products.filter((product: any) => product.id == id)[0];
 
@@ -34,8 +34,7 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
     
     if(dataUser){
       postCarts(dataUser.id, itemInfo)
-        .then(res=>console.log("success")
-        )
+        .then(res=>console.log(res.data))
         .catch(err=>console.error(err))
     }
     document.body.classList.toggle("stopScrolling");

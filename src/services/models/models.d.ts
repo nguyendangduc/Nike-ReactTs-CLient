@@ -13,9 +13,12 @@ interface IOrder {
   idUser: string;
   urlImg: string;
   productName: string;
-  size: number;
+  size: string;
   quantity: number;
   price: number;
+  name:string;
+  address:string;
+  phoneNumber:string;
 }
 interface State {
   abbreviation: string;
@@ -63,7 +66,7 @@ interface CartItem {
   idUser: string;
   urlImg: string;
   productName: string;
-  size: number;
+  size: string;
   quantity: number;
   price: number;
 }

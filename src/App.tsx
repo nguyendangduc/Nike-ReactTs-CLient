@@ -16,7 +16,7 @@ import { getProducts } from "./services/apis/functions/productsApi";
 import { OrdersHistory } from "./pages/OrderHistory";
 import { Profile } from "./pages/profile/Profile";
 import { SettingUpdate } from "./pages/settingUpdate/SettingUpdate";
-import { authByToken } from "./services/apis";
+import { authByToken, getCarts } from "./services/apis";
 import {
   useAppDispatch,
   useAppSelector,
@@ -24,7 +24,6 @@ import {
   userFetchSuccess,
 } from "./services/store";
 import Admin from "./pages/admin/Admin";
-import { getCarts } from "./services/apis/functions/ordersApi";
 import { Checkout } from "./components/cart/Checkout";
 
 export const ContextElement = createContext("") as any;
@@ -53,8 +52,6 @@ function App() {
   })
 
   const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
-
-  let { dataUser } = useSelector((state: any) => state.authReducer);
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [toDashboard, setToDashBoard] = useState(false);

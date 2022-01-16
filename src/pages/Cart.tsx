@@ -2,15 +2,11 @@ import { Link, Route } from "react-router-dom";
 import { memo, useContext, useState } from "react";
 import { ContextElement } from "../App";
 import Summary from "../components/cart/Summary";
-<<<<<<< HEAD
-=======
 import ItemsInCart from "../components/cart/ItemsInCart/ItemsInCart";
->>>>>>> master
 import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import { useAppSelector, userSettingsStatus } from "../services/store";
-import { deleteCarts } from "../services/apis/functions/ordersApi";
 import { useDispatch } from "react-redux";
-import ItemsInCart from "../components/cart/ItemsInCart";
+import { deleteCarts } from "../services/apis";
 let rules = ["user"];
 
 function Cart() {
@@ -37,14 +33,13 @@ function Cart() {
     if(dataUser){
       deleteCarts(dataUser.id, index)
         .then(res=>{
-          console.log("hello");
+          subTotalCal(res.data);
         })
         .catch(err => console.log(err))
     }
     // let newItemsList = [...itemsInCart];
     // newItemsList.splice(index, 1);
     // setItemsInCart(newItemsList);
-    subTotalCal(ItemsInCart);
     // localStorage.setItem("cartItem", JSON.stringify(newItemsList));
   }
 
