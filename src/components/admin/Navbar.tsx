@@ -13,7 +13,7 @@ const Navbar: React.FC<Props> = ({
   setToDashBoard,
 }) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light admin">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light admin pt-3">
       <div className="container">
         <Link to="/admin" className="navbar-brand">
           Admin

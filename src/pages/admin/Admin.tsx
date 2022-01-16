@@ -109,7 +109,12 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
         <Route
           exact
           path="/admin/editproduct/:id"
-          children={<ProductEditForm productsList={productsList} />}
+          children={
+            <ProductEditForm
+              productsList={productsList}
+              setProductsList={setProductsList}
+            />
+          }
         />
 
         {/* <Route exact path="/admin/adduser" children={<UsertForm />} /> */}

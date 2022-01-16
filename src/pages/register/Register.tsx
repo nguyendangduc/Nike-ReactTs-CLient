@@ -1,7 +1,7 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthenticatedGuard/UnAuthenticatedGuard";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { postRegister } from "../../services/apis";
 import {
   userFetchSuccess,

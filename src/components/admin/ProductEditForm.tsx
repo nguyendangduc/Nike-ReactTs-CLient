@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { nanoid } from "nanoid";
+import { Link, useHistory, useParams } from "react-router-dom";
 import {
-  postProduct,
+  getAllProducts,
   updateProduct,
 } from "../../services/apis/functions/adminApi";
 
@@ -12,14 +11,31 @@ interface Param {
 
 interface Props {
   productsList: Array<Product>;
+  setProductsList: (value: any) => void;
 }
 
-const ProductEditForm: React.FC<Props> = ({ productsList }) => {
+const ProductEditForm: React.FC<Props> = ({
+  productsList,
+  setProductsList,
+}) => {
   let param: Param = useParams();
+  let history = useHistory();
+
   let currentProductId = param.id;
-  let currentProduct: Product = productsList.filter(
-    (product) => product.id == currentProductId
-  )[0];
+  let currentProduct: Product = productsList
+    ? productsList.filter((product) => product.id == currentProductId)[0]
+    : {
+        id: -1,
+        name: "",
+        price: -1,
+        color: -1,
+        thumbnail: "",
+        detailimg: [],
+        colorimg: [],
+        size: [],
+        type: "",
+        gender: "",
+      };
 
   const [nameInput, setNameInput] = useState(currentProduct.name);
   const [priceInput, setPriceInput] = useState(currentProduct.price);
@@ -84,7 +100,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
     e.preventDefault();
 
     let newProductInfo = {
-      id: nanoid(),
+      id: currentProductId,
       name: nameInput,
       price: priceInput,
       color: colorNumberInput,
@@ -96,9 +112,29 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
       gender: genderInput,
     };
 
-    updateProduct(currentProductId, newProductInfo)
-      .then((res) => console.log(res))
+    let newProductList: Array<Product> = [];
+
+    getAllProducts()
+      .then((res) => {
+        newProductList = res.data
+          .filter((product: Product) => product.id !== currentProductId)
+          .push(newProductInfo);
+
+        setProductsList(newProductList);
+      })
       .catch((err) => console.log(err));
+
+    // let newProductList = productsList
+    //   .filter((product) => product.id !== currentProductId)
+    //   .push(newProductInfo);
+
+    updateProduct(currentProductId, newProductInfo)
+      // .then((res) => setProductsList(newProductList))
+      .catch((err) => console.log(err));
+
+    setTimeout(() => {
+      history.push("/admin");
+    }, 0);
   }
 
   return (
@@ -260,7 +296,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
           <Link to="/admin">Cancel</Link>
         </button>
         <button type="submit" className="btn btn-dark">
-          Add
+          Update
         </button>
       </form>
     </div>
