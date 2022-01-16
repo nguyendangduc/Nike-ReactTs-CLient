@@ -1,17 +1,19 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthenticatedGuard/UnAuthenticatedGuard";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { postLogin } from "../../services/apis";
 import {
   userFetchSuccess,
   userFetchError,
   useAppSelector,
+  logoutSuccess
 } from "../../services/store";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch() as any;
+  const history = useHistory() as any;
   const { error } = useAppSelector((state) => state.authReducer);
   const [formData, setFormData] = useState({
     email: "",
@@ -28,9 +30,12 @@ const Login = () => {
       postLogin(formData)
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
+          setTimeout(function () {
+            dispatch(logoutSuccess())
+          },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((error) => {
-          dispatch(userFetchError(error.response.data.message));
+          dispatch(userFetchError(error.response?.data?.message));
         });
     }
   };

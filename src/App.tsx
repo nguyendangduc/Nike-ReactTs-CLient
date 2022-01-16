@@ -44,9 +44,17 @@ function App() {
   const [itemsInCart, setItemsInCart] = useState([]);
   useEffect(() => {
     if (dataUser) {
-      getCarts(dataUser.id)
-        .then((res) => setItemsInCart(res.data))
-        .catch((err) => console.error(err));
+      if (localStorage.getItem("token")) {
+        getCarts(dataUser.id)
+          .then((res) => setItemsInCart(res.data))
+          .catch((err) => {
+            if (err?.response?.status === 401) {
+              if (localStorage.getItem("token")) {
+                localStorage.removeItem("token");
+              }
+            }
+          });
+      }
     }
   });
 
@@ -61,9 +69,16 @@ function App() {
     if (localStorage.getItem("token")) {
       authByToken()
         .then((res) => {
+          console.log(new Date(res.data.expired).getTime())
+
           dispatch(userFetchSuccess(res.data));
         })
-        .catch((err) => dispatch(userFetchError(err.response.data.message)));
+        .catch((err) => {
+          if (localStorage.getItem("token")) {
+            localStorage.removeItem("token");
+          }
+          dispatch(userFetchError(err.response.data.message));
+        });
     }
     // eslint-disable-next-line
   }, []);
@@ -88,7 +103,7 @@ function App() {
           setLoading(false);
           setProducts(data.results);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error.response?.data?.message));
     }
   }, [sortInput, currentPage, searchInput, pageLimit, category, gender]);
 

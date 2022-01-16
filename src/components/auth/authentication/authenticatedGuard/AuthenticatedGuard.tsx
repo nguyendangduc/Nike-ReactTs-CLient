@@ -5,6 +5,7 @@ import {
   useAppDispatch,
   userFetchSuccess,
   userFetchError,
+  logoutSuccess
 } from "../../../../services/store";
 import { useLocation } from "react-router-dom";
 import { authByToken } from "../../../../services/apis";
@@ -25,10 +26,15 @@ const AuthenticatedGuard: FC<Props> = (props) => {
       authByToken()
         .then((res: any) => {
           dispatch(userFetchSuccess(res.data));
+          setTimeout(function () {
+            dispatch(logoutSuccess())
+          },new Date(res.data.expired).getTime() - new Date().getTime())
         })
-        .catch((err: any) =>
-          dispatch(userFetchError(err.response.data.message))
-        );
+        .catch((err) => {
+          if( localStorage.getItem("token")) {
+            localStorage.removeItem("token") 
+          }
+          dispatch(userFetchError(err.response.data.message))});
     }
   }, []);
   const checkAuthorization = () => {

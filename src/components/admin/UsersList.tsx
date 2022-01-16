@@ -57,7 +57,7 @@ const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
                     <PasswordItem password={user.password} />
                   </td>
                   <td>{user.rules.map((rule,index) =>(
-                    <b>{listRoles?.find((role) => role.id == rule)?.name}
+                    <b key={index}>{listRoles?.find((role) => role.id == rule)?.name}
                     {index !=user.rules.length-1? ", ": ''}
                     </b> 
                   ))}</td>

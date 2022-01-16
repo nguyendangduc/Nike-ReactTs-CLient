@@ -34,8 +34,7 @@ const NavBar: React.FC<Props> = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { dataUser } = useAppSelector((state) => state.authReducer);
-  let isAuth = useSelector<any>((state) => state.authReducer.isAuth);
+  const { dataUser,isAuth } = useAppSelector((state) => state.authReducer);
   let history = useHistory();
 
   function handleLoginBtn() {

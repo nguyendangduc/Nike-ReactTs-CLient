@@ -7,6 +7,7 @@ import {
   userFetchSuccess,
   userFetchError,
   useAppSelector,
+  logoutSuccess
 } from "../../services/store";
 import { useDispatch } from "react-redux";
 interface FormData {
@@ -35,6 +36,9 @@ const Register = () => {
       postRegister({ email, password })
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
+          setTimeout(function () {
+            dispatch(logoutSuccess())
+          },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((error) => {
           dispatch(userFetchError(error.response.data.message));
