@@ -1,4 +1,3 @@
-import axios, { AxiosResponse, AxiosError } from "axios";
 import client from "../client";
 
 interface LoginData {

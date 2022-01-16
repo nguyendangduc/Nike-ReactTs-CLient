@@ -14,14 +14,12 @@ const Navbar: React.FC<Props> = ({
   setToDashBoard,
 }) => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  const handleNaviUserPage = (event:any) => {
+  const handleNaviUserPage = (event: any) => {
     event.preventDefault();
     if (
       dataUser?.rules.includes("admin") ||
       dataUser?.rules.includes("user_admin")
     ) {
-    console.log('')
-
       setManageType("user");
     } else {
       alert("Access Denied!");
@@ -33,8 +31,6 @@ const Navbar: React.FC<Props> = ({
       dataUser?.rules.includes("admin") ||
       dataUser?.rules.includes("product_admin")
     ) {
-    console.log('132')
-
       setManageType("product");
     } else {
       alert("Access denied!");

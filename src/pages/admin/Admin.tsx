@@ -11,11 +11,6 @@ import { AccountSetting } from "../../components/admin/AcountSetting";
 import { useAppSelector } from "../../services/store";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import { getProducts, getUsersBySearchPage } from "../../services/apis";
-import { hasPermission } from "../../services/functions";
-import {
-  getAllProducts,
-  getUsers,
-} from "../../services/apis/functions/adminApi";
 import { useLocation } from "react-router-dom";
 
 const rules = ["admin", "product_admin", "user_admin"];
@@ -118,28 +113,12 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
 
       getUsersBySearchPage(path)
         .then((res) => {
-          console.log(res);
           setUsersList(res.data.results);
           setTotalItemAdmin(res.data.totalRecords);
         })
         .catch((err) => console.log(err.response.data.message));
     }
   }, [currentPageAdmin, searchInputAdmin, manageType]);
-
-  // useEffect(() => {
-  //   getUsers()
-  //     .then((res) => {
-  //       setUsersList(res.data);
-  //       setTotalItemAdmin(res.data.length);
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   getAllProducts()
-  //     .then((res) => {
-  //       setProductsList(res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
 
   useEffect(() => {
     setToDashBoard(true);

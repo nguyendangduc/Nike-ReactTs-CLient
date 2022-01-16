@@ -1,10 +1,9 @@
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { memo, useContext, useState } from "react";
 import { ContextElement } from "../App";
 import Summary from "../components/cart/Summary";
 import ItemsInCart from "../components/cart/ItemsInCart/ItemsInCart";
-import AuthenticatedGuard from "../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
-import { useAppSelector, userSettingsStatus } from "../services/store";
+import { useAppSelector } from "../services/store";
 import { useDispatch } from "react-redux";
 import { deleteCarts } from "../services/apis";
 let rules = ["user"];
@@ -30,17 +29,13 @@ function Cart() {
   }
 
   function handleDeleteBtn(index: string) {
-    if(dataUser){
+    if (dataUser) {
       deleteCarts(dataUser.id, index)
-        .then(res=>{
+        .then((res) => {
           subTotalCal(res.data);
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err));
     }
-    // let newItemsList = [...itemsInCart];
-    // newItemsList.splice(index, 1);
-    // setItemsInCart(newItemsList);
-    // localStorage.setItem("cartItem", JSON.stringify(newItemsList));
   }
 
   function handleEditBtn(index: number) {
@@ -62,22 +57,15 @@ function Cart() {
                   itemsInCart={itemsInCart}
                   handleDeleteBtn={handleDeleteBtn}
                   handleEditBtn={handleEditBtn}
-                // edit={edit}
-                // setEdit={setEdit}
                 />
               </div>
             </div>
 
             <div className="col-12 col-md-4">
-              <Summary
-                subTotal={subTotal}
-                shipping={shipping}
-                total={total}
-              />
+              <Summary subTotal={subTotal} shipping={shipping} total={total} />
             </div>
           </div>
         </div>
-
       ) : (
         <div className="container  mt-5 mb-5">
           <div className="row">

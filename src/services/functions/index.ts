@@ -1,5 +1,5 @@
-export * from './genId'
+export * from "./genId";
 
-export * from './getLocalstorage'
+export * from "./getLocalstorage";
 
-export * from './hasPermission'
+export * from "./hasPermission";

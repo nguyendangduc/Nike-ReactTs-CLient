@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
 import style from "./Home.module.scss";
@@ -167,8 +167,7 @@ function Home() {
           <div className="nikeproduct-desc section-desc text-center mt-4">
             <h2 className="h2-bold">THE LEBRON XIX</h2>
             <p className={`${style.nikeproduct_text}`}>
-              Step into LeBoron's world where there's always space to
-              dominate..
+              Step into LeBoron's world where there's always space to dominate..
             </p>
             <Link to="/products">
               <button type="button" className="btn btn-dark mt-3">

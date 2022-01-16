@@ -35,8 +35,8 @@ const UnAuthenticatedGuard: FC<Props> = (props) => {
   const redirect = () => {
     if (dataUser) {
       const { rules } = dataUser;
-      for(let rule of rules) {
-        if(rule.includes('admin')) return '/admin'
+      for (let rule of rules) {
+        if (rule.includes("admin")) return "/admin";
       }
       return "/";
     }

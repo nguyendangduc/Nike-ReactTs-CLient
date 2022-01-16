@@ -9,53 +9,49 @@ let rules = ["user"];
 export const OrdersHistory = () => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
   const [orders, setOrders] = useState([] as IOrder[]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filters, setFilters] = useState([] as IOrder[]);
-  
+
   useEffect(() => {
     if (dataUser) {
       getOrders(dataUser.id)
         .then((res) => {
-          console.log(res.data);
-          
-          setOrders(res.data)})
+          setOrders(res.data);
+        })
         .catch((err) => console.error(err));
     }
-  },[]);
-  
+  }, []);
 
-  useEffect(()=>{
-    const arr = orders.filter((order) => order.productName.toLowerCase().includes(search));
+  useEffect(() => {
+    const arr = orders.filter((order) =>
+      order.productName.toLowerCase().includes(search)
+    );
     setFilters(arr);
-  },[search]);
+  }, [search]);
 
   return (
     <AuthenticatedGuard routeRules={rules}>
-
       <div className="container my-3">
-        <NavBarProfile/>
+        <NavBarProfile />
         <input
-            type="text"
-            className="form-control search"
-            placeholder="Search"
-            value = {search}
-            onChange={(e)=>setSearch(e.target.value)}
+          type="text"
+          className="form-control search"
+          placeholder="Search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        {
-            search === "" ? (orders.length > 0 ? (
-                orders.map((order) => <Order key={order.id} order={order} />)
-              ) : (
-                <div className="mt-3">History empty</div>
-              )
-            ) : (
-                filters.length > 0 ? (
-                    filters.map((order) => <Order key={order.id} order={order}/>)
-                  ) : (
-                    <div className="mt-3">Empty</div>
-                  )
-            )
-        }
+        {search === "" ? (
+          orders.length > 0 ? (
+            orders.map((order) => <Order key={order.id} order={order} />)
+          ) : (
+            <div className="mt-3">History empty</div>
+          )
+        ) : filters.length > 0 ? (
+          filters.map((order) => <Order key={order.id} order={order} />)
+        ) : (
+          <div className="mt-3">Empty</div>
+        )}
       </div>
-      </AuthenticatedGuard>
+    </AuthenticatedGuard>
   );
 };

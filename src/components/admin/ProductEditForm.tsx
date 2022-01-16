@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { nanoid } from "nanoid";
-import {
-  getAllProducts,
-  updateProduct,
-} from "../../services/apis/functions/adminApi";
+import { updateProduct } from "../../services/apis/functions/adminApi";
 
 interface Param {
   id: string;
@@ -15,16 +11,13 @@ interface Props {
   setProductsList: (value: any) => void;
 }
 
-const ProductEditForm: React.FC<Props> = ({
-  productsList,
-  setProductsList,
-}) => {
+const ProductEditForm: React.FC<Props> = ({ productsList }) => {
   let param: Param = useParams();
   let history = useHistory();
 
-  let currentProductId = param.id;
+  let currentProductId = Number(param.id);
   let currentProduct: Product = productsList
-    ? productsList.filter((product) => product.id == currentProductId)[0]
+    ? productsList.filter((product) => product.id === currentProductId)[0]
     : {
         id: -1,
         name: "",
