@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import style from "../../pages/admin/Admin.module.scss";
 import { useAppSelector } from "../../services/store";
+import {useHistory} from 'react-router-dom'
 
 interface Props {
   manageType: string;
@@ -13,6 +14,7 @@ const Navbar: React.FC<Props> = ({
   setManageType,
   setToDashBoard,
 }) => {
+  const history = useHistory();
   const { dataUser } = useAppSelector((state) => state.authReducer);
   const handleNaviUserPage = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -22,6 +24,7 @@ const Navbar: React.FC<Props> = ({
       dataUser?.rules.includes("admin") ||
       dataUser?.rules.includes("user_admin")
     ) {
+      history.push('/admin')
       setManageType("user");
     } else {
       alert("Access Denied!");
@@ -35,6 +38,7 @@ const Navbar: React.FC<Props> = ({
       dataUser?.rules.includes("admin") ||
       dataUser?.rules.includes("product_admin")
     ) {
+      history.push('/admin')
       setManageType("product");
     } else {
       alert("Access denied!");

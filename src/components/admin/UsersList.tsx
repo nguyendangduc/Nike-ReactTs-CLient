@@ -51,7 +51,7 @@ const UserList: React.FC<Props> = ({
         </thead>
         <tbody>
           {usersList ? (
-            usersList.map((user) => {
+            usersList.map((user,index) => {
               return (
                 <tr key={user.id}>
                   <td>{user.email}</td>
@@ -60,7 +60,7 @@ const UserList: React.FC<Props> = ({
                   </td>
                   <td>
                     {user.rules.map((rule, index) => (
-                      <b>
+                      <b key={index}>
                         {listRoles?.find((role) => role.id == rule)?.name}
                         {index != user.rules.length - 1 ? ", " : ""}
                       </b>

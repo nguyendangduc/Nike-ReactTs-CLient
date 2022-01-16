@@ -69,8 +69,6 @@ function App() {
     if (localStorage.getItem("token")) {
       authByToken()
         .then((res) => {
-          console.log(new Date(res.data.expired).getTime())
-
           dispatch(userFetchSuccess(res.data));
         })
         .catch((err) => {
@@ -80,7 +78,6 @@ function App() {
           dispatch(userFetchError(err.response.data.message));
         });
     }
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

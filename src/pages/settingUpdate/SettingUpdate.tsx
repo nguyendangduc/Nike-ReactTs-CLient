@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { NavBarProfile } from "../../components/NavBarProfile";
 import { updateInfo, authByToken } from "../../services/apis";
+import {UpdateMessage} from './UpdateMessage'
 import {
   useAppSelector,
   userSettingsStatus,
@@ -10,7 +11,7 @@ import {
 } from "../../services/store";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextElement } from "../../App";
 let rules = ["user"];
 

@@ -31,8 +31,8 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
         gender: "",
       };
 
-  const [nameInput, setNameInput] = useState(currentProduct.name);
-  const [priceInput, setPriceInput] = useState(currentProduct.price);
+  const [nameInput, setNameInput] = useState(currentProduct?.name);
+  const [priceInput, setPriceInput] = useState(currentProduct?.price);
 
   const [thumbnailInput, setThumbnailInput] = useState(
     currentProduct?.thumbnail

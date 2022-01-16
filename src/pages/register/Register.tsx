@@ -32,6 +32,7 @@ const Register = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const { email, password, confirmPassword } = formData;
+    if(password != confirmPassword) alert("Confirm password don't match!")
     if (email && password && confirmPassword && password === confirmPassword) {
       postRegister({ email, password })
         .then((res) => {
@@ -52,11 +53,9 @@ const Register = () => {
         <br />
         <br />
         <br />
-
         <div className="container">
           <Row>
             <Col sm={4}></Col>
-
             <Col>
               <p className="text-center px-5">
                 <h4>
@@ -65,7 +64,6 @@ const Register = () => {
               </p>
               <br />
               <p className="text-danger">{error}</p>
-
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>UserName</Form.Label>
@@ -97,7 +95,6 @@ const Register = () => {
                     value={formData.confirmPassword}
                   />
                 </Form.Group>
-
                 <div style={{ textAlign: "right" }}>
                   <Button className="w-100" type="submit" variant="dark">
                     Register

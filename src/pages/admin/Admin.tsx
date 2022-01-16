@@ -161,6 +161,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
           children={<AccountSetting usersList={usersList} />}
         />
         <Route
+          exact
           path="/admin"
           children={
             <Dashboard
