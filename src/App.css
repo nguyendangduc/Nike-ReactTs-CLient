@@ -307,16 +307,18 @@ svg {
 .nikeapp-header {
   margin: 50px 0 100px 0;
 }
-.nikeapp-desc{
+.nikeapp-desc {
   margin: 150px;
 }
-.nikeapp-desc h3{
+.nikeapp-desc h3 {
   font-weight: bold;
   margin-bottom: 30px;
 }
-.nikeapp-desc p{
+.nikeapp-desc p {
   line-height: 1.6;
 }
-.test {}
-.testt {}
 
+.product-card img {
+  height: 340px;
+  width: 340px;
+}

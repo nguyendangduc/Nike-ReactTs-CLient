@@ -51,18 +51,20 @@ const ProductEditForm: React.FC<Props> = ({
   const [detailImgInput, setDetailImgInput] = useState(
     currentProduct.detailimg
       .map((url: string) => {
-        return url + ";\r\n";
+        return url;
       })
       .toString()
-      .replaceAll(",h", "h")
+      .replaceAll(",h", ";\nh")
+      .replaceAll("g,", "g;\n")
   );
   const [colorImgInput, setColorImgInput] = useState(
     currentProduct.colorimg
       .map((url: string) => {
-        return url + ";\r\n";
+        return url;
       })
       .toString()
-      .replaceAll(",h", "h")
+      .replaceAll(",h", ";\nh")
+      .replaceAll("g,", "g;\n")
   );
   const [sizeInput, setSizeInput] = useState(
     currentProduct.size
@@ -70,7 +72,7 @@ const ProductEditForm: React.FC<Props> = ({
         return size;
       })
       .toString()
-      .replaceAll(",", "; ")
+      .replaceAll(",", ";")
   );
 
   function handleChangePrice(input: string) {
@@ -113,32 +115,12 @@ const ProductEditForm: React.FC<Props> = ({
       gender: genderInput,
     };
 
-    let newProductList: Array<Product> = [];
-
-    getAllProducts()
-      .then((res) => {
-        newProductList = res.data
-          .filter((product: Product) => product.id !== currentProductId)
-          .push(newProductInfo);
-
-        setProductsList(newProductList);
-      })
-      .catch((err) => console.log(err));
-
-    // let newProductList = productsList
-    //   .filter((product) => product.id !== currentProductId)
-    //   .push(newProductInfo);
-
     updateProduct(currentProductId, newProductInfo)
       .then((res) =>
-        alert("Add product successfully.Click Ok to back to product page!")
+        alert("Update product successfully.Click Ok to back to product page!")
       )
       .then(() => history.push("/admin"))
       .catch((err) => console.log(err));
-
-    setTimeout(() => {
-      history.push("/admin");
-    }, 0);
   }
 
   return (
