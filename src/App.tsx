@@ -1,10 +1,10 @@
 import "./App.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import Home from "./pages/Home/Home";
+import Home from "./pages/home/Home";
 import ProductDetail from "./pages/ProductDetail";
 import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
@@ -45,12 +45,12 @@ function App() {
 
   const [itemsInCart, setItemsInCart] = useState([]);
   useEffect(() => {
-    if(dataUser){
+    if (dataUser) {
       getCarts(dataUser.id)
-        .then(res=>setItemsInCart(res.data))
-        .catch(err =>console.error(err));
+        .then((res) => setItemsInCart(res.data))
+        .catch((err) => console.error(err));
     }
-  })
+  });
 
   const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
 

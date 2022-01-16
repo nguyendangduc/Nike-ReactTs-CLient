@@ -1,10 +1,6 @@
 import { Link } from "react-router-dom";
 import style from "../../pages/admin/Admin.module.scss";
-import { getProducts } from "../../services/apis";
-import {
-  deleteProduct,
-  getAllProducts,
-} from "../../services/apis/functions/adminApi";
+import { deleteProduct } from "../../services/apis/functions/adminApi";
 
 interface Props {
   productsList: Array<Product>;

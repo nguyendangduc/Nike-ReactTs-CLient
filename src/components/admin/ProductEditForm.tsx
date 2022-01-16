@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 import {
-  postProduct,
+  getAllProducts,
   updateProduct,
 } from "../../services/apis/functions/adminApi";
 
@@ -12,15 +12,31 @@ interface Param {
 
 interface Props {
   productsList: Array<Product>;
+  setProductsList: (value: any) => void;
 }
 
-const ProductEditForm: React.FC<Props> = ({ productsList }) => {
-  const history = useHistory()
+const ProductEditForm: React.FC<Props> = ({
+  productsList,
+  setProductsList,
+}) => {
   let param: Param = useParams();
+  let history = useHistory();
+
   let currentProductId = param.id;
-  let currentProduct: Product = productsList.filter(
-    (product) => product.id == currentProductId
-  )[0];
+  let currentProduct: Product = productsList
+    ? productsList.filter((product) => product.id == currentProductId)[0]
+    : {
+        id: -1,
+        name: "",
+        price: -1,
+        color: -1,
+        thumbnail: "",
+        detailimg: [],
+        colorimg: [],
+        size: [],
+        type: "",
+        gender: "",
+      };
 
   const [nameInput, setNameInput] = useState(currentProduct.name);
   const [priceInput, setPriceInput] = useState(currentProduct.price);
@@ -35,18 +51,20 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
   const [detailImgInput, setDetailImgInput] = useState(
     currentProduct.detailimg
       .map((url: string) => {
-        return url + ";\r\n";
+        return url;
       })
       .toString()
-      .replaceAll(",h", "h")
+      .replaceAll(",h", ";\nh")
+      .replaceAll("g,", "g;\n")
   );
   const [colorImgInput, setColorImgInput] = useState(
     currentProduct.colorimg
       .map((url: string) => {
-        return url + ";\r\n";
+        return url;
       })
       .toString()
-      .replaceAll(",h", "h")
+      .replaceAll(",h", ";\nh")
+      .replaceAll("g,", "g;\n")
   );
   const [sizeInput, setSizeInput] = useState(
     currentProduct.size
@@ -54,7 +72,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
         return size;
       })
       .toString()
-      .replaceAll(",", "; ")
+      .replaceAll(",", ";")
   );
 
   function handleChangePrice(input: string) {
@@ -85,7 +103,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
     e.preventDefault();
 
     let newProductInfo = {
-      id: nanoid(),
+      id: currentProductId,
       name: nameInput,
       price: priceInput,
       color: colorNumberInput,
@@ -99,7 +117,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
 
     updateProduct(currentProductId, newProductInfo)
       .then((res) =>
-        alert("Add product successfully.Click Ok to back to product page!")
+        alert("Update product successfully.Click Ok to back to product page!")
       )
       .then(() => history.push("/admin"))
       .catch((err) => console.log(err));
@@ -264,7 +282,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
           <Link to="/admin">Cancel</Link>
         </button>
         <button type="submit" className="btn btn-dark">
-          Add
+          Update
         </button>
       </form>
     </div>

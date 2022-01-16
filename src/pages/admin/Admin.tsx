@@ -127,8 +127,6 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
   }, [currentPageAdmin, searchInputAdmin, manageType]);
 
   // useEffect(() => {
-  //   setToDashBoard(true);
-
   //   getUsers()
   //     .then((res) => {
   //       setUsersList(res.data);
@@ -141,7 +139,11 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
   //       setProductsList(res.data);
   //     })
   //     .catch((err) => console.log(err));
-  // }, [searchInputAdmin,currentPageAdmin]);
+  // }, []);
+
+  useEffect(() => {
+    setToDashBoard(true);
+  }, []);
 
   return (
     <AuthenticatedGuard routeRules={rules}>
@@ -158,7 +160,12 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
         <Route
           exact
           path="/admin/editproduct/:id"
-          children={<ProductEditForm productsList={productsList} />}
+          children={
+            <ProductEditForm
+              productsList={productsList}
+              setProductsList={setProductsList}
+            />
+          }
         />
         <Route exact path="/admin/adduser" children={<UserAddForm />} />
         <Route
