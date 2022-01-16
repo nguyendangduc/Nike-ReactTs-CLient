@@ -8,7 +8,6 @@ import {
   userFetchSuccess,
   userFetchError,
 } from "../../services/store";
-import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 import { UpdateMessage } from "./UpdateMessage";
@@ -17,8 +16,7 @@ let rules = ["user"];
 
 export const SettingUpdate = () => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  
-  const history = useHistory();
+  const [updateMessage, setUpdateMessage] = useState(false);
 
   const dispatch = useDispatch();
   return (
@@ -65,12 +63,7 @@ export const SettingUpdate = () => {
                           dispatch(userFetchSuccess(res.data));
                         })
                         .then(() => {
-                          alert("Setting Successfully!");
-                        })
-                        .then(() => {
-                          setTimeout(() => {
-                            history.push("/profile");
-                          }, 1000);
+                          setUpdateMessage(true);
                         })
                         .catch((err: any) =>
                           dispatch(userFetchError(err.response.data.message))
@@ -175,10 +168,10 @@ export const SettingUpdate = () => {
             ""
           )}
         </div>
-        {/* <UpdateMessage
+        <UpdateMessage
             updateMessage={updateMessage}
             setUpdateMessage={setUpdateMessage}
-          /> */}
+          />
       </div>
     </AuthenticatedGuard>
   );

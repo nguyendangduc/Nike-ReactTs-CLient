@@ -41,7 +41,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
 
-  const [itemsInCart, setItemsInCart] = useState([]);
+  const [itemsInCart, setItemsInCart] = useState([] as CartItem[]);
   useEffect(() => {
     if (dataUser) {
       if (localStorage.getItem("token")) {

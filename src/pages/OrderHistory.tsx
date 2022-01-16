@@ -19,7 +19,6 @@ export const OrdersHistory = () => {
     if (dataUser && search) {
       getOrdersByKey(dataUser.id, search)
         .then((res) => {
-          console.log(res.data);
           setOrders(res.data);
           setCurrentPage(1);
         })
@@ -28,7 +27,6 @@ export const OrdersHistory = () => {
     if (dataUser && search === "") {
       getOrders(dataUser.id)
         .then((res) => {
-          console.log(res.data);
           setOrders(res.data);
           setCurrentPage(1);
         })
@@ -61,6 +59,7 @@ export const OrdersHistory = () => {
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
+        <div className="col-8 mx-auto">
         <NavBarProfile />
         <input
           type="text"
@@ -102,6 +101,7 @@ export const OrdersHistory = () => {
             </li>
           </ul>
         ) : null}
+        </div>
       </div>
     </AuthenticatedGuard>
   );

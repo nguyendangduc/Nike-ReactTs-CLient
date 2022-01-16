@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ItemInCart: React.FC<Props> = ({ itemsInCart, handleDeleteBtn }) => {
-  return itemsInCart.map((item: IOrder) => (
+  return itemsInCart.map((item: CartItem) => (
     <div className="bag-item mb-4 mt-4" key={item.id}>
       <div className="row">
         <div className="col-4 col-md-3 bag-item-img">
