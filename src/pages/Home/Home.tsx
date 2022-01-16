@@ -39,7 +39,7 @@ function Home() {
                 </div>
                 <div className="nikeproduct-desc section-desc text-center mt-4">
                     <p className="m-0">Member Access: EKIDEN PACK</p>
-                    <h1>RISE TOGETHER</h1>
+                    <h2 className="h2-bold">RISE TOGETHER</h2>
                     <p className={`${style.nikeproduct_text}`}>
                         “EKIDEN PACK” is a running collection inspired by the mountainous terrain that Ekiden Runners take on for Japan's most popular Race during the New Year.
                         <br />
@@ -64,7 +64,7 @@ function Home() {
                     </Link>
                 </div>
                 <div className={`${style.nikeproduct_position} section-desc mt-4 position-absolute`}>
-                    <h1>NEW YEAR, NEW YOU</h1>
+                    <h2 className="h2-bold">NEW YEAR, NEW YOU</h2>
                     <p className="">
                         Get moving in our latest styles.
                     </p>
@@ -86,7 +86,7 @@ function Home() {
                     </Link>
                 </div>
                 <div className="nikeproduct-desc section-desc text-center mt-4">
-                    <h1>REACH FUTHER</h1>
+                    <h2 className="h2-bold">REACH FUTHER</h2>
                     <p>
                         Welcome to the space where we're always practicing, learning, and
                         growing. Where flushed
@@ -105,7 +105,7 @@ function Home() {
             <section className="featured container mb-5 mt-1 position-relative">
                 <h3 className="mb-3">Freatured</h3>
                 <div className="row">
-                    <div className="col">
+                    <div className="col-12 col-md-6 mb-3">
                         <div className={`${style.featured_left} position-relative`}>
                             <img
                                 src="https://static.nike.com/a/images/f_auto/dpr_1.5,cs_srgb/h_700,c_limit/87c900c7-a4b0-450e-84bb-e8f90195570a/nike-just-do-it.jpg"
@@ -126,7 +126,7 @@ function Home() {
                         </div>
                     </div>
 
-                    <div className="col">
+                    <div className="col-12 col-md-6">
                         <div className={`${style.featured_right} position-relative`}>
                             <img
                                 src="https://static.nike.com/a/images/f_auto/dpr_1.5,cs_srgb/h_700,c_limit/bc6d7b18-a6e4-44f0-b3f5-de0f40788b0e/nike-just-do-it.jpg"
@@ -156,7 +156,7 @@ function Home() {
                     </Link>
                 </div>
                 <div className="nikeproduct-desc section-desc text-center mt-4">
-                    <h1>THE LEBRON XIX</h1>
+                    <h2 className="h2-bold">THE LEBRON XIX</h2>
                     <p className={`${style.nikeproduct_text}`}>
                         Step into LeBoron's world where there's always space to dominate..
                     </p>
@@ -180,7 +180,7 @@ function Home() {
                 </div>
                 <div className="nikeproduct-desc section-desc text-center mt-4">
                     <p className="m-0">Member Access</p>
-                    <h1>JORDAN 23 ENGINEERED</h1>
+                    <h2 className="h2-bold">JORDAN 23 ENGINEERED</h2>
                     <p className={`${style.nikeproduct_text}`}>
                         Gear up to take on the city in newly engineered Jordan attire designed with the planet in mind.
                     </p>

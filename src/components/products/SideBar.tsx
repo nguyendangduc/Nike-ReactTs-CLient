@@ -10,7 +10,7 @@ const SideBar: React.FC<Props> = ({ setCategory }) => {
   }
 
   return (
-    <div className="sidebar d-flex d-md-block">
+    <div className="sidebar d-flex d-md-block d-none">
       <h3 className="sidebar-header">Men's Shoes</h3>
       <p
         className="sidebar-category me-3 me-md-0"

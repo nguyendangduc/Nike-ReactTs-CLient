@@ -37,17 +37,17 @@ const Products: React.FC<Props> = ({
     <div className="App products">
       <div className="container">
         <div className="row mb-3">
-          <div className="col-2"></div>
-          <div className="col-4">
+          <div className="col-md-2"></div>
+          <div className="col-12 col-md-4 mb-3 mb-md-0">
             <Search setSearchInput={setSearchInput} />
           </div>
-          <div className="col-2"></div>
+          <div className="col-md-2"></div>
 
-          <div className="col-1">
+          <div className="col-4 col-md-1">
             <LimitPage setPageLimit={setPageLimit} />
           </div>
 
-          <div className="col-3">
+          <div className="col-8 col-md-3">
             <Sort setSortInput={setSortInput} />
           </div>
         </div>
