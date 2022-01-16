@@ -14,9 +14,7 @@ let rules = ["user"];
 
 export const SettingUpdate = () => {
   const { dataUser } = useAppSelector((state) => state.authReducer);
-  const { nameInput, message } = useAppSelector(
-    (state) => state.settingsReducer
-  );
+
 
   const dispatch = useDispatch();
   return (
@@ -36,9 +34,7 @@ export const SettingUpdate = () => {
                 avatar: dataUser.avatar,
               }}
               validationSchema={Yup.object().shape({
-                email: Yup.string().required("* Required!"),
-                newEmail: Yup.string().required("* Required!"),
-                password: Yup.string().required("* Required!"),
+              
                 address: Yup.string().required("* Required!"),
                 city: Yup.string().required("* Required!"),
                 phone: Yup.string().required("* Required!"),
@@ -46,9 +42,9 @@ export const SettingUpdate = () => {
               onSubmit={(values) => {
                 const dataBody = {
                   id: dataUser?.id,
-                  email: values.newEmail,
+                  email: dataUser?.email,
                   address: { address: values.address, city: values.city },
-                  password: values.password,
+                  password: dataUser?.password,
                   phoneNumber: values.phone,
                   avatar: values.avatar,
                 };
@@ -72,12 +68,7 @@ export const SettingUpdate = () => {
                     alert("Setting Successfully!");
                   })
                   .catch((error) => {
-                    dispatch(
-                      userSettingsStatus({
-                        nameInput: error.response.data.nameInput,
-                        message: error.response.data.message,
-                      })
-                    );
+                    alert(error.response.data.message)
                   });
               }}
             >
@@ -100,43 +91,7 @@ export const SettingUpdate = () => {
                           component="div"
                           className="text-danger"
                         />
-                        <div className="form-group">
-                          <label htmlFor="newEmail">New Email:</label>
-                          <Field
-                            id="newEmail"
-                            name="newEmail"
-                            type="email"
-                            className="form-control my-2"
-                          />
-                          <ErrorMessage
-                            name="newEmail"
-                            component="div"
-                            className="text-danger"
-                          />
-                          <small className="text-danger">
-                            {nameInput === "email" ? message : ""}
-                          </small>
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="password">Confirm Password:</label>
-                          <Field
-                            type="password"
-                            id="password"
-                            name="password"
-                            className="form-control my-2"
-                          />
-                          <ErrorMessage
-                            name="password"
-                            component="div"
-                            className="text-danger"
-                          />
-                          <small className="text-danger">
-                            {nameInput === "password" ? message : ""}
-                          </small>
-                        </div>
-                      </div>
-                      <div className="col-sm-6">
-                        <div className="form-group">
+                       <div className="form-group">
                           <label htmlFor="address">Address: </label>
                           <Field
                             id="address"
@@ -149,6 +104,9 @@ export const SettingUpdate = () => {
                             className="text-danger"
                           />
                         </div>
+                      </div>
+                      <div className="col-sm-6">
+                      
                         <div className="form-group">
                           <label htmlFor="city">City: </label>
                           <Field

@@ -2,42 +2,26 @@ import { useEffect, useState } from 'react';
 import {NavLink}  from 'react-router-dom'
 import {deleteUser} from '../../services/apis'
 import PasswordItem from '../../components/admin/PasswordItem'
+
 interface Props {
   usersList: Array<User>;
   setUsersList: (value: Array<User>) => void;
 }
 
-
 const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
+  
   let listRoles = [
     { id: "admin", name: "Senior administrator" },
     { id: "user", name: "User" },
     { id: "product_admin", name: "Product administrator" },
     { id: "user_admin", name: "User administrator" },
   ];
-  function handleDelete(id: number) {
-    deleteUser(id)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
 
-    let userListClone = [...usersList];
-    userListClone = userListClone.filter(
-      (product) => product.id !== id
-    );
-
-    setUsersList(userListClone);
-  }
-  useEffect(() => {
-
-  },[])
- 
   return (
     <>
       <NavLink to="/admin/adduser">
       <div className="btn btn-dark mb-4">Add user</div>
       </NavLink>
-     
-
       <table className="table table-striped table-hover">
         <thead className="table-dark ">
           <tr>
@@ -82,10 +66,6 @@ const UserList: React.FC<Props> = ({ usersList,setUsersList }) => {
                         User Roles
                       </button>
                       </NavLink>
-                      
-                    
-                    
-                      
                     </div>
                   </td>
                 </tr>

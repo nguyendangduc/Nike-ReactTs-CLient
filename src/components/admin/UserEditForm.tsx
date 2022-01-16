@@ -1,20 +1,14 @@
 import { useState, useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { NavBarProfile } from "../../components/NavBarProfile";
 import {
   updateInfo,
-  authByToken,
   getDetailUser,
   deleteUser,
 } from "../../services/apis";
 import { useHistory, useParams } from "react-router-dom";
 import {
   useAppSelector,
-  userSettingsStatus,
-  userFetchSuccess,
-  userFetchError,
 } from "../../services/store";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
@@ -33,7 +27,6 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
   let id = Number(param.id);
 
   const history = useHistory();
-  const { dataUser, error } = useAppSelector((state) => state.authReducer);
   const [reLoad, setReload] = useState(true as boolean);
   const [userEditData, setUserEditData] = useState(null as null | User);
 
@@ -51,7 +44,6 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
       history.push("/admin");
     });
   }
-  const dispatch = useDispatch();
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">

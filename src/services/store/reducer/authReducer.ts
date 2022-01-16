@@ -8,7 +8,7 @@ import {
 } from "../types/ActionTypes";
 
 interface AuthState {
-  dataUser: any;
+  dataUser: User|null;
   error: any;
   isAuth: boolean;
 }
