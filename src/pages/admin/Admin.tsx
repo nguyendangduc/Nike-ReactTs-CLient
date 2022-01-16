@@ -58,11 +58,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
   useEffect(() => {
     if (manageType === "user") {
       setTotalItemAdmin(usersList.length);
-      //Duc code here
-      setTotalItemAdmin(usersList.length);
-
       let paginationUrl = "/page/0/" + LIMIT_ITEM;
-
       getUsersBySearchPage(paginationUrl)
         .then((res) => {
           setUsersList(res.data.results);
@@ -71,9 +67,7 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
         .catch((err) => console.log(err.response.data.message));
     } else if (manageType === "product") {
       setTotalItemAdmin(productsList.length);
-
       let paginationUrl = "/page/0/" + LIMIT_ITEM;
-
       getProducts(paginationUrl)
         .then((res) => {
           setProductsList(res.data.results);
@@ -166,9 +160,6 @@ const Admin: React.FC<Props> = ({ setToDashBoard }) => {
           path="/admin/setting/account/:id"
           children={<AccountSetting usersList={usersList} />}
         />
-
-        {/* <Route exact path="/admin/adduser" children={<UsertForm />} /> */}
-
         <Route
           path="/admin"
           children={

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ContextElement } from "../App";
 import ProductInfo from "../components/productDetail/ProductInfo";

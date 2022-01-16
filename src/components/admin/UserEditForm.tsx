@@ -1,20 +1,14 @@
 import { useState, useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { NavBarProfile } from "../../components/NavBarProfile";
 import {
   updateInfo,
-  authByToken,
   getDetailUser,
   deleteUser,
 } from "../../services/apis";
 import { useHistory, useParams } from "react-router-dom";
 import {
   useAppSelector,
-  userSettingsStatus,
-  userFetchSuccess,
-  userFetchError,
 } from "../../services/store";
 import * as Yup from "yup";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
@@ -33,7 +27,6 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
   let id = Number(param.id);
 
   const history = useHistory();
-  const { dataUser, error } = useAppSelector((state) => state.authReducer);
   const [reLoad, setReload] = useState(true as boolean);
   const [userEditData, setUserEditData] = useState(null as null | User);
 
@@ -51,7 +44,6 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
       history.push("/admin");
     });
   }
-  const dispatch = useDispatch();
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">
@@ -64,8 +56,6 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
               <Formik
                 initialValues={{
                   email: userEditData.email,
-                  newEmail: userEditData.email,
-                  password: userEditData.password,
                   address: userEditData.address.address,
                   city: userEditData.address.city,
                   phone: userEditData.phoneNumber,
@@ -73,18 +63,17 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                 }}
                 validationSchema={Yup.object().shape({
                   email: Yup.string().required("* Required!"),
-                  newEmail: Yup.string().required("* Required!"),
-                  password: Yup.string().required("* Required!"),
                   address: Yup.string().required("* Required!"),
                   city: Yup.string().required("* Required!"),
                   phone: Yup.string().required("* Required!"),
+                  avatar: Yup.string().required("* Required!"),
                 })}
                 onReset={() => { }}
                 onSubmit={(values) => {
                   const dataBody: BodyUpdateUser = {
-                    email: values.newEmail,
+                    email: userEditData.email,
                     address: { address: values.address, city: values.city },
-                    password: values.password,
+                    password: userEditData.password,
                     phoneNumber: values.phone + "",
                     avatar: values.avatar,
                   };
@@ -120,23 +109,7 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                             component="div"
                             className="text-danger"
                           />
-                          <div className="form-group">
-                            <label htmlFor="newEmail">New Email:</label>
-                            <Field
-                              id="newEmail"
-                              name="newEmail"
-                              type="email"
-                              className="form-control my-2"
-                            />
-                            <ErrorMessage
-                              name="newEmail"
-                              component="div"
-                              className="text-danger"
-                            />
-                            <small className="text-danger">
-                              {nameInput == "email" ? message : ""}
-                            </small>
-                          </div>
+                        
                           <div className="d-flex justify-content-center py-2 w-100">
                             {!props.values.avatar ? (
                               <img
@@ -226,7 +199,6 @@ export const UserEditForm: React.FC<Props> = ({ usersList }) => {
                           onClick={() =>
                             props.setValues({
                               ...props.values,
-                              newEmail: "",
                               address: "",
                               city: "",
                               phone: "",

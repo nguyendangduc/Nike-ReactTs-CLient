@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 import { getDetailUser, putRole } from "../../services/apis";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AuthenticatedGuard from "../../components/auth/authentication/authenticatedGuard/AuthenticatedGuard";
 let rules = ["user"];
@@ -13,7 +13,6 @@ interface Param {
 export const UserRoles: React.FC<Props> = ({ usersList }) => {
   const param: Param = useParams();
   let id = Number(param.id);
-  const history = useHistory();
   const [reLoad, setReload] = useState(true as boolean);
   const [userSettingData, setUserSettingData] = useState(null as null | User);
 
@@ -39,7 +38,6 @@ export const UserRoles: React.FC<Props> = ({ usersList }) => {
       setReload(!reLoad);
     });
   };
-  function handleDelete(id: number) { }
   return (
     <AuthenticatedGuard routeRules={rules}>
       <div className="container my-3">

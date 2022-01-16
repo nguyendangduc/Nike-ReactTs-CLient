@@ -1,13 +1,13 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthenticatedGuard/UnAuthenticatedGuard";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { postLogin } from "../../services/apis";
 import {
   userFetchSuccess,
   userFetchError,
   useAppSelector,
-  logoutSuccess
+  logoutSuccess,
 } from "../../services/store";
 import { useDispatch } from "react-redux";
 
@@ -31,8 +31,8 @@ const Login = () => {
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
           setTimeout(function () {
-            dispatch(logoutSuccess())
-          },new Date(res.data.expired).getTime() - new Date().getTime())
+            dispatch(logoutSuccess());
+          }, new Date(res.data.expired).getTime() - new Date().getTime());
         })
         .catch((error) => {
           dispatch(userFetchError(error.response?.data?.message));
@@ -46,19 +46,15 @@ const Login = () => {
         <br />
         <br />
         <br />
-
         <div className="container">
           <Row>
             <Col sm={4}></Col>
-
             <Col>
               <h4 className="text-center px-5">
                 <b>YOUR ACCOUNT FOR EVERYTHING NIKE</b>
               </h4>
-
               <br />
               <p className="text-danger">{error}</p>
-
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>UserName</Form.Label>
@@ -80,7 +76,6 @@ const Login = () => {
                     value={formData.password}
                   />
                 </Form.Group>
-
                 <div style={{ textAlign: "right" }}>
                   <Button className="w-100" type="submit" variant="dark">
                     Sign in
