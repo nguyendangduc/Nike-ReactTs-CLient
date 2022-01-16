@@ -10,7 +10,7 @@ import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
-import AppNike from "./pages/AppNike";
+import AppNike from "./pages/appNike/AppNike";
 import { getProducts } from "./services/apis/functions/productsApi";
 import { OrdersHistory } from "./pages/OrderHistory";
 import { Profile } from "./pages/profile/Profile";
