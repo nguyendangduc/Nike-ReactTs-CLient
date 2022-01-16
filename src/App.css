@@ -71,6 +71,7 @@ a:hover {
   height: 70px;
 }
 .home-pagination {
+  padding-left: 0px;
   list-style-type: none;
   display: flex;
   justify-content: center;
@@ -322,5 +323,18 @@ svg {
   .nikeproduct-img img {
     height: 250px;
     object-fit: cover;
+  }
+
+  .product {
+    height: 330px;
+  }
+
+  .product-card img {
+    height: 200px;
+    width: 200px;
+  }
+
+  .table-overflow {
+    overflow-x: scroll;
   }
 }
