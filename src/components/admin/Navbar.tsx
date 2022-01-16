@@ -88,7 +88,7 @@ const Navbar: React.FC<Props> = ({
           </ul>
           <Link
             to="/home"
-            className="btn btn-dark"
+            className="btn btn-warning"
             onClick={() => setToDashBoard(false)}
           >
             Back to home

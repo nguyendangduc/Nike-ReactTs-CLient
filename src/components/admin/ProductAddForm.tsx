@@ -212,10 +212,10 @@ const ProductAddForm: React.FC<{}> = () => {
           </div>
         </div>
 
-        <button type="button" className="btn btn-outline-dark me-4">
+        <button type="button" className="btn btn-warning me-4">
           <Link to="/admin">Cancel</Link>
         </button>
-        <button type="submit" className="btn btn-dark">
+        <button type="submit" className="btn btn-success">
           Add
         </button>
       </form>
