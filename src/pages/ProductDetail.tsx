@@ -39,7 +39,7 @@ const ProductDetail: React.FC<Props> = ({ products, loading }) => {
 
     if (dataUser) {
       postCarts(dataUser.id, itemInfo)
-        .then((res) => console.log(res.data))
+        .then((res) => {})
         .catch((err) => console.error(err));
       setAddItemToCartMessage(true);
       document.body.classList.add("stopScrolling");

@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthenticatedGuard/UnAuthenticatedGuard";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { postRegister } from "../../services/apis";
 import {
   userFetchSuccess,
@@ -18,6 +18,7 @@ interface FormData {
 const Register = () => {
   const dispatch = useDispatch() as any;
   const { error } = useAppSelector((state) => state.authReducer);
+  const history = useHistory() as any
 
   const [formData, setFormData] = useState({
     email: "",
@@ -39,6 +40,7 @@ const Register = () => {
           dispatch(userFetchSuccess(res.data));
           setTimeout(function () {
             dispatch(logoutSuccess())
+            history.push('/login')
           },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((error) => {

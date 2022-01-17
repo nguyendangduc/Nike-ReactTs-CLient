@@ -73,7 +73,7 @@ export const SettingUpdate = () => {
                         .then(() => {
                           setUpdateMessage(true);
                         })
-                        .catch((err: any) =>
+                        .catch((err) =>
                           dispatch(userFetchError(err.response.data.message))
                         );
                     }

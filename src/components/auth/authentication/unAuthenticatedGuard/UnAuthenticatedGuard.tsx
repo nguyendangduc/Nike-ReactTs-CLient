@@ -7,27 +7,27 @@ import {
   userFetchError,
   logoutSuccess
 } from "../../../../services/store";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { authByToken } from "../../../../services/apis";
 
 interface Props {}
 
 const UnAuthenticatedGuard: FC<Props> = (props) => {
   const { children } = props;
-
   const dispatch = useAppDispatch();
   const { isAuth, dataUser } = useAppSelector((state) => state.authReducer);
-
+  const history = useHistory() as any
   const location: any = useLocation();
   const referrer: string = location?.state?.referrer;
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()
-        .then((res: any) => {
+        .then((res) => {
           dispatch(userFetchSuccess(res.data));
           setTimeout(function () {
             dispatch(logoutSuccess())
+            history.push('/login')
           },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((err) => {

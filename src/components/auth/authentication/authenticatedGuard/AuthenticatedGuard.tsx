@@ -7,7 +7,7 @@ import {
   userFetchError,
   logoutSuccess
 } from "../../../../services/store";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { authByToken } from "../../../../services/apis";
 import { hasPermission } from "../../../../services/functions";
 
@@ -22,14 +22,19 @@ const AuthenticatedGuard: FC<Props> = (props) => {
   const dispatch = useAppDispatch();
   const { isAuth, dataUser } = useAppSelector((state) => state.authReducer);
   const location: any = useLocation();
+  const history = useHistory() as any
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()
         .then((res: any) => {
           dispatch(userFetchSuccess(res.data));
+          console.log(new Date(res.data.expired).getTime() - new Date().getTime())
+
           setTimeout(function () {
             dispatch(logoutSuccess())
+            history.push('/login')
+
           },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((err) => {

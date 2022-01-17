@@ -17,6 +17,7 @@ import { Profile } from "./pages/profile/Profile";
 import { SettingUpdate } from "./pages/settingUpdate/SettingUpdate";
 import { authByToken, getCarts } from "./services/apis";
 import {
+  logoutSuccess,
   useAppDispatch,
   useAppSelector,
   userFetchError,
@@ -70,6 +71,9 @@ function App() {
       authByToken()
         .then((res) => {
           dispatch(userFetchSuccess(res.data));
+          setTimeout(function () {
+            dispatch(logoutSuccess())
+          },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((err) => {
           if (localStorage.getItem("token")) {

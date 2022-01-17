@@ -198,7 +198,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
                 id="detailimg"
                 value={detailImgInput}
                 onChange={(e) => handleChangeDetailImg(e.target.value)}
-                placeholder="URL1; URL2;..."
+                placeholder="URL1; URL2..."
                 required
               />
             </div>
@@ -212,7 +212,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
               <textarea
                 className="form-control"
                 id="colorimg"
-                placeholder="URL1; URL2;..."
+                placeholder="URL1; URL2..."
                 value={colorImgInput}
                 onChange={(e) => handleChangeColorImg(e.target.value)}
                 required
@@ -228,7 +228,7 @@ const ProductEditForm: React.FC<Props> = ({ productsList }) => {
               <textarea
                 className="form-control"
                 id="size"
-                placeholder="size1; size2;..."
+                placeholder="size1; size2..."
                 value={sizeInput}
                 onChange={(e) => handleChangeSize(e.target.value)}
                 required

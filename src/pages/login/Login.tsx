@@ -12,8 +12,8 @@ import {
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const dispatch = useDispatch() as any;
-  const history = useHistory() as any;
+  const dispatch = useDispatch()
+  const history = useHistory() as any
   const { error } = useAppSelector((state) => state.authReducer);
   const [formData, setFormData] = useState({
     email: "",
@@ -32,6 +32,7 @@ const Login = () => {
           dispatch(userFetchSuccess(res.data));
           setTimeout(function () {
             dispatch(logoutSuccess());
+            history.push('/login')
           }, new Date(res.data.expired).getTime() - new Date().getTime());
         })
         .catch((error) => {
