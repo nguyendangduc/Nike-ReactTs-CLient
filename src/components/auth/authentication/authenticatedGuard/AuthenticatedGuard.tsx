@@ -29,12 +29,10 @@ const AuthenticatedGuard: FC<Props> = (props) => {
       authByToken()
         .then((res: any) => {
           dispatch(userFetchSuccess(res.data));
-          console.log(new Date(res.data.expired).getTime() - new Date().getTime())
 
           setTimeout(function () {
             dispatch(logoutSuccess())
             history.push('/login')
-
           },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((err) => {

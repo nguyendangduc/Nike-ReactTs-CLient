@@ -59,16 +59,14 @@ const Register = () => {
           <Row>
             <Col sm={4}></Col>
             <Col>
-              <p className="text-center px-5">
-                <h4>
+                <h4 className="text-center px-5">
                   <b>YOUR ACCOUNT FOR EVERYTHING NIKE</b>
                 </h4>
-              </p>
               <br />
               <p className="text-danger">{error}</p>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
-                  <Form.Label>UserName</Form.Label>
+                  <Form.Label>User Name</Form.Label>
                   <Form.Control
                     required
                     type="email"

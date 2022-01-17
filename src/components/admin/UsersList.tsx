@@ -37,7 +37,7 @@ const UserList: React.FC<Props> = ({
   return (
     <>
       <NavLink to="/admin/adduser">
-        <div className="btn btn-dark mb-4">Add user</div>
+        <div className="btn btn-success mb-4">Add user</div>
       </NavLink>
 
       <table className="table table-striped table-hover">
