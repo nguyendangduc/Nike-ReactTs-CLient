@@ -25,9 +25,14 @@ const AuthenticatedGuard: FC<Props> = (props) => {
   const history = useHistory() as any
 
   useEffect(() => {
+    if(!localStorage.getItem("token")) {
+      dispatch(logoutSuccess())
+            history.push('/login')
+    }
     if (localStorage.getItem("token")) {
       authByToken()
         .then((res: any) => {
+          console.log(res)
           dispatch(userFetchSuccess(res.data));
 
           setTimeout(function () {
@@ -41,7 +46,7 @@ const AuthenticatedGuard: FC<Props> = (props) => {
           }
           dispatch(userFetchError(err.response.data.message))});
     }
-  }, []);
+  }, [location.path]);
 
   const checkAuthorization = () => {
     return hasPermission(
