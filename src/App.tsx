@@ -66,23 +66,21 @@ function App() {
 
   const [gender, setGender] = useState("");
 
+
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      authByToken()
-        .then((res) => {
-          dispatch(userFetchSuccess(res.data));
-          setTimeout(function () {
-            dispatch(logoutSuccess())
-          },new Date(res.data.expired).getTime() - new Date().getTime())
-        })
-        .catch((err) => {
-          if (localStorage.getItem("token")) {
-            localStorage.removeItem("token");
-          }
-          dispatch(userFetchError(err.response.data.message));
-        });
-    }
-  }, []);
+   if(localStorage.getItem("token")) {
+    authByToken()
+    .then((res: any) => {
+      dispatch(userFetchSuccess(res.data));
+      setTimeout(function () {
+        dispatch(logoutSuccess())
+      },new Date(res.data.expired).getTime() - new Date().getTime())
+    })
+    .catch((err) => {
+      dispatch(logoutSuccess())
+    });
+   }
+}, []);
 
   useEffect(() => {
     let sortUrl = sortInput !== "" ? `/sort/price/${sortInput}` : "";

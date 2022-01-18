@@ -40,7 +40,6 @@ const Register = () => {
           dispatch(userFetchSuccess(res.data));
           setTimeout(function () {
             dispatch(logoutSuccess())
-            history.push('/login')
           },new Date(res.data.expired).getTime() - new Date().getTime())
         })
         .catch((error) => {

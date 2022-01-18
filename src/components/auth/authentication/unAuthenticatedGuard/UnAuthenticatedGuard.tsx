@@ -14,29 +14,9 @@ interface Props {}
 
 const UnAuthenticatedGuard: FC<Props> = (props) => {
   const { children } = props;
-  const dispatch = useAppDispatch();
   const { isAuth, dataUser } = useAppSelector((state) => state.authReducer);
-  const history = useHistory() as any
   const location: any = useLocation();
   const referrer: string = location?.state?.referrer;
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      authByToken()
-        .then((res) => {
-          dispatch(userFetchSuccess(res.data));
-          setTimeout(function () {
-            dispatch(logoutSuccess())
-            history.push('/login')
-          },new Date(res.data.expired).getTime() - new Date().getTime())
-        })
-        .catch((err) => {
-          if( localStorage.getItem("token")) {
-            localStorage.removeItem("token") 
-          }
-          dispatch(userFetchError(err.response.data.message))});
-    }
-  }, []);
 
   const redirect = () => {
     if (dataUser) {

@@ -22,32 +22,20 @@ const AuthenticatedGuard: FC<Props> = (props) => {
   const dispatch = useAppDispatch();
   const { isAuth, dataUser } = useAppSelector((state) => state.authReducer);
   const location: any = useLocation();
-  const history = useHistory() as any
 
   useEffect(() => {
-    if(!localStorage.getItem("token")) {
-      dispatch(logoutSuccess())
-            history.push('/login')
-    }
-    if (localStorage.getItem("token")) {
-      authByToken()
-        .then((res: any) => {
-          console.log(res)
-          dispatch(userFetchSuccess(res.data));
-
-          setTimeout(function () {
-            dispatch(logoutSuccess())
-            history.push('/login')
-          },new Date(res.data.expired).getTime() - new Date().getTime())
-        })
-        .catch((err) => {
-          if( localStorage.getItem("token")) {
-            localStorage.removeItem("token") 
-          }
-          dispatch(userFetchError(err.response.data.message))});
-    }
-  }, [location.path]);
-
+          authByToken()
+            .then((res: any) => {
+              dispatch(userFetchSuccess(res.data));
+              setTimeout(function () {
+                dispatch(logoutSuccess())
+              },new Date(res.data.expired).getTime() - new Date().getTime())
+            })
+            .catch((err) => {
+              dispatch(logoutSuccess())
+            });
+  }, [location.pathname]);
+  // cpn re render when change route (rules[])
   const checkAuthorization = () => {
     return hasPermission(
       routeRules ? routeRules : [],
