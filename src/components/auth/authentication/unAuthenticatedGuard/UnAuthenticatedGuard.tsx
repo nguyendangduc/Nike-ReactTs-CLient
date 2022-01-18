@@ -1,14 +1,7 @@
 import { FC, useEffect } from "react";
 import { Redirect } from "react-router";
-import {
-  useAppSelector,
-  useAppDispatch,
-  userFetchSuccess,
-  userFetchError,
-  logoutSuccess
-} from "../../../../services/store";
-import { useHistory, useLocation } from "react-router-dom";
-import { authByToken } from "../../../../services/apis";
+import { useAppSelector } from "../../../../services/store";
+import { useLocation } from "react-router-dom";
 
 interface Props {}
 

@@ -49,11 +49,6 @@ function App() {
         getCarts(dataUser.id)
           .then((res) => setItemsInCart(res.data))
           .catch((err) => {
-            if (err?.response?.status === 401) {
-              if (localStorage.getItem("token")) {
-                localStorage.removeItem("token");
-              }
-            }
           });
       }
     }

@@ -5,7 +5,7 @@ import {
   useAppDispatch,
   userFetchSuccess,
   userFetchError,
-  logoutSuccess
+  logoutSuccess,
 } from "../../../../services/store";
 import { useHistory, useLocation } from "react-router-dom";
 import { authByToken } from "../../../../services/apis";
@@ -17,25 +17,29 @@ interface Props {
 }
 
 const AuthenticatedGuard: FC<Props> = (props) => {
-
   const { ifInaccessibleRedirectTo, children, routeRules } = props;
   const dispatch = useAppDispatch();
   const { isAuth, dataUser } = useAppSelector((state) => state.authReducer);
   const location: any = useLocation();
 
   useEffect(() => {
-          authByToken()
-            .then((res: any) => {
-              dispatch(userFetchSuccess(res.data));
-              setTimeout(function () {
-                dispatch(logoutSuccess())
-              },new Date(res.data.expired).getTime() - new Date().getTime())
-            })
-            .catch((err) => {
-              dispatch(logoutSuccess())
-            });
+    if(localStorage.getItem('token')) {
+      authByToken()
+      .then((res: any) => {
+        dispatch(userFetchSuccess(res.data));
+        setTimeout(function () {
+          dispatch(logoutSuccess());
+        }, new Date(res.data.expired).getTime() - new Date().getTime());
+      })
+      .catch((err) => {
+        alert('Login expired, Re Login to continue!')
+        dispatch(logoutSuccess());
+      });
+    } else {
+      alert('Login to continue!')
+      dispatch(logoutSuccess());
+    }
   }, [location.pathname]);
-  // cpn re render when change route (rules[])
   const checkAuthorization = () => {
     return hasPermission(
       routeRules ? routeRules : [],
