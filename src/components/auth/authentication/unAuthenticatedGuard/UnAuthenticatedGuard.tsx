@@ -1,42 +1,15 @@
 import { FC, useEffect } from "react";
 import { Redirect } from "react-router";
-import {
-  useAppSelector,
-  useAppDispatch,
-  userFetchSuccess,
-  userFetchError,
-  logoutSuccess
-} from "../../../../services/store";
+import { useAppSelector } from "../../../../services/store";
 import { useLocation } from "react-router-dom";
-import { authByToken } from "../../../../services/apis";
 
 interface Props {}
 
 const UnAuthenticatedGuard: FC<Props> = (props) => {
   const { children } = props;
-
-  const dispatch = useAppDispatch();
   const { isAuth, dataUser } = useAppSelector((state) => state.authReducer);
-
   const location: any = useLocation();
   const referrer: string = location?.state?.referrer;
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      authByToken()
-        .then((res: any) => {
-          dispatch(userFetchSuccess(res.data));
-          setTimeout(function () {
-            dispatch(logoutSuccess())
-          },new Date(res.data.expired).getTime() - new Date().getTime())
-        })
-        .catch((err) => {
-          if( localStorage.getItem("token")) {
-            localStorage.removeItem("token") 
-          }
-          dispatch(userFetchError(err.response.data.message))});
-    }
-  }, []);
 
   const redirect = () => {
     if (dataUser) {

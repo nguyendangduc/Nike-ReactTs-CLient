@@ -17,11 +17,13 @@ import { Profile } from "./pages/profile/Profile";
 import { SettingUpdate } from "./pages/settingUpdate/SettingUpdate";
 import { authByToken, getCarts } from "./services/apis";
 import {
+  logoutSuccess,
   useAppDispatch,
   useAppSelector,
   userFetchError,
   userFetchSuccess,
 } from "./services/store";
+import client from "./services/apis/client";
 import Admin from "./pages/admin/Admin";
 import { Checkout } from "./components/cart/Checkout";
 
@@ -31,7 +33,7 @@ const REACT_APP_LIMIT_PER_PAGE = "10";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { dataUser } = useAppSelector((state) => state.authReducer);
+  const { dataUser, isAuth } = useAppSelector((state) => state.authReducer);
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [sortInput, setSortInput] = useState("");
@@ -43,20 +45,27 @@ function App() {
 
   const [itemsInCart, setItemsInCart] = useState([] as CartItem[]);
   useEffect(() => {
+    client.interceptors.response.use(
+      function (response) {
+        // Any status code that lie within the range of 2xx cause this function to trigger
+        // Do something with response data
+        return response;
+      },
+      function (error) {
+        // Any status codes that falls outside the range of 2xx cause this function to trigger
+        // Do something with response error
+        alert("This account is already logged in somewhere else!");
+        dispatch(logoutSuccess());
+      }
+    );
     if (dataUser) {
       if (localStorage.getItem("token")) {
         getCarts(dataUser.id)
           .then((res) => setItemsInCart(res.data))
-          .catch((err) => {
-            if (err?.response?.status === 401) {
-              if (localStorage.getItem("token")) {
-                localStorage.removeItem("token");
-              }
-            }
-          });
+          .catch((err) => {});
       }
     }
-  });
+  }, []);
 
   const [addItemToCartMessage, setAddItemToCartMessage] = useState(false);
 
@@ -68,19 +77,16 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       authByToken()
-        .then((res) => {
-          console.log(new Date(res.data.expired).getTime())
-
+        .then((res: any) => {
           dispatch(userFetchSuccess(res.data));
+          setTimeout(function () {
+            dispatch(logoutSuccess());
+          }, new Date(res.data.expired).getTime() - new Date().getTime());
         })
         .catch((err) => {
-          if (localStorage.getItem("token")) {
-            localStorage.removeItem("token");
-          }
-          dispatch(userFetchError(err.response.data.message));
+          dispatch(logoutSuccess());
         });
     }
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

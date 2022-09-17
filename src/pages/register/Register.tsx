@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import UnAuthenticatedGuard from "../../components/auth/authentication/unAuthenticatedGuard/UnAuthenticatedGuard";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { postRegister } from "../../services/apis";
 import {
   userFetchSuccess,
@@ -18,6 +18,7 @@ interface FormData {
 const Register = () => {
   const dispatch = useDispatch() as any;
   const { error } = useAppSelector((state) => state.authReducer);
+  const history = useHistory() as any
 
   const [formData, setFormData] = useState({
     email: "",
@@ -32,6 +33,7 @@ const Register = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const { email, password, confirmPassword } = formData;
+    if(password != confirmPassword) alert("Confirm password don't match!")
     if (email && password && confirmPassword && password === confirmPassword) {
       postRegister({ email, password })
         .then((res) => {
@@ -52,23 +54,18 @@ const Register = () => {
         <br />
         <br />
         <br />
-
         <div className="container">
           <Row>
             <Col sm={4}></Col>
-
             <Col>
-              <p className="text-center px-5">
-                <h4>
+                <h4 className="text-center px-5">
                   <b>YOUR ACCOUNT FOR EVERYTHING NIKE</b>
                 </h4>
-              </p>
               <br />
               <p className="text-danger">{error}</p>
-
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
-                  <Form.Label>UserName</Form.Label>
+                  <Form.Label>User Name</Form.Label>
                   <Form.Control
                     required
                     type="email"
@@ -97,7 +94,6 @@ const Register = () => {
                     value={formData.confirmPassword}
                   />
                 </Form.Group>
-
                 <div style={{ textAlign: "right" }}>
                   <Button className="w-100" type="submit" variant="dark">
                     Register

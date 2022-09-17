@@ -12,8 +12,8 @@ import {
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const dispatch = useDispatch() as any;
-  const history = useHistory() as any;
+  const dispatch = useDispatch()
+  const history = useHistory() as any
   const { error } = useAppSelector((state) => state.authReducer);
   const [formData, setFormData] = useState({
     email: "",

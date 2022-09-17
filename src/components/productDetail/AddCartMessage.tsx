@@ -63,7 +63,7 @@ const AddCartMessage: React.FC<Props> = ({
       <div className="add-cart-message-pop-up">
         <h4 className="mb-3">You have to login</h4>
         <div className="d-flex justify-content-center">
-          <Link to="/login">
+          <Link to="/cart">
             <button
               type="button"
               className="btn btn-dark"

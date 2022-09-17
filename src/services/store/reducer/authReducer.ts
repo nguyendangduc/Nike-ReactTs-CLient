@@ -40,6 +40,7 @@ function authReducer(
         isAuth: false,
       };
     case LOGOUT_SUCCESS:
+      console.log('logou')
       window.localStorage.removeItem("token");
       return initState;
     default:

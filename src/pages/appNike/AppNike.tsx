@@ -1,5 +1,5 @@
 import { memo, useContext, useEffect } from "react";
-import { ContextElement } from "../App";
+import { ContextElement } from "../../App";
 
 import style from "./AppNike.module.scss"
 
