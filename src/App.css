@@ -335,6 +335,6 @@ svg {
   }
 
   .table-overflow {
-    overflow-x: scrofll;
+    overflow-x: scroll;
   }
 }
